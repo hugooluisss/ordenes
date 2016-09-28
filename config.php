@@ -168,7 +168,7 @@ $conf['vendedores'] = array(
 	'jsTemplate' => array('vendedores.js'),
 	'capa' => LAYOUT_DEFECTO);
 	
-$conf['listadoVendedores'] = array(
+$conf['listaVendedores'] = array(
 	'controlador' => 'vendedores.php',
 	'vista' => 'vendedores/lista.tpl',
 	'descripcion' => 'Lista de vendedores',

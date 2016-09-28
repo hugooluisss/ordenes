@@ -7,6 +7,7 @@
 **/
 class TVendedor{
 	private $idVendedor;
+	private $clave;
 	private $nombre;
 	
 	/**
@@ -118,7 +119,7 @@ class TVendedor{
 		$db = TBase::conectaDB();
 		
 		if ($this->getId() == ''){
-			$rs = $db->Execute("INSERT INTO vendedor(nombre) VALUES('".$this->getNombre()."');");
+			$rs = $db->Execute("INSERT INTO vendedor(clave) VALUES('".$this->getClave()."');");
 			if (!$rs) return false;
 				
 			$this->idVendedor = $db->Insert_ID();
@@ -129,6 +130,7 @@ class TVendedor{
 			
 		$rs = $db->Execute("UPDATE vendedor
 			SET
+				clave = '".$this->getClave()."',
 				nombre = '".$this->getNombre()."'
 			WHERE idVendedor = ".$this->getId());
 			

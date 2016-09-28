@@ -16,7 +16,7 @@ switch($objModulo->getId()){
 	case 'cvendedores':
 		switch($objModulo->getAction()){
 			case 'add':
-				$obj = new TArea();
+				$obj = new TVendedor();
 				
 				$obj->setId($_POST['id']);
 				$obj->setNombre($_POST['nombre']);
@@ -29,7 +29,7 @@ switch($objModulo->getId()){
 			break;
 			case 'validaClave':
 				$db = TBase::conectaDB();
-				$rs = $db->Execute("select idArea from area where clave = '".$_POST['txtClave']."' and not idArea = '".$_POST['id']."'");
+				$rs = $db->Execute("select idVendedor from vendedor where clave = '".$_POST['txtClave']."' and not idVendedor = '".$_POST['id']."'");
 				
 				echo $rs->EOF?"true":"false";
 			break;

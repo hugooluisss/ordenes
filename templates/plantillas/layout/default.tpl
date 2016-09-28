@@ -106,11 +106,12 @@
 					</li>
 					{/if}
 					{if $PAGE.usuario->getIdTipo() eq 1}
-					<li class="{if in_array($PAGE.modulo, array('sucursales', 'areas', 'estados'))}active{/if} treeview">
+					<li class="{if in_array($PAGE.modulo, array('sucursales', 'areas', 'estados', 'vendedores'))}active{/if} treeview">
 						<a href="#">
 							<span>Catálogos</span> <i class="fa fa-angle-left pull-right"></i>
 						</a>
 						<ul class="treeview-menu">
+							<li {if $PAGE.modulo eq 'vendedores'}class="active"{/if}><a href="vendedores"><i class="fa fa-users"></i> Vendedores</a></li>
 							<li {if $PAGE.modulo eq 'sucursales'}class="active"{/if}><a href="sucursales"><i class="fa fa-tags"></i> Sucursales</a></li>
 							<li {if $PAGE.modulo eq 'areas'}class="active"{/if}><a href="areas"><i class="fa fa-bookmark-o"></i> Áreas</a></li>
 							<li {if $PAGE.modulo eq 'estados'}class="active"{/if}><a href="estados"><i class="fa fa-circle"></i> Estados</a></li>

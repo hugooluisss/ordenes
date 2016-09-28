@@ -158,6 +158,29 @@ $conf['cestados'] = array(
 	'seguridad' => true,
 	'capa' => LAYOUT_AJAX);
 	
+/* Vendedor */
+$conf['vendedores'] = array(
+	'controlador' => 'vendedores.php',
+	'vista' => 'vendedores/panel.tpl',
+	'descripcion' => 'Vendedores',
+	'seguridad' => true,
+	'js' => array('vendedor.class.js'),
+	'jsTemplate' => array('vendedores.js'),
+	'capa' => LAYOUT_DEFECTO);
+	
+$conf['listadoVendedores'] = array(
+	'controlador' => 'vendedores.php',
+	'vista' => 'vendedores/lista.tpl',
+	'descripcion' => 'Lista de vendedores',
+	'seguridad' => true,
+	'capa' => LAYOUT_AJAX);
+
+$conf['cvendedores'] = array(
+	'controlador' => 'vendedores.php',
+	'descripcion' => 'Controlador de vendedores',
+	'seguridad' => true,
+	'capa' => LAYOUT_AJAX);
+	
 /* Ordenes */
 $conf['importar'] = array(
 	'controlador' => 'ordenes.php',

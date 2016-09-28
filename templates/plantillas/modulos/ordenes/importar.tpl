@@ -21,7 +21,9 @@
 				<h1>Archivo de importación</h1>
 			</div>
 			<div class="modal-body">
-				<input id="fileupload" type="file" name="files[]" data-url="index.php?mod=cordenes&action=uploadfile" multiple>
+				<form id="upload" method="post" action="index.php?mod=cordenes&action=uploadfile" enctype="multipart/form-data">
+					<input type="file" name="upl" multiple />
+				</form>
 			</div>
 		</div>
 	</div>

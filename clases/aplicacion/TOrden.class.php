@@ -8,14 +8,13 @@
 class TOrden{
 	private $idOrden;
 	public $sucursal;
-	public $area;
 	public $estado;
+	public $vendedor;
 	private $codigo;
 	private $cliente;
-	private $vendedor;
-	private $importe;
 	private $elaboracion;
 	private $registro;
+	public $movimientos;
 	
 	/**
 	* Constructor de la clase
@@ -26,8 +25,9 @@ class TOrden{
 	*/
 	public function TOrden($id = ''){
 		$this->sucursal = new TSucursal;
-		$this->area = new TArea;
 		$this->estado = new TEstado(1); #Registrada
+		$this->vendedor = new TVendedor;
+		$this->movimientos = array();
 				
 		$this->setId($id);	
 		return true;
@@ -44,17 +44,43 @@ class TOrden{
 	
 	public function setId($id = ''){
 		if ($id == '') return false;
+		$this->movimientos = array();
 		
 		$db = TBase::conectaDB();
-		$rs = $db->Execute("select * from orden where idArea = ".$id);
+		$rs = $db->Execute("select * from orden where idOrden = ".$id);
 		
 		foreach($rs->fields as $field => $val){
 			switch($field){
 				case 'idSucursal': $this->sucursal = new TSucursal($val); break;
-				case 'idArea': $this->area = new TArea($val); break;
 				case 'idEstado': $this->estado = new TEstado($val); break;
+				case 'idVendedor': $this->vendedor = new TVendedor($val); break;
 				default: $this->$field = $val;
 			}
+		}
+		
+		$this->setMovimientos();
+		
+		return true;
+	}
+	
+	/**
+	* Establece los movimientos en la orden
+	*
+	* @autor Hugo
+	* @access public
+	* @return integer identificador
+	*/
+	
+	public function setMovimientos(){
+		if ($this->getId() == '') return false;
+		
+		$this->movimientos = array();
+		$db = TBase::conectaDB();
+		$db->Execute("select idOrden, clave from movimiento where idOrden = ".$this->getId());
+		
+		while(!$rs->EOF){
+			array_push($this->movimientos, new TMovimiento($this->getId(), $rs->fields['clave']));
+			$rs->moveNext();
 		}
 		
 		return true;
@@ -121,59 +147,7 @@ class TOrden{
 	*/
 	
 	public function getCliente(){
-		return $this->nombre;
-	}
-	
-	/**
-	* Establece la clave del vendedor
-	*
-	* @autor Hugo
-	* @access public
-	* @param string $val Clave
-	* @return boolean True si se realizó sin problemas
-	*/
-	
-	public function setVendedor($val = ""){
-		$this->vendedor = $val;
-		return true;
-	}
-	
-	/**
-	* Retorna la clave del vendedor
-	*
-	* @autor Hugo
-	* @access public
-	* @return string Texto
-	*/
-	
-	public function getVendedor(){
-		return $this->vendedor;
-	}
-	
-	/**
-	* Establece el importe
-	*
-	* @autor Hugo
-	* @access public
-	* @param float $val importe
-	* @return boolean True si se realizó sin problemas
-	*/
-	
-	public function setImporte($val = 0){
-		$this->importe = $val;
-		return true;
-	}
-	
-	/**
-	* Retorna el importe
-	*
-	* @autor Hugo
-	* @access public
-	* @return float Importe
-	*/
-	
-	public function getImporte(){
-		return $this->importe;
+		return $this->cliente;
 	}
 	
 	/**
@@ -224,13 +198,12 @@ class TOrden{
 	
 	public function guardar(){
 		if ($this->sucursal->getId() == '') return false;
-		if ($this->area->getId() == '') return false;
 		if ($this->estado->getId() == '') return false;
 		
 		$db = TBase::conectaDB();
 		
 		if ($this->getId() == ''){
-			$rs = $db->Execute("INSERT INTO orden(idSucursal, idArea, idEstado, codigo) VALUES(".$this->sucursal->getId().", ".$this->area->getId().", ".$this->estado->getId().", ".$this->getCodigo().");");
+			$rs = $db->Execute("INSERT INTO orden(idSucursal, idEstado, idVendedor, codigo) VALUES(".$this->sucursal->getId().", ".$this->estado->getId().", ".$this->vendedor->getId().",".$this->getCodigo().");");
 			if (!$rs) return false;
 				
 			$this->idOrden = $db->Insert_ID();
@@ -243,8 +216,6 @@ class TOrden{
 			SET
 				idEstado = ".$this->estado->getId().",
 				cliente = '".$this->getCliente()."',
-				vendedor = '".$this->getVendedor()."',
-				importe = ".$this->getImporte().",
 				elaboracion = '".$this->getElaboracion()."',
 				registro = now()
 			WHERE idOrden = ".$this->getId());

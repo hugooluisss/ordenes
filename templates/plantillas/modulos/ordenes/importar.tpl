@@ -10,6 +10,11 @@
 				<button class="btn btn-danger" id="btnUpload"><i class="fa fa-upload" aria-hidden="true"></i> Subir archivo</button>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-md-12" id="datos">
+				
+			</div>
+		</div>
 	</div>
 </div>
 

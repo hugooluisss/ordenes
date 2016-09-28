@@ -187,12 +187,19 @@ $conf['importar'] = array(
 	'vista' => 'ordenes/importar.tpl',
 	'descripcion' => 'panel de importación de datos',
 	'seguridad' => true,
-	#'js' => array('estado.class.js'),
+	'js' => array('orden.class.js'),
 	'jsTemplate' => array('importar.js'),
 	'capa' => LAYOUT_DEFECTO);
 	
 $conf['cordenes'] = array(
 	'controlador' => 'ordenes.php',
 	'descripcion' => 'Controlador de ordenes de servicio',
+	'seguridad' => true,
+	'capa' => LAYOUT_AJAX);
+	
+$conf['listaImportar'] = array(
+	'controlador' => 'ordenes.php',
+	'vista' => 'ordenes/listaImportar.tpl',
+	'descripcion' => 'Lista de vendedores',
 	'seguridad' => true,
 	'capa' => LAYOUT_AJAX);

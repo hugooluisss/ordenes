@@ -42,6 +42,9 @@
 				<h1>Archivo de importación</h1>
 			</div>
 			<div class="modal-body">
+				<div class="alert alert-info">
+					<strong>Importando!</strong> Se está analizando el archivo, por favor espera.
+				</div>
 				<form id="upload" method="post" action="index.php?mod=cordenes&action=uploadfile" enctype="multipart/form-data">
 					<input type="file" name="upl" multiple />
 				</form>

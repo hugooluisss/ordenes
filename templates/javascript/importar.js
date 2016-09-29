@@ -1,4 +1,6 @@
 $(document).ready(function(){
+	$('.alert-info').hide();
+	
 	$(".btnUpload").click(function(){
 		$("#winUpload").attr("razonSocial", $(this).attr("razonSocial"));
 		
@@ -31,6 +33,8 @@ $(document).ready(function(){
 	
 	
 	function listaOrdenes(archivo){
+		$('.alert-info').show();
+		$("#datos").html("Espera un momento...");
 		$.post("listaImportar", {
 			"archivo": archivo,
 			"razonSocial": $("#winUpload").attr("razonSocial")
@@ -38,20 +42,10 @@ $(document).ready(function(){
 			$("#datos").html(data);
 			
 			$("[action=importar]").click(function(){
-				if(confirm("Estas apunto de enviar " + $("input[type=checkbox]:checked").length + " ¿Seguro?")){
-					var elementos = {};
-					var i = 0;
-					var boton = $("[action=importar]");
-					$("input[type=checkbox]:checked").each(function(){
-					var el = jQuery.parseJSON($(this).attr("datos"));
-						//objeto = el;
-						elementos[i++] = el;
-					});
-					
-					elementos = JSON.stringify(elementos);
-					
+				if(confirm("Estas apunto de enviar los datos ¿Seguro?")){
 					var obj = new TOrden;
-					obj.importar(elementos, {
+					var boton = $("[action=importar]");
+					obj.importar(boton.attr("datos"), boton.attr("inicio"), boton.attr("fin"), $("#winUpload").attr("razonSocial"), {
 						before: function(){
 							boton.prop("disabled", true);
 						},
@@ -78,6 +72,8 @@ $(document).ready(function(){
 				"autoWidth": false,
 				"ordering":  false
 			});
+			
+			$('.alert-info').hide();
 		});
 	}
 	

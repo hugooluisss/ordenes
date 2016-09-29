@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-09-29 00:08:18
+<?php /* Smarty version Smarty-3.1.11, created on 2016-09-29 09:08:20
          compiled from "templates/plantillas/modulos/ordenes/importar.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:203124540257ebd0d524efb4-19654486%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '2d7d102cb2e3587905910a5115eb6a4d660f73f3' => 
     array (
       0 => 'templates/plantillas/modulos/ordenes/importar.tpl',
-      1 => 1475125696,
+      1 => 1475158098,
       2 => 'file',
     ),
   ),
@@ -77,6 +77,9 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 				<h1>Archivo de importación</h1>
 			</div>
 			<div class="modal-body">
+				<div class="alert alert-info">
+					<strong>Importando!</strong> Se está analizando el archivo, por favor espera.
+				</div>
 				<form id="upload" method="post" action="index.php?mod=cordenes&action=uploadfile" enctype="multipart/form-data">
 					<input type="file" name="upl" multiple />
 				</form>

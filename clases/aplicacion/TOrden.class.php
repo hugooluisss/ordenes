@@ -76,7 +76,7 @@ class TOrden{
 		
 		$this->movimientos = array();
 		$db = TBase::conectaDB();
-		$db->Execute("select idOrden, clave from movimiento where idOrden = ".$this->getId());
+		$rs = $db->Execute("select idOrden, clave from movimiento where idOrden = ".$this->getId());
 		
 		while(!$rs->EOF){
 			array_push($this->movimientos, new TMovimiento($this->getId(), $rs->fields['clave']));

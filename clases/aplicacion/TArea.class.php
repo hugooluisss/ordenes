@@ -44,6 +44,26 @@ class TArea{
 	}
 	
 	/**
+	* Carga los datos del objeto en base a su clave
+	*
+	* @autor Hugo
+	* @access public
+	* @param int $id identificador del objeto
+	* @return boolean True si se realizó sin problemas
+	*/
+	
+	public function setByClave($id = ''){
+		if ($id == '') return false;
+		
+		$db = TBase::conectaDB();
+		$rs = $db->Execute("select idArea from area where clave = '".$id."'");
+		
+		$this->setId($rs->fields['idArea']);
+		
+		return true;
+	}
+	
+	/**
 	* Retorna el identificador del objeto
 	*
 	* @autor Hugo

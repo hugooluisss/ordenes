@@ -57,6 +57,32 @@ class TMovimiento{
 	}
 	
 	/**
+	* Establece la orden
+	*
+	* @autor Hugo
+	* @access public
+	* @param string $val Nombre
+	* @return boolean True si se realizó sin problemas
+	*/
+	
+	public function setOrden($val = ""){
+		$this->idOrden = $val;
+		return true;
+	}
+	
+	/**
+	* Retorna el identificador de la orden
+	*
+	* @autor Hugo
+	* @access public
+	* @return integer Identificador
+	*/
+	
+	public function getOrden(){
+		return $this->idOrden;
+	}
+	
+	/**
 	* Establece la clave
 	*
 	* @autor Hugo

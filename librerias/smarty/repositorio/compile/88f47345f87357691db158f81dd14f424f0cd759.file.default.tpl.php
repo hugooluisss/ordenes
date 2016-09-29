@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-09-28 10:19:31
+<?php /* Smarty version Smarty-3.1.11, created on 2016-09-29 12:39:54
          compiled from "templates/plantillas/layout/default.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:63036317557ebd07f226f67-52175711%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '88f47345f87357691db158f81dd14f424f0cd759' => 
     array (
       0 => 'templates/plantillas/layout/default.tpl',
-      1 => 1475075924,
+      1 => 1475170790,
       2 => 'file',
     ),
   ),
@@ -84,9 +84,10 @@ plugins/upload/css/jquery.fileupload.css">
 			<!-- Logo -->
 			<a href="panelPrincipal" class="logo">
 				<!-- mini logo for sidebar mini 50x50 pixels -->
-				<span class="logo-mini"><b>Ordenes</b>Servicio</span>
+				<span class="logo-lg"><img src="<?php echo $_smarty_tpl->tpl_vars['PAGE']->value['ruta'];?>
+img/logoPanel.png" /></span>
 				<!-- logo for regular state and mobile devices -->
-				<span class="logo-lg"><b>Ordenes</b> de servicio</span>
+				<span class="logo-mini"><b>O</b>S</span>
 			</a>
 			<!-- Header Navbar: style can be found in header.less -->
 			<nav class="navbar navbar-static-top" role="navigation">
@@ -166,12 +167,13 @@ plugins/upload/css/jquery.fileupload.css">
 					<?php }?>
 					
 					<?php if ($_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdTipo()==1){?>
-					<li class="<?php if (in_array($_smarty_tpl->tpl_vars['PAGE']->value['modulo'],array('importar'))){?>active<?php }?> treeview">
+					<li class="<?php if (in_array($_smarty_tpl->tpl_vars['PAGE']->value['modulo'],array('importar','listaOrdenesAdmin'))){?>active<?php }?> treeview">
 						<a href="#">
 							<span>Ordenes</span> <i class="fa fa-angle-left pull-right"></i>
 						</a>
 						<ul class="treeview-menu">
 							<li <?php if ($_smarty_tpl->tpl_vars['PAGE']->value['modulo']=='importar'){?>class="active"<?php }?>><a href="importar"><i class="fa fa-upload"></i> Importar</a></li>
+							<li <?php if ($_smarty_tpl->tpl_vars['PAGE']->value['modulo']=='listaOrdenesAdmin'){?>class="active"<?php }?>><a href="listaOrdenesAdmin"><i class="fa fa-list"></i> Lista</a></li>
 						</ul>
 					</li>
 

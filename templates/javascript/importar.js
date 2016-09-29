@@ -53,7 +53,8 @@ $(document).ready(function(){
 							boton.prop("disabled", false);
 							
 							if (resp.band){
-								alert("Ordenes importadas");
+								alert("Ordenes importadas...");
+								location.reload();
 								$("#datos").html("");
 							}else
 								alert("Ocurrio un error al importar");

@@ -21,9 +21,9 @@ class TMovimiento{
 	* @access public
 	* @param int $id identificador del objeto
 	*/
-	public function TMovimiento($id = ''){
+	public function TMovimiento($id = '', $clave = ''){
 		$this->area = new TArea;
-		$this->setId($id);	
+		$this->setId($id, $clave);	
 		return true;
 	}
 	
@@ -41,7 +41,7 @@ class TMovimiento{
 		if ($clave == '') return false;
 		
 		$db = TBase::conectaDB();
-		$rs = $db->Execute("select * from movimiento where idOrden = ".$id." and clave = '".$clave."'");
+		$rs = $db->Execute("select * from movimiento where idOrden = ".$orden." and clave = '".$clave."'");
 		
 		foreach($rs->fields as $field => $val){
 			switch($field){

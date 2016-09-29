@@ -80,6 +80,40 @@ switch($objModulo->getId()){
 		$smarty->assign("error", $band);
 		$smarty->assign("folios", array("inicio" => $fi, "fin" => $ff));
 	break;
+	case 'listaOrdenesAdmin':
+		$db = TBase::conectaDB();
+		$rs = $db->Execute("select * from sucursal");
+		$datos = array();
+		while(!$rs->EOF){
+			$rs->fields['json'] = json_encode($rs->fields);
+			
+			array_push($datos, $rs->fields);
+			$rs->moveNext();
+		}
+		
+		$smarty->assign("sucursales", $datos);
+	break;
+	case 'listaOrdenes':
+		$db = TBase::conectaDB();
+		$sucursal = $userSesion->sucursal->getId();
+		$sucursal = $_POST['sucursal'] == ''?$sucursal:$_POST['sucursal'];
+
+		$rs = $db->Execute("select a.*, b.nombre as vendedor, c.nombre as sucursal, d.color as colorEstado, d.nombre as estado from orden a join vendedor b using(idVendedor) join sucursal c using(idSucursal) join estado d using(idEstado) where idSucursal = ".$sucursal);
+		$datos = array();
+		while(!$rs->EOF){
+			$rs->fields['json'] = json_encode($rs->fields);
+			
+			array_push($datos, $rs->fields);
+			$rs->moveNext();
+		}
+		
+		$smarty->assign("lista", $datos);
+	break;
+	case 'detalleOrden':
+		$orden = new TOrden($_POST['orden']);
+		
+		$smarty->assign("orden", $orden);
+	break;
 	case 'cordenes':
 		switch($objModulo->getAction()){
 			case 'uploadfile':

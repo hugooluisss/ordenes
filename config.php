@@ -203,3 +203,33 @@ $conf['listaImportar'] = array(
 	'descripcion' => 'Lista de vendedores',
 	'seguridad' => true,
 	'capa' => LAYOUT_AJAX);
+	
+/* Lista ordenes admin */
+$conf['listaOrdenesAdmin'] = array(
+	'controlador' => 'ordenes.php',
+	'vista' => 'ordenes/panelAdmin.tpl',
+	'descripcion' => 'Ordenes',
+	'seguridad' => true,
+	#'js' => array('vendedor.class.js'),
+	'jsTemplate' => array('ordenesAdmin.js'),
+	'capa' => LAYOUT_DEFECTO);
+	
+$conf['listaOrdenes'] = array(
+	'controlador' => 'ordenes.php',
+	'vista' => 'ordenes/lista.tpl',
+	'descripcion' => 'Lista de ordenes',
+	'seguridad' => true,
+	'capa' => LAYOUT_AJAX);
+
+$conf['cordenes'] = array(
+	'controlador' => 'ordenes.php',
+	'descripcion' => 'Controlador de ordenes',
+	'seguridad' => true,
+	'capa' => LAYOUT_AJAX);
+	
+$conf['detalleOrden'] = array(
+	'controlador' => 'ordenes.php',
+	'vista' => 'ordenes/orden.tpl',
+	'descripcion' => 'Detalle de la orden',
+	'seguridad' => true,
+	'capa' => LAYOUT_AJAX);

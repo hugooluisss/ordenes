@@ -9,10 +9,14 @@
 class TUsuario{
 	private $idUsuario;
 	private $idTipo;
-	private $apellidos;
 	private $nombre;
-	private $email;
+	private $clave;
 	private $pass;
+	private $email;
+	private $puesto;
+	private $area;
+	private $codigo;
+	public $sucursal;
 	
 	/**
 	* Constructor de la clase
@@ -22,6 +26,7 @@ class TUsuario{
 	* @param int $id identificador del objeto
 	*/
 	public function TUsuario($id = ''){
+		$this->sucursal = new TSucursal;
 		$this->setId($id);		
 		return true;
 	}
@@ -41,8 +46,15 @@ class TUsuario{
 		$db = TBase::conectaDB();
 		$rs = $db->Execute("select * from usuario where idUsuario = ".$id);
 		
-		foreach($rs->fields as $field => $val)
-			$this->$field = $val;
+		foreach($rs->fields as $field => $val){
+			switch($field){
+				case 'idSucursal':
+					$this->sucursal = new TSucursal($val);
+				break;
+				default:
+					$this->$field = $val;
+			}
+		}
 		
 		return true;
 	}
@@ -102,32 +114,6 @@ class TUsuario{
 	}
 	
 	/**
-	* Establece los apellidos
-	*
-	* @autor Hugo
-	* @access public
-	* @param string $val Valor a asignar
-	* @return boolean True si se realizó sin problemas
-	*/
-	
-	public function setApellidos($val = ''){
-		$this->apellidos = $val;
-		return true;
-	}
-	
-	/**
-	* Retorna los apellidos
-	*
-	* @autor Hugo
-	* @access public
-	* @return string Texto
-	*/
-	
-	public function getApellidos(){
-		return $this->apellidos;
-	}
-	
-	/**
 	* Establece el nombre
 	*
 	* @autor Hugo
@@ -162,7 +148,33 @@ class TUsuario{
 	*/
 	
 	public function getNombreCompleto(){
-		return $this->getNombre()." ".$this->getApellidos();
+		return $this->getNombre();
+	}
+	
+	/**
+	* Establece la clave
+	*
+	* @autor Hugo
+	* @access public
+	* @param string $val Valor a asignar
+	* @return boolean True si se realizó sin problemas
+	*/
+	
+	public function setClave($val = ''){
+		$this->clave = $val;
+		return true;
+	}
+	
+	/**
+	* Retorna los apellidos
+	*
+	* @autor Hugo
+	* @access public
+	* @return string Texto
+	*/
+	
+	public function getClave(){
+		return $this->clave;
 	}
 	
 	/**
@@ -218,6 +230,84 @@ class TUsuario{
 	}
 	
 	/**
+	* Establece el puesto
+	*
+	* @autor Hugo
+	* @access public
+	* @param string $val Valor a asignar
+	* @return boolean True si se realizó sin problemas
+	*/
+	
+	public function setPuesto($val = ''){
+		$this->puesto = $val;
+		return true;
+	}
+	
+	/**
+	* Retorna el puesto
+	*
+	* @autor Hugo
+	* @access public
+	* @return string Texto
+	*/
+	
+	public function getPuesto(){
+		return $this->puesto;
+	}
+	
+	/**
+	* Establece el area
+	*
+	* @autor Hugo
+	* @access public
+	* @param string $val Valor a asignar
+	* @return boolean True si se realizó sin problemas
+	*/
+	
+	public function setArea($val = ''){
+		$this->area = $val;
+		return true;
+	}
+	
+	/**
+	* Retorna el area
+	*
+	* @autor Hugo
+	* @access public
+	* @return string Texto
+	*/
+	
+	public function getArea(){
+		return $this->area;
+	}
+	
+	/**
+	* Establece el código
+	*
+	* @autor Hugo
+	* @access public
+	* @param string $val Valor a asignar
+	* @return boolean True si se realizó sin problemas
+	*/
+	
+	public function setCodigo($val = ''){
+		$this->codigo = $val;
+		return true;
+	}
+	
+	/**
+	* Retorna el código
+	*
+	* @autor Hugo
+	* @access public
+	* @return string Texto
+	*/
+	
+	public function getCodigo(){
+		return $this->codigo;
+	}
+	
+	/**
 	* Guarda los datos en la base de datos, si no existe un identificador entonces crea el objeto
 	*
 	* @autor Hugo
@@ -227,11 +317,12 @@ class TUsuario{
 	
 	public function guardar(){
 		if ($this->getIdTipo() == '') return false;
+		if ($this->sucursal->getId() == '') return false;
 		
 		$db = TBase::conectaDB();
 		
 		if ($this->getId() == ''){
-			$rs = $db->Execute("INSERT INTO usuario(idTipo) VALUES(".$this->getIdTipo().");");
+			$rs = $db->Execute("INSERT INTO usuario(idTipo, idSucursal) VALUES(".$this->getIdTipo().", ".$this->sucursal->getId().");");
 			if (!$rs) return false;
 				
 			$this->idUsuario = $db->Insert_ID();
@@ -243,10 +334,14 @@ class TUsuario{
 		$rs = $db->Execute("UPDATE usuario
 			SET
 				idTipo = ".$this->getIdTipo().",
+				idSucursal = ".$this->sucursal->getId().",
 				nombre = '".$this->getNombre()."',
-				apellidos = '".$this->getApellidos()."',
+				clave = '".$this->getClave()."',
 				email = '".$this->getEmail()."',
-				pass = '".$this->getPass()."'
+				pass = '".$this->getPass()."',
+				puesto = '".$this->getPuesto()."',
+				area = '".$this->getArea()."',
+				codigo = '".$this->getCodigo()."'
 			WHERE idUsuario = ".$this->getId());
 			
 		return $rs?true:false;

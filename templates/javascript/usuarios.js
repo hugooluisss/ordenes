@@ -15,23 +15,26 @@ $(document).ready(function(){
 		debug: true,
 		rules: {
 			txtEmail: "required",
-			txtPass: "required"
+			txtPass: "required",
+			txtUsuario: "required",
+			txtCodigo: "required",
+			selPerfil: "required",
+			selSucursal: "required"
 		},
 		wrapper: 'span', 
-		messages: {
-			txtEmail: "Este campo es necesario",
-			txtPass: "Este campo es necesario"
-		},
 		submitHandler: function(form){
-		
 			var obj = new TUsuario;
 			obj.add(
 				$("#id").val(), 
+				$("#selSucursal").val(), 
 				$("#txtNombre").val(), 
-				$("#txtApellidos").val(),
+				$("#txtClave").val(), 
+				$("#txtPass").val(), 
 				$("#txtEmail").val(),
-				$("#txtPass").val(),
 				$("#selTipo").val(),
+				$("#txtPuesto").val(), 
+				$("#txtArea").val(), 
+				$("#txtCodigo").val(), 
 				{
 					after: function(datos){
 						if (datos.band){
@@ -68,10 +71,14 @@ $(document).ready(function(){
 				
 				$("#id").val(el.idUsuario);
 				$("#txtNombre").val(el.nombre);
-				$("#txtApellidos").val(el.apellidos);
 				$("#txtEmail").val(el.email);
 				$("#txtPass").val(el.pass);
+				$("#txtClave").val(el.clave);
+				$("#txtCodigo").val(el.codigo);
+				$("#txtArea").val(el.area);
+				$("#txtPuesto").val(el.puesto);
 				$("#selTipo").val(el.idTipo);
+				$("#selSucursal").val(el.idSucursal);
 				$('#panelTabs a[href="#add"]').tab('show');
 			});
 			

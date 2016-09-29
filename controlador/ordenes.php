@@ -1,11 +1,27 @@
 <?php
 global $objModulo;
 switch($objModulo->getId()){
+	case 'importar':
+		$db = TBase::conectaDB();
+		$rs = $db->Execute("select * from razonsocial");
+		$datos = array();
+		while(!$rs->EOF){
+			$razon = new TRazonSocial($rs->fields['idRazon']);
+			$rs->fields['ultimaImportacion'] = $razon->getUltimaCarga();
+			$rs->fields['json'] = json_encode($rs->fields);
+			
+			array_push($datos, $rs->fields);
+			$rs->moveNext();
+		}
+		
+		$smarty->assign("razonesSociales", $datos);
+	break;
 	case 'listaImportar':
 		$data = new Spreadsheet_Excel_Reader();
 		$data->setOutputEncoding('CP1251');
 		$data->read('temporal/'.$_POST['archivo']);
 		$datos = array();
+		$band = true;
 		
 		for ($i = 2; $i <= $data->sheets[0]['numRows']; $i++) {
 			$el = array();
@@ -21,18 +37,25 @@ switch($objModulo->getId()){
 			$el['sucursal'] = utf8_encode($data->sheets[0]['cells'][$i][10]);
 			$el['area'] = utf8_encode($data->sheets[0]['cells'][$i][11]);
 			
-			$el['json'] = json_encode($el);
+			//$el['json'] = json_encode($el);
 			$db = TBase::conectaDB();
 			$rs = $db->Execute("select idArea from area where clave = '".$el['area']."'");
 			$el['areaExiste'] = !$rs->EOF;
+			$band = $rs->EOF?false:$band;
 			
 			$rs = $db->Execute("select idVendedor from vendedor where clave = '".$el['vendedor']."'");
 			$el['vendedorExiste'] = !$rs->EOF;
+			$band = $rs->EOF?false:$band;
+			
+			$rs = $db->Execute("select idSucursal from sucursal where upper(nombre) = upper('".$el['sucursal']."') and idRazon = ".$_POST['razonSocial']);
+			$el['sucursalExiste'] = !$rs->EOF;
+			$band = $rs->EOF?false:$band;
 			
 			array_push($datos, $el);
-		 
 		}
 		$smarty->assign("lista", $datos);
+		$smarty->assign("listaJson", json_encode($datos));
+		$smarty->assign("error", $band);
 	break;
 	case 'cordenes':
 		switch($objModulo->getAction()){

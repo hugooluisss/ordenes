@@ -7,19 +7,35 @@
 	<div class="panel-body">
 		<div class="row">
 			<div class="col-md-12 text-center">
-				<button class="btn btn-danger" id="btnUpload"><i class="fa fa-upload" aria-hidden="true"></i> Subir archivo</button>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12" id="datos">
-				
+				<table id="tblRazones" class="table table-bordered table-hover">
+					<thead>
+						<tr>
+							<th>Clave</th>
+							<th>Ultimo importado</th>
+							<th>Rango ODTs</th>
+							<th>&nbsp;</th>
+						</tr>
+					</thead>
+					<tbody>
+						{foreach from=$razonesSociales item="row"}
+							<tr>
+								<td>{$row.clave}</td>
+								<td>{if $row.ultimaImportacion.momento eq ''}Nunca{else}{$row.ultimaImportacion.momento}{/if}</td>
+								<td>{$row.ultimaImportacion.inicio} - {$row.ultimaImportacion.fin}</td>
+								<td>
+									<button class="btn btn-danger btnUpload" razonSocial="{$row.idRazon}"><i class="fa fa-upload" aria-hidden="true"></i> Subir archivo</button>
+								</td>
+							</tr>
+						{/foreach}
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
 </div>
 
 <div class="modal fade" id="winUpload" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class="modal-dialog" role="document">
+	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -29,6 +45,11 @@
 				<form id="upload" method="post" action="index.php?mod=cordenes&action=uploadfile" enctype="multipart/form-data">
 					<input type="file" name="upl" multiple />
 				</form>
+				<div class="row">
+					<div class="col-md-12" id="datos">
+						
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

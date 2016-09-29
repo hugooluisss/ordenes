@@ -14,7 +14,7 @@ switch($objModulo->getId()){
 				if ($_POST['movil'] <> 1){
 					$db = TBase::conectaDB();
 					
-					$rs = $db->Execute("select idUsuario, pass from usuario where upper(email) = upper('".$_POST['usuario']."')");
+					$rs = $db->Execute("select idUsuario, pass from usuario where upper(clave) = upper('".$_POST['usuario']."')");
 					
 					$result = array('band' => false, 'mensaje' => 'Error al consultar los datos');
 					if($rs->EOF)
@@ -38,7 +38,7 @@ switch($objModulo->getId()){
 				}else{
 					$db = TBase::conectaDB();
 
-					$rs = $db->Execute("select idCliente, pass from cliente where upper(email) = upper('".$_POST['usuario']."')");
+					$rs = $db->Execute("select idCliente, pass from cliente where upper(clave) = upper('".$_POST['usuario']."')");
 					
 					$result = array('band' => false, 'mensaje' => 'Error al consultar los datos');
 					if($rs->EOF)
@@ -58,7 +58,6 @@ switch($objModulo->getId()){
 						$sesion['identificador'] = 		$obj->getId();
 						$sesion['usuario'] = 		$obj->getId();
 						$sesion['nombre'] = 		$obj->getNombre();
-						$sesion['sexo'] = 			$obj->getSexo();
 					}
 				}
 				

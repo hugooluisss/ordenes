@@ -15,6 +15,16 @@ switch($objModulo->getId()){
 		}
 		
 		$smarty->assign("tipos", $datos);
+		
+		$rs = $db->Execute("select * from sucursal");
+		
+		$datos = array();
+		while(!$rs->EOF){
+			$datos[$rs->fields['idSucursal']] = $rs->fields['nombre'];
+			$rs->moveNext();
+		}
+		
+		$smarty->assign("sucursales", $datos);
 	break;
 	case 'listaUsuarios':
 		$db = TBase::conectaDB();
@@ -66,10 +76,14 @@ switch($objModulo->getId()){
 				
 				$obj->setId($_POST['id']);
 				$obj->setNombre($_POST['nombre']);
-				$obj->setApellidos($_POST['apellidos']);
+				$obj->setClave($_POST['clave']);
 				$obj->setEmail($_POST['email']);
 				$obj->setPass($_POST['pass']);
 				$obj->setTipo($_POST['tipo']);
+				$obj->setPuesto($_POST['puesto']);
+				$obj->setArea($_POST['area']);
+				$obj->setCodigo($_POST['codigo']);
+				$obj->sucursal = new TSucursal($_POST['sucursal']);
 
 				echo json_encode(array("band" => $obj->guardar()));
 			break;
@@ -83,7 +97,6 @@ switch($objModulo->getId()){
 				$obj = new TUsuario();
 				$obj->setId($sesion['usuario']);
 				$obj->setNombre($_POST['nombre']);
-				$obj->setApellidos($_POST['apellidos']);
 				
 				echo json_encode(array("band" => $obj->guardar()));
 			break;

@@ -1,13 +1,14 @@
 TSucursal = function(){
 	var self = this;
 	
-	this.add = function(id,	nombre, color, fn){
+	this.add = function(id,	nombre, color, razonsocial, fn){
 		if (fn.before !== undefined) fn.before();
 		
 		$.post('csucursales', {
 				"id": id,
 				"nombre": nombre,
 				"color": color,
+				"razonsocial": razonsocial,
 				"action": "add"
 			}, function(data){
 				if (data.band == 'false')

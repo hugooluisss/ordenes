@@ -1,6 +1,18 @@
 <?php
 global $objModulo;
 switch($objModulo->getId()){
+	case 'sucursales':
+		$db = TBase::conectaDB();
+		$rs = $db->Execute("select * from razonsocial");
+		
+		$datos = array();
+		while(!$rs->EOF){
+			$datos[$rs->fields['idRazon']] = $rs->fields['clave'];
+			$rs->moveNext();
+		}
+		
+		$smarty->assign("razonesSociales", $datos);
+	break;
 	case 'listaSucursales':
 		$db = TBase::conectaDB();
 		$rs = $db->Execute("select * from sucursal");
@@ -21,6 +33,7 @@ switch($objModulo->getId()){
 				$obj->setId($_POST['id']);
 				$obj->setNombre($_POST['nombre']);
 				$obj->setColor($_POST['color']);
+				$obj->razonsocial->setId($_POST['razonsocial']);
 				echo json_encode(array("band" => $obj->guardar()));
 			break;
 			case 'del':

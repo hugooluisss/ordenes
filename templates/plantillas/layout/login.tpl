@@ -35,23 +35,21 @@
 	<body class="hold-transition login-page">
 		<div class="login-box">
 			<div class="login-logo">
-				<a href="index.php"><b>Lonas </b> & <b>Etiquetas</b></a>
+				<img src="{$PAGE.ruta}img/logo.png" class="img-rounded"/>
 			</div><!-- /.login-logo -->
 			<div class="login-box-body">
 				<p class="login-box-msg">
-					<!--<img src="{$PAGE.ruta}img/logo.png" class="img-rounded"/>-->
 					<br />
 					Identificate para iniciar sesión
 				</p>
 				<form action="#" id="frmLogin" method="post">
 					<div class="form-group has-feedback">
-						<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-						<input type="text" class="form-control" placeholder="email" id="txtUsuario" name="txtUsuario">
-						
+						<input type="text" class="form-control" placeholder="Clave" id="txtUsuario" name="txtUsuario">
+						<span class="glyphicon glyphicon-user form-control-feedback"></span>
 					</div>
 					<div class="form-group has-feedback">
-						<span class="glyphicon glyphicon-lock form-control-feedback"></span>
 						<input type="password" class="form-control" placeholder="Contraseña" id="txtPass" name="txtPass">
+						<span class="glyphicon glyphicon-lock form-control-feedback"></span>
 					</div>
 					<div class="row">
 						<!-- /.col -->

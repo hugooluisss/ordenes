@@ -1,5 +1,7 @@
 $(document).ready(function(){
-	$("#btnUpload").click(function(){
+	$(".btnUpload").click(function(){
+		$("#winUpload").attr("razonSocial", $(this).attr("razonSocial"));
+		
 		$("#winUpload").modal();
 	});
 	
@@ -9,7 +11,7 @@ $(document).ready(function(){
 			var jqXHR = data.submit();
 		},
 		done: function (e, data) {
-			$("#winUpload").modal("hide");
+			//$("#winUpload").modal("hide");
 			listaOrdenes(data.files[0].name);
 		},
 		progress: function(e, data){
@@ -30,17 +32,10 @@ $(document).ready(function(){
 	
 	function listaOrdenes(archivo){
 		$.post("listaImportar", {
-			"archivo": archivo
+			"archivo": archivo,
+			"razonSocial": $("#winUpload").attr("razonSocial")
 		}, function( data ) {
 			$("#datos").html(data);
-			
-			$("[action=seleccionar]").click(function(){
-				$("input[type=checkbox]").prop("checked", true);
-			});
-			
-			$("[action=desseleccionar]").click(function(){
-				$("input[type=checkbox]").prop("checked", false);
-			});
 			
 			$("[action=importar]").click(function(){
 				if(confirm("Estas apunto de enviar " + $("input[type=checkbox]:checked").length + " ¿Seguro?")){

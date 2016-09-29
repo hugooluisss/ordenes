@@ -1,16 +1,21 @@
 TUsuario = function(){
 	var self = this;
 	
-	this.add = function(id,	nombre, apellidos, email, pass, tipo, fn){
+	this.add = function(id,	sucursal, nombre, clave, pass, email, tipo, puesto, area, codigo, fn){
 		if (fn.before !== undefined) fn.before();
 		
-		$.post('?mod=cusuarios&action=add', {
+		$.post('cusuarios', {
 				"id": id,
+				"sucursal": sucursal,
 				"nombre": nombre,
-				"apellidos": apellidos,
+				"clave": clave,
+				"codigo": codigo,
 				"email": email, 
 				"pass": pass,
-				"tipo": tipo
+				"tipo": tipo,
+				"puesto": puesto,
+				"area": area,
+				"action": "add"
 			}, function(data){
 				if (data.band == 'false')
 					console.log(data.mensaje);
@@ -50,8 +55,9 @@ TUsuario = function(){
 	}
 	
 	this.del = function(usuario, fn){
-		$.post('?mod=cusuarios&action=del', {
+		$.post('cusuarios', {
 			"usuario": usuario,
+			"action": del
 		}, function(data){
 			if (fn.after != undefined)
 				fn.after(data);

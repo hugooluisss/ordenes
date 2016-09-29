@@ -4,8 +4,8 @@
 			<thead>
 				<tr>
 					<th>#</th>
+					<th>Clave</th>
 					<th>Nombre</th>
-					<th>Apellidos</th>
 					<th>Tipo</th>
 					<th>&nbsp;</th>
 				</tr>
@@ -14,8 +14,8 @@
 				{foreach from=$lista item="row"}
 					<tr>
 						<td>{$row.idUsuario}</td>
+						<td>{$row.clave}</td>
 						<td>{$row.nombre}</td>
-						<td>{$row.apellidos}</td>
 						<td>{$row.tipo}</td>
 						<td style="text-align: right">
 							<button type="button" class="btn btn-success" action="modificar" title="Modificar" datos='{$row.json}'><i class="fa fa-pencil"></i></button>

@@ -9,7 +9,7 @@ class TSucursal{
 	private $idSucursal;
 	private $nombre;
 	private $color;
-	
+	public $razonsocial;
 	/**
 	* Constructor de la clase
 	*
@@ -18,6 +18,7 @@ class TSucursal{
 	* @param int $id identificador del objeto
 	*/
 	public function TSucursal($id = ''){
+		$this->razonsocial = new TRazonSocial;
 		$this->setId($id);	
 		return true;
 	}
@@ -37,8 +38,15 @@ class TSucursal{
 		$db = TBase::conectaDB();
 		$rs = $db->Execute("select * from sucursal where idSucursal = ".$id);
 		
-		foreach($rs->fields as $field => $val)
-			$this->$field = $val;
+		foreach($rs->fields as $field => $val){
+			switch($field){
+				case 'idRazon':
+					$this->razonsocial = new TRazonSocial($val);
+				break;
+				default:
+					$this->$field = $val;
+			}
+		}
 		
 		return true;
 	}
@@ -120,7 +128,7 @@ class TSucursal{
 		$db = TBase::conectaDB();
 		
 		if ($this->getId() == ''){
-			$rs = $db->Execute("INSERT INTO sucursal(nombre) VALUES('".$this->getNombre()."');");
+			$rs = $db->Execute("INSERT INTO sucursal(idRazon) VALUES(".$this->razonsocial->getId().");");
 			if (!$rs) return false;
 				
 			$this->idSucursal = $db->Insert_ID();
@@ -132,7 +140,8 @@ class TSucursal{
 		$rs = $db->Execute("UPDATE sucursal
 			SET
 				nombre = '".$this->getNombre()."',
-				color = '".$this->getColor()."'
+				color = '".$this->getColor()."',
+				idRazon = ".$this->razonsocial->getId()."
 			WHERE idSucursal = ".$this->getId());
 			
 		return $rs?true:false;

@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-09-28 09:15:10
+<?php /* Smarty version Smarty-3.1.11, created on 2016-09-28 22:26:01
          compiled from "templates/plantillas/layout/login.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:86313293157ebd06eb5d031-84918508%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'c5b8753aeb60af718a5f9de931383e28721a5592' => 
     array (
       0 => 'templates/plantillas/layout/login.tpl',
-      1 => 1475071975,
+      1 => 1475119558,
       2 => 'file',
     ),
   ),
@@ -15,14 +15,14 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
+  'version' => 'Smarty-3.1.11',
+  'unifunc' => 'content_57ebd06ebbdf35_36417420',
   'variables' => 
   array (
     'PAGE' => 0,
     'script' => 0,
   ),
   'has_nocache_code' => false,
-  'version' => 'Smarty-3.1.11',
-  'unifunc' => 'content_57ebd06ebbdf35_36417420',
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_57ebd06ebbdf35_36417420')) {function content_57ebd06ebbdf35_36417420($_smarty_tpl) {?><!DOCTYPE html>
 <html>
@@ -76,24 +76,22 @@ dist/css/skins/_all-skins.css" />
 	<body class="hold-transition login-page">
 		<div class="login-box">
 			<div class="login-logo">
-				<a href="index.php"><b>Lonas </b> & <b>Etiquetas</b></a>
+				<img src="<?php echo $_smarty_tpl->tpl_vars['PAGE']->value['ruta'];?>
+img/logo.png" class="img-rounded"/>
 			</div><!-- /.login-logo -->
 			<div class="login-box-body">
 				<p class="login-box-msg">
-					<!--<img src="<?php echo $_smarty_tpl->tpl_vars['PAGE']->value['ruta'];?>
-img/logo.png" class="img-rounded"/>-->
 					<br />
 					Identificate para iniciar sesión
 				</p>
 				<form action="#" id="frmLogin" method="post">
 					<div class="form-group has-feedback">
-						<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-						<input type="text" class="form-control" placeholder="email" id="txtUsuario" name="txtUsuario">
-						
+						<input type="text" class="form-control" placeholder="Clave" id="txtUsuario" name="txtUsuario">
+						<span class="glyphicon glyphicon-user form-control-feedback"></span>
 					</div>
 					<div class="form-group has-feedback">
-						<span class="glyphicon glyphicon-lock form-control-feedback"></span>
 						<input type="password" class="form-control" placeholder="Contraseña" id="txtPass" name="txtPass">
+						<span class="glyphicon glyphicon-lock form-control-feedback"></span>
 					</div>
 					<div class="row">
 						<!-- /.col -->

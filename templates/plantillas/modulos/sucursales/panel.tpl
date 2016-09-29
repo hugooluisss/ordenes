@@ -21,6 +21,16 @@
 			<div class="box">
 				<div class="box-body">
 					<div class="form-group">
+						<label for="selRazonSocial" class="col-lg-2">Razón Social</label>
+						<div class="col-lg-2">
+							<select class="form-control" id="selRazonSocial" name="selRazonSocial">
+								{foreach key=key item=item from=$razonesSociales}
+									<option value="{$key}">{$item}
+								{/foreach}
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
 						<label for="txtNombre" class="col-lg-2">Nombre</label>
 						<div class="col-lg-6">
 							<input class="form-control" id="txtNombre" name="txtNombre">

@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-09-28 11:53:51
+<?php /* Smarty version Smarty-3.1.11, created on 2016-09-29 00:08:18
          compiled from "templates/plantillas/modulos/ordenes/importar.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:203124540257ebd0d524efb4-19654486%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '2d7d102cb2e3587905910a5115eb6a4d660f73f3' => 
     array (
       0 => 'templates/plantillas/modulos/ordenes/importar.tpl',
-      1 => 1475081609,
+      1 => 1475125696,
       2 => 'file',
     ),
   ),
@@ -17,6 +17,11 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'version' => 'Smarty-3.1.11',
   'unifunc' => 'content_57ebd0d5267b40_02057334',
+  'variables' => 
+  array (
+    'razonesSociales' => 0,
+    'row' => 0,
+  ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_57ebd0d5267b40_02057334')) {function content_57ebd0d5267b40_02057334($_smarty_tpl) {?><div class="row">
@@ -28,19 +33,44 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 	<div class="panel-body">
 		<div class="row">
 			<div class="col-md-12 text-center">
-				<button class="btn btn-danger" id="btnUpload"><i class="fa fa-upload" aria-hidden="true"></i> Subir archivo</button>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12" id="datos">
-				
+				<table id="tblRazones" class="table table-bordered table-hover">
+					<thead>
+						<tr>
+							<th>Clave</th>
+							<th>Ultimo importado</th>
+							<th>Rango ODTs</th>
+							<th>&nbsp;</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php  $_smarty_tpl->tpl_vars["row"] = new Smarty_Variable; $_smarty_tpl->tpl_vars["row"]->_loop = false;
+ $_from = $_smarty_tpl->tpl_vars['razonesSociales']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
+foreach ($_from as $_smarty_tpl->tpl_vars["row"]->key => $_smarty_tpl->tpl_vars["row"]->value){
+$_smarty_tpl->tpl_vars["row"]->_loop = true;
+?>
+							<tr>
+								<td><?php echo $_smarty_tpl->tpl_vars['row']->value['clave'];?>
+</td>
+								<td><?php if ($_smarty_tpl->tpl_vars['row']->value['ultimaImportacion']['momento']==''){?>Nunca<?php }else{ ?><?php echo $_smarty_tpl->tpl_vars['row']->value['ultimaImportacion']['momento'];?>
+<?php }?></td>
+								<td><?php echo $_smarty_tpl->tpl_vars['row']->value['ultimaImportacion']['inicio'];?>
+ - <?php echo $_smarty_tpl->tpl_vars['row']->value['ultimaImportacion']['fin'];?>
+</td>
+								<td>
+									<button class="btn btn-danger btnUpload" razonSocial="<?php echo $_smarty_tpl->tpl_vars['row']->value['idRazon'];?>
+"><i class="fa fa-upload" aria-hidden="true"></i> Subir archivo</button>
+								</td>
+							</tr>
+						<?php } ?>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
 </div>
 
 <div class="modal fade" id="winUpload" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class="modal-dialog" role="document">
+	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -50,6 +80,11 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 				<form id="upload" method="post" action="index.php?mod=cordenes&action=uploadfile" enctype="multipart/form-data">
 					<input type="file" name="upl" multiple />
 				</form>
+				<div class="row">
+					<div class="col-md-12" id="datos">
+						
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

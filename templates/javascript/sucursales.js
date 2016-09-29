@@ -16,7 +16,8 @@ $(document).ready(function(){
 		debug: true,
 		rules: {
 			txtNombre: "required",
-			txtColor: "required"
+			txtColor: "required",
+			selRazonSocial: "required",
 		},
 		wrapper: 'span', 
 		submitHandler: function(form){
@@ -25,6 +26,7 @@ $(document).ready(function(){
 				$("#id").val(), 
 				$("#txtNombre").val(), 
 				$("#txtColor").val(),
+				$("#selRazonSocial").val(),
 				{
 					before: function(){
 						$(form).find("[type=submit]").prop("disabled", true);
@@ -51,7 +53,7 @@ $(document).ready(function(){
 			
 			$("[action=eliminar]").click(function(){
 				if(confirm("¿Seguro?")){
-					var obj = new TColor;
+					var obj = new TSucursal;
 					obj.del($(this).attr("identificador"), {
 						after: function(data){
 							getLista();
@@ -66,6 +68,7 @@ $(document).ready(function(){
 				$("#id").val(el.idSucursal);
 				$("#txtNombre").val(el.nombre);
 				$("#txtColor").val(el.color);
+				$("#selRazonSocial").val(el.idRazon);
 				
 				$('#panelTabs a[href="#add"]').tab('show');
 			});

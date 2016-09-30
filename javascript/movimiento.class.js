@@ -1,12 +1,13 @@
 TMovimiento = function(){
 	var self = this;
 
-	this.guardar = function(orden, clave, impresionDigital, disenador, fechaImpresion, notasProduccion, claveImpresion, fechaEnvio, horaEnvio, fechaRecepcion, entregaCliente, notas, fn){
+	this.guardar = function(orden, clave, notasSucursales, impresionDigital, disenador, fechaImpresion, notasProduccion, claveImpresion, fechaEnvio, horaEnvio, fechaRecepcion, entregaCliente, notas, fn){
 		if (fn.before !== undefined) fn.before();
 		
 		$.post('cmovimientos', {
 				"orden": orden,
 				"clave": clave,
+				"notasSucursales": notasSucursales,
 				"impresionDigital": impresionDigital, 
 				"disenador": disenador, 
 				"fechaImpresion": fechaImpresion, 

@@ -15,7 +15,7 @@ class TMovimiento{
 	private $importe;
 	private $fecha;
 	######
-	private $notassucursales;
+	private $notasucursales;
 	private $impresiondigital;
 	private $disenador;
 	private $fechaimpresion;
@@ -249,7 +249,7 @@ class TMovimiento{
 	*/
 	
 	public function setNotasSucursales($val = ''){
-		$this->notassucursales = $val;
+		$this->notasucursales = $val;
 		return true;
 	}
 	
@@ -261,8 +261,8 @@ class TMovimiento{
 	* @return string notas
 	*/
 	
-	public function getNostasSucursales(){
-		return $this->notasSucursales;
+	public function getNotasSucursales(){
+		return $this->notasucursales;
 	}
 	
 	/**
@@ -366,7 +366,7 @@ class TMovimiento{
 	*/
 	
 	public function getNotasProduccion(){
-		return $this->notasProduccion;
+		return $this->notasproduccion;
 	}
 	
 	/**
@@ -588,20 +588,20 @@ class TMovimiento{
 	public function guardar(){
 		$db = TBase::conectaDB();
 		$rs = $db->Execute("select idOrden from movimiento where idOrden = ".$this->getOrden()." and clave = '".$this->getClave()."'");
-		if ($fs->EOF){
+		if ($rs->EOF){
 			$rs = $db->Execute("INSERT INTO movimiento(idOrden, idArea, clave, descripcion, cantidad, observaciones, importe, fecha) VALUES(".$this->getOrden().", ".$this->area->getId().", '".$this->getClave()."', '".$this->getDescripcion()."', ".$this->getCantidad().", '".$this->getObservaciones()."', ".$this->getImporte().", now());");
 		}else
 			$rs = $db->Execute("update movimiento set
-				notassucusales = '".$this->getNotasSucursales()."',
+				notasucursales = '".$this->getNotasSucursales()."',
 				impresiondigital = '".$this->getImpresionDigital()."',
 				disenador = '".$this->getDisenador()."',
-				fechaimpresion = '".$this->getFechaImpresion()."',
+				fechaimpresion = ".($this->getFechaImpresion() == ''?'null':"'".$this->getFechaImpresion()."'").",
 				notasproduccion = '".$this->getNotasProduccion()."',
-				claveimpresor = '".$this->getClaveImpresion()."',
-				fechaenvio = '".$this->getFechaEnvio()."',
+				claveimpresor = '".$this->getClaveImpresor()."',
+				fechaenvio = ".($this->getFechaEnvio() == ''?'null':"'".$this->getFechaEnvio()."'").",
 				horaEnvio = '".$this->getHoraEnvio()."',
-				fecharecepcion = '".$this->getFechaRecepcion()."',
-				entregacliente = '".$this->getEntreCliente()."'
+				fecharecepcion = ".($this->getFechaRecepcion() == ''?'null':"'".$this->getFechaRecepcion()."'").",
+				entregacliente = ".($this->getEntregaCliente() == ''?'null':"'".$this->getEntregaCliente()."'").",
 				notas = '".$this->getNotas()."'
 			where idOrden = ".$this->getOrden()." and clave = '".$this->getClave()."'");
 		

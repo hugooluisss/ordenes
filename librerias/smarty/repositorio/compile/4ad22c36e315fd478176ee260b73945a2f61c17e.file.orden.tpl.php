@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-09-30 11:48:05
+<?php /* Smarty version Smarty-3.1.11, created on 2016-09-30 13:58:19
          compiled from "templates/plantillas/modulos/ordenes/orden.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:37653668957ed5428b69e99-41372028%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '4ad22c36e315fd478176ee260b73945a2f61c17e' => 
     array (
       0 => 'templates/plantillas/modulos/ordenes/orden.tpl',
-      1 => 1475254010,
+      1 => 1475261706,
       2 => 'file',
     ),
   ),
@@ -132,6 +132,38 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 "
 					observaciones="<?php echo $_smarty_tpl->tpl_vars['row']->value->getObservaciones();?>
 "
+					
+					idArea="<?php echo $_smarty_tpl->tpl_vars['row']->value->area->getId();?>
+"
+					fecha="<?php echo $_smarty_tpl->tpl_vars['row']->value->getFecha();?>
+"
+					notasucursales="<?php echo $_smarty_tpl->tpl_vars['row']->value->getNotasSucursales();?>
+"
+					impresiondigital="<?php echo $_smarty_tpl->tpl_vars['row']->value->getImpresionDigital();?>
+"
+					disenador="<?php echo $_smarty_tpl->tpl_vars['row']->value->getDisenador();?>
+"
+					fechaimpresion="<?php echo $_smarty_tpl->tpl_vars['row']->value->getFechaImpresion();?>
+"
+					notasproduccion="<?php echo $_smarty_tpl->tpl_vars['row']->value->getNotasProduccion();?>
+"
+					claveimpresor="<?php echo $_smarty_tpl->tpl_vars['row']->value->getClaveImpresor();?>
+"
+					nombreimpresor="<?php echo $_smarty_tpl->tpl_vars['row']->value->getNombreImpresor();?>
+"
+					fechaenvio="<?php echo $_smarty_tpl->tpl_vars['row']->value->getFechaEnvio();?>
+"
+					horaenvio="<?php echo $_smarty_tpl->tpl_vars['row']->value->getHoraEnvio();?>
+"
+					envio="<?php echo $_smarty_tpl->tpl_vars['row']->value->getEnvio();?>
+"
+					fecharecepcion="<?php echo $_smarty_tpl->tpl_vars['row']->value->getFechaRecepcion();?>
+"
+					entregacliente="<?php echo $_smarty_tpl->tpl_vars['row']->value->getEntregaCliente();?>
+"
+					notas="<?php echo $_smarty_tpl->tpl_vars['row']->value->getNotas();?>
+"
+					
 				>
 					<td><?php echo $_smarty_tpl->tpl_vars['row']->value->getClave();?>
 </td>
@@ -221,28 +253,28 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 				<b>Impresion</b>
 			</div>
 			<div class="col-md-3">
-				<input class="form-control" value="" campo="fechaImpresion" id="txtFechaImpresion"/>
+				<input class="form-control" value="" placeholder="YYYY-MM-DD" readonly="" campo="fechaImpresion" id="txtFechaImpresion"/>
 			</div>
 		</div>
 		<br />
 		<div class="row">
 			<div class="col-md-2 col-md-offset-2">
-						<input type="checkbox" id="envio"> <b>Envio</b>
+						<input type="checkbox" id="chkEnvio" value="Si"> <b>Envio</b>
 			</div>
 			<div class="col-md-3">
 				<b>Fecha y hora</b>
 			</div>
 			<div class="col-md-3">
-				<input class="form-control" value="" readonly disabled campo="fechaenvio" id="txtFecha"/>
+				<input class="form-control" value="" placeholder="YYYY-MM-DD" readonly campo="fechaenvio" id="txtFechaEnvio"/>
 			</div>
 			<div class="col-md-2">
-				<input class="form-control" value="" readonly disabled campo="horaenvio" id="txtHora"/>
+				<input class="form-control" value="" campo="horaenvio" id="txtHoraEnvio"/>
 			</div>
 		</div>
 	</div>
 	<div class="col-md-4">
 		<b>Notas de produccion</b>
-		<textarea campo="notasProduccion" class="form-control" rows="4"></textarea>
+		<textarea campo="notasProduccion" class="form-control" rows="4" id="txtNotasProduccion"></textarea>
 	</div>
 </div>
 <hr />

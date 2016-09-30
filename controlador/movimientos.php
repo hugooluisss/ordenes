@@ -6,8 +6,9 @@ switch($objModulo->getId()){
 			case 'guardar':
 				$obj = new TMovimiento($_POST['orden'], $_POST['clave']);
 				
-				
-				impresionDigital, disenador, fechaImpresion, notasProduccion, claveImpresion, fechaEnvio, horaEnvio, fechaRecepcion, entregaCliente, notas
+				if (isset($_POST['notasSucursales']))
+					$obj->setNotasSucursales($_POST['notasSucursales']);
+					
 				if (isset($_POST['impresionDigital']))
 					$obj->setImpresionDigital($_POST['impresionDigital']);
 					
@@ -17,23 +18,26 @@ switch($objModulo->getId()){
 				if (isset($_POST['fechaImpresion']))
 					$obj->setFechaImpresion($_POST['fechaImpresion']);
 				
-				if (isset($_POST['notfasProduccion']))
-					$obj->setImpresionDigital($_POST['notasProduccion']);
+				if (isset($_POST['notasProduccion']))
+					$obj->setNotasProduccion($_POST['notasProduccion']);
 					
 				if (isset($_POST['claveImpresion']))
 					$obj->setImpresionDigital($_POST['claveImpresion']);
 					
 				if (isset($_POST['fechaEnvio']))
-					$obj->setImpresionDigital($_POST['fechaEnvio']);
+					$obj->setFechaEnvio(str_replace("_", "0", $_POST['fechaEnvio']));
 					
 				if (isset($_POST['horaEnvio']))
-					$obj->setImpresionDigital($_POST['horaEnvio']);
+					$obj->setHoraEnvio(str_replace("_", "0", $_POST['horaEnvio']));
 					
-				if (isset($_POST['fechaRecepcion ']))
-					$obj->setImpresionDigital($_POST['fechaRecepcion']);
+				if (isset($_POST['fechaRecepcion']))
+					$obj->setFechaRecepcion($_POST['fechaRecepcion']);
 					
 				if (isset($_POST['entregaCliente']))
-					$obj->setImpresionDigital($_POST['entregaCliente']);
+					$obj->setEntregaCliente($_POST['entregaCliente']);
+					
+				if (isset($_POST['notas']))
+					$obj->setNotas($_POST['notas']);
 				
 				echo json_encode(array("band" => $obj->guardar()));
 			break;

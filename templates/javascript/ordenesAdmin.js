@@ -15,66 +15,7 @@ $(document).ready(function(){
 			
 			$("#dvLista").find("[action=detalle]").click(function(){
 				$("#winOrden").modal();
-				var el = jQuery.parseJSON($(this).attr("datos"));
-				var idOrden =  el.idOrden;
-				$.post("detalleOrden", {
-					"orden": el.idOrden
-				}, function( data ) {
-					var plantilla = $("#winOrden");
-					plantilla.find(".modal-body").html(data);
-					
-					plantilla.find("#tblDatos").find("tbody tr").click(function(){
-						var el = $(this);
-						$("input[campo=area]").val(el.attr("area"));
-						$("input[campo=clave]").val(el.attr("clave"));
-						$("input[campo=elaboracion]").val(el.attr("elaboracion"));
-						$("input[campo=cantidad]").val(el.attr("cantidad"));
-						$("input[campo=descripcion]").val(el.attr("descripcion"));
-						$("#winOrden").find("input[campo=observaciones]").val(el.attr("observaciones"));
-					});
-					
-					plantilla.find("#selEstadoOrden").change(function(){
-						var orden = new TOrden;
-						
-						orden.guardar(idOrden, plantilla.find("#selEstadoOrden").val(), {
-							before: function(){
-								plantilla.find("#selEstadoOrden").prop("disabled", true);
-							},
-							after: function(resp){
-								plantilla.find("#selEstadoOrden").prop("disabled", false);
-								
-								if (resp.band)
-									getLista();
-								else
-									alert("El cambio de estado de la orden no pudo ser realizado");
-							}
-						});
-					});
-					
-					plantilla.find("#btnGuardar").click(function(){
-						if ($("input[campo=clave]").val() == '')
-							alert("Selecciona un artículo de la lista");
-						else{
-							var movimiento = new TMovimiento;
-							var elementos = ['txtNotas', "txtFechaImpresion", "envio", "txtFechaHora", "txtNotasSucursales"];
-							
-							movimiento.guardar(idOrden, $("input[campo=clave]").val(), $("#txtNotas").val(), $("#txtFechaImpresion").val(), $("#txtFechaEnvio").val(), $("#txtFechaEnvio").val(), $("#txtNotasSucursales").val(), {
-								before: function(){
-									$.each(elementos, function(i, el){
-										$(el).prop("disabled", true);
-									});
-								}, after: function(resp){
-									$.each(elementos, function(i, el){
-										$(el).prop("disabled", false);
-									});
-									
-									if (!resp.band)
-										alert("No se pudo guardar el cambio");
-								}
-							});
-						}
-					});
-				});
+				getOrden(jQuery.parseJSON($(this).attr("datos")));
 			});
 			
 			$("#tblDatos").DataTable({
@@ -89,5 +30,124 @@ $(document).ready(function(){
 			
 			$("#frmBuscar").find("[type=submit]").prop("disabled", false);
 		});
+		
+		
+		function getOrden(el){
+			var idOrden =  el.idOrden;
+			$("#winOrden").find(".modal-body").html("Por favor espera mientras obtenemos los datos...");
+			$.post("detalleOrden", {
+				"orden": el.idOrden
+			}, function( data ) {
+				var plantilla = $("#winOrden");
+				plantilla.find(".modal-body").html(data);
+				plantilla.find("#txtFechaImpresion").datepicker("option", "dateFormat", "yyyy-mm-dd");
+				plantilla.find("#txtFechaEnvio").datepicker("option", "dateFormat", "yyyy-mm-dd");
+				
+				plantilla.find("#txtHoraEnvio").inputmask("99:99");
+				
+				plantilla.find("#tblDatos").find("tbody tr").click(function(){
+					var el = $(this);
+					$("input[campo=area]").val(el.attr("area"));
+					$("input[campo=clave]").val(el.attr("clave"));
+					$("input[campo=elaboracion]").val(el.attr("elaboracion"));
+					$("input[campo=cantidad]").val(el.attr("cantidad"));
+					$("input[campo=descripcion]").val(el.attr("descripcion"));
+					$("#winOrden").find("input[campo=observaciones]").val(el.attr("observaciones"));
+					
+					//notasSucursales, impresionDigital, disenador, fechaImpresion, notasProduccion, claveImpresion, fechaEnvio, horaEnvio, fechaRecepcion, entregaCliente, notas
+					plantilla.find("#txtNotasSucursales").val(el.attr("notasucursales"));
+					plantilla.find("#txtImpresionDigital").val(el.attr("impresionDigital"));
+					plantilla.find("#txtDisenador").val(el.attr("disenador"));
+					plantilla.find("#txtFechaImpresion").val(el.attr("fechaImpresion"));
+					plantilla.find("#txtNotasProduccion").val(el.attr("notasProduccion"));
+					plantilla.find("#txtClaveImpresior").val(el.attr("claveImpresior"));
+					plantilla.find("#txtFechaEnvio").val(el.attr("fechaenvio"));
+					plantilla.find("#txtHoraEnvio").val(el.attr("horaenvio"));
+					
+					if (plantilla.find("#txtFechaEnvio").val() != '')
+						plantilla.find("#chkEnvio").prop("checked", true);
+					else
+						plantilla.find("#chkEnvio").prop("checked", false);
+					
+					plantilla.find("#txtFechaRecepcion").val(el.attr("fechaRecepcion"));
+					plantilla.find("#txtEntregaCliente").val(el.attr("entregaCliente"));
+					plantilla.find("#txtNotas").val(el.attr("notas"));
+				});
+				
+				plantilla.find("#chkEnvio").change(function(){
+					if ($(this).is(":checked")){
+						var f = new Date();
+						mes = (f.getMonth()+1 < 10)?("0" + (f.getMonth() +1)):(f.getMonth() +1);
+						dia = (f.getDate() < 10)?("0" + f.getDate()):f.getDate();
+						
+						minutos = (f.getMinutes() < 10)?("0" + f.getMinutes()):f.getMinutes();
+						horas = (f.getHours() < 10)?("0" + f.getHours()):f.getHours();
+						
+						plantilla.find("#txtFechaEnvio").val(f.getFullYear() + "-" + mes + "-" + dia);
+						plantilla.find("#txtHoraEnvio").val(horas + ":" + minutos);
+					}
+				});
+				
+				plantilla.find("#selEstadoOrden").change(function(){
+					var orden = new TOrden;
+					
+					orden.guardar(idOrden, plantilla.find("#selEstadoOrden").val(), {
+						before: function(){
+							plantilla.find("#selEstadoOrden").prop("disabled", true);
+						},
+						after: function(resp){
+							plantilla.find("#selEstadoOrden").prop("disabled", false);
+							
+							if (resp.band)
+								getLista();
+							else
+								alert("El cambio de estado de la orden no pudo ser realizado");
+						}
+					});
+				});
+				
+				plantilla.find("#btnGuardar").click(function(){
+					if ($("input[campo=clave]").val() == '')
+						alert("Selecciona un artículo de la lista");
+					else{
+						var movimiento = new TMovimiento;
+						var elementos = ['txtNotas', "txtFechaImpresion", "envio", "txtFechaHora", "txtNotasSucursales", "btnGuardar"];
+						
+						//notasSucursales, impresionDigital, disenador, fechaImpresion, notasProduccion, claveImpresion, fechaEnvio, horaEnvio, fechaRecepcion, entregaCliente, notas, fn){
+						
+						movimiento.guardar(idOrden, 
+							$("input[campo=clave]").val(), 
+							$("#txtNotasSucursales").val(),
+							"", //impresionDigital, 
+							"", //disenador 
+							$("#txtFechaImpresion").val(), 
+							$("#txtNotasProduccion").val(), 
+							"", //claveImpresion, 
+							$("#txtFechaEnvio").val(), 
+							$("#txtHoraEnvio").val(), 
+							"", //fechaRecepcion, 
+							"", //entregaCliente, 
+							$("#txtNotas").val(), {
+								before: function(){
+									$.each(elementos, function(i, el){
+										$(el).prop("disabled", true);
+									});
+								}, after: function(resp){
+									$.each(elementos, function(i, el){
+										$(el).prop("disabled", false);
+									});
+									
+									if (resp.band){
+										getOrden(el)
+										alert("Orden guardada");
+									}else
+										alert("No se pudo guardar el cambio");
+								}
+							}
+						);
+					}
+				});
+			});
+		}
 	}
 });

@@ -78,6 +78,23 @@
 					cantidad="{$row->getCantidad()}"
 					elaboracion="{$orden->getElaboracion()}"
 					observaciones="{$row->getObservaciones()}"
+					
+					idArea="{$row->area->getId()}"
+					fecha="{$row->getFecha()}"
+					notasucursales="{$row->getNotasSucursales()}"
+					impresiondigital="{$row->getImpresionDigital()}"
+					disenador="{$row->getDisenador()}"
+					fechaimpresion="{$row->getFechaImpresion()}"
+					notasproduccion="{$row->getNotasProduccion()}"
+					claveimpresor="{$row->getClaveImpresor()}"
+					nombreimpresor="{$row->getNombreImpresor()}"
+					fechaenvio="{$row->getFechaEnvio()}"
+					horaenvio="{$row->getHoraEnvio()}"
+					envio="{$row->getEnvio()}"
+					fecharecepcion="{$row->getFechaRecepcion()}"
+					entregacliente="{$row->getEntregaCliente()}"
+					notas="{$row->getNotas()}"
+					
 				>
 					<td>{$row->getClave()}</td>
 					<td>{$row->getDescripcion()}</td>
@@ -162,28 +179,28 @@
 				<b>Impresion</b>
 			</div>
 			<div class="col-md-3">
-				<input class="form-control" value="" campo="fechaImpresion" id="txtFechaImpresion"/>
+				<input class="form-control" value="" placeholder="YYYY-MM-DD" readonly="" campo="fechaImpresion" id="txtFechaImpresion"/>
 			</div>
 		</div>
 		<br />
 		<div class="row">
 			<div class="col-md-2 col-md-offset-2">
-						<input type="checkbox" id="envio"> <b>Envio</b>
+						<input type="checkbox" id="chkEnvio" value="Si"> <b>Envio</b>
 			</div>
 			<div class="col-md-3">
 				<b>Fecha y hora</b>
 			</div>
 			<div class="col-md-3">
-				<input class="form-control" value="" readonly disabled campo="fechaenvio" id="txtFecha"/>
+				<input class="form-control" value="" placeholder="YYYY-MM-DD" readonly campo="fechaenvio" id="txtFechaEnvio"/>
 			</div>
 			<div class="col-md-2">
-				<input class="form-control" value="" readonly disabled campo="horaenvio" id="txtHora"/>
+				<input class="form-control" value="" campo="horaenvio" id="txtHoraEnvio"/>
 			</div>
 		</div>
 	</div>
 	<div class="col-md-4">
 		<b>Notas de produccion</b>
-		<textarea campo="notasProduccion" class="form-control" rows="4"></textarea>
+		<textarea campo="notasProduccion" class="form-control" rows="4" id="txtNotasProduccion"></textarea>
 	</div>
 </div>
 <hr />

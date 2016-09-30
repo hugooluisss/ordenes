@@ -14,6 +14,16 @@ class TMovimiento{
 	private $observaciones;
 	private $importe;
 	private $fecha;
+	######
+	private $notassucursales;
+	private $impresiondigital;
+	private $disenador;
+	private $fechaimpresion;
+	private $notasproduccion;
+	private $claveimpresor;
+	private $nombreimpresor;
+	private $fechaenvio;
+	private $horaenvio;
 	
 	/**
 	* Constructor de la clase
@@ -223,6 +233,240 @@ class TMovimiento{
 	
 	public function getFecha(){
 		return $this->fecha == ''?date("Y-m-d H:i:s"):$this->fecha;
+	}
+	
+	/**
+	* Establece las notas de sucursales
+	*
+	* @autor Hugo
+	* @access public
+	* @param string $val Valor
+	* @return boolean True si se realizó sin problemas
+	*/
+	
+	public function setNotasSucursales($val = ''){
+		$this->notassucursales = $val;
+		return true;
+	}
+	
+	/**
+	* Retorna lcas notas en sucursales
+	*
+	* @autor Hugo
+	* @access public
+	* @return string notas
+	*/
+	
+	public function getNostasSucursales(){
+		return $this->notasSucursales;
+	}
+	
+	/**
+	* Establece la impresión digital
+	*
+	* @autor Hugo
+	* @access public
+	* @param string $val Valor
+	* @return boolean True si se realizó sin problemas
+	*/
+	
+	public function setImpresionDigital($val = ''){
+		$this->impresiondigital = $val;
+		return true;
+	}
+	
+	/**
+	* Retorna el dato de impresiondigital
+	*
+	* @autor Hugo
+	* @access public
+	* @return string Dato
+	*/
+	
+	public function getImpresionDigital(){
+		return $this->impresiondigital;
+	}
+	
+	/**
+	* Establece el nombre del diseñador
+	*
+	* @autor Hugo
+	* @access public
+	* @param string $val Valor
+	* @return boolean True si se realizó sin problemas
+	*/
+	
+	public function setDisenador($val = ''){
+		$this->disenador = $val;
+		return true;
+	}
+	
+	/**
+	* Retorna el nombre del diseñador
+	*
+	* @autor Hugo
+	* @access public
+	* @return string Dato
+	*/
+	
+	public function getDisenador(){
+		return $this->disenador;
+	}
+	
+	/**
+	* Establece la fecha de impresión
+	*
+	* @autor Hugo
+	* @access public
+	* @param string $val Valor
+	* @return boolean True si se realizó sin problemas
+	*/
+	
+	public function setFechaImpresion($val = ''){
+		$this->fechaimpresion = $val;
+		return true;
+	}
+	
+	/**
+	* Retorna la fecha de impresion
+	*
+	* @autor Hugo
+	* @access public
+	* @return string Dato
+	*/
+	
+	public function getFechaImpresion(){
+		return $this->fechaimpresion;
+	}
+	
+	/**
+	* Establece las notas de produccion
+	*
+	* @autor Hugo
+	* @access public
+	* @param string $val Valor
+	* @return boolean True si se realizó sin problemas
+	*/
+	
+	public function setNotasProduccion($val = ''){
+		$this->notasproduccion = $val;
+		return true;
+	}
+	
+	/**
+	* Retorna las notas de produccion
+	*
+	* @autor Hugo
+	* @access public
+	* @return string Dato
+	*/
+	
+	public function getNotasProduccion(){
+		return $this->notasProduccion;
+	}
+	
+	/**
+	* Establece la clave de impresor
+	*
+	* @autor Hugo
+	* @access public
+	* @param string $val Valor
+	* @return boolean True si se realizó sin problemas
+	*/
+	
+	public function setClaveImpresor($val = ''){
+		$this->claveimpresor = $val;
+		return true;
+	}
+	
+	/**
+	* Retorna el dato de impresiondigital
+	*
+	* @autor Hugo
+	* @access public
+	* @return string Dato
+	*/
+	
+	public function getClaveImpresor(){
+		return $this->claveimpresor;
+	}
+	
+	/**
+	* Establece la impresión digital
+	*
+	* @autor Hugo
+	* @access public
+	* @param string $val Valor
+	* @return boolean True si se realizó sin problemas
+	*/
+	
+	public function setImpresionDigital($val = ''){
+		$this->impresiondigital = $val;
+		return true;
+	}
+	
+	/**
+	* Retorna del impresor
+	*
+	* @autor Hugo
+	* @access public
+	* @return string Dato
+	*/
+	
+	public function getNombreImpresor(){
+		return $this->nombreimpresor;
+	}
+	
+	/**
+	* Establece la fecha de envio
+	*
+	* @autor Hugo
+	* @access public
+	* @param string $val Valor
+	* @return boolean True si se realizó sin problemas
+	*/
+	
+	public function setFechaEnvio($val = ''){
+		$this->fechaenvio = $val;
+		return true;
+	}
+	
+	/**
+	* Retorna la fecha de envio
+	*
+	* @autor Hugo
+	* @access public
+	* @return string Dato
+	*/
+	
+	public function getFechaEnvio(){
+		return $this->fechaenvio;
+	}
+	
+	/**
+	* Establece la hora de envio
+	*
+	* @autor Hugo
+	* @access public
+	* @param string $val Valor
+	* @return boolean True si se realizó sin problemas
+	*/
+	
+	public function setHoraEnvio($val = ''){
+		$this->horaenvio = $val;
+		return true;
+	}
+	
+	/**
+	* Retorna la hora de envio
+	*
+	* @autor Hugo
+	* @access public
+	* @return string Dato
+	*/
+	
+	public function getHoraEnvio(){
+		return $this->horaenvio;
 	}
 	
 	/**

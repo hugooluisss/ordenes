@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-09-30 10:55:45
+<?php /* Smarty version Smarty-3.1.11, created on 2016-09-30 11:48:05
          compiled from "templates/plantillas/modulos/ordenes/orden.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:37653668957ed5428b69e99-41372028%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '4ad22c36e315fd478176ee260b73945a2f61c17e' => 
     array (
       0 => 'templates/plantillas/modulos/ordenes/orden.tpl',
-      1 => 1475250862,
+      1 => 1475254010,
       2 => 'file',
     ),
   ),
@@ -226,14 +226,17 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 		</div>
 		<br />
 		<div class="row">
-			<div class="col-md-4 col-md-offset-2">
+			<div class="col-md-2 col-md-offset-2">
 						<input type="checkbox" id="envio"> <b>Envio</b>
 			</div>
 			<div class="col-md-3">
 				<b>Fecha y hora</b>
 			</div>
 			<div class="col-md-3">
-				<input class="form-control" value="" readonly disabled campo="fechaHora" id="txtFechaHora"/>
+				<input class="form-control" value="" readonly disabled campo="fechaenvio" id="txtFecha"/>
+			</div>
+			<div class="col-md-2">
+				<input class="form-control" value="" readonly disabled campo="horaenvio" id="txtHora"/>
 			</div>
 		</div>
 	</div>
@@ -242,4 +245,9 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 		<textarea campo="notasProduccion" class="form-control" rows="4"></textarea>
 	</div>
 </div>
-<hr /><?php }} ?>
+<hr />
+<div class="row">
+	<div class="col-md-12">
+		<button class="btn btn-success pull-right" id="btnGuardar">Guardar</button>
+	</div>
+</div><?php }} ?>

@@ -24,6 +24,10 @@ class TMovimiento{
 	private $nombreimpresor;
 	private $fechaenvio;
 	private $horaenvio;
+	private $envio;
+	private $fecharecepcion;
+	private $entregacliente;
+	private $notas;
 	
 	/**
 	* Constructor de la clase
@@ -470,6 +474,110 @@ class TMovimiento{
 	}
 	
 	/**
+	* Establece si se envio o no
+	*
+	* @autor Hugo
+	* @access public
+	* @param string $val Valor
+	* @return boolean True si se realizó sin problemas
+	*/
+	
+	public function setEnvio($val = ''){
+		$this->envio = $val;
+		return true;
+	}
+	
+	/**
+	* Retorna la hora de envio
+	*
+	* @autor Hugo
+	* @access public
+	* @return string Dato
+	*/
+	
+	public function getEnvio(){
+		return $this->envio;
+	}
+	
+	/**
+	* Establece la fecha de recepcion
+	*
+	* @autor Hugo
+	* @access public
+	* @param string $val Valor
+	* @return boolean True si se realizó sin problemas
+	*/
+	
+	public function setFechaRecepcion($val = ''){
+		$this->fecharecepcion = $val;
+		return true;
+	}
+	
+	/**
+	* Retorna la fecha de recepcion
+	*
+	* @autor Hugo
+	* @access public
+	* @return string Dato
+	*/
+	
+	public function getFechaRecepcion(){
+		return $this->fecharecepcion;
+	}
+	
+	/**
+	* Establece si se entregó al cliente
+	*
+	* @autor Hugo
+	* @access public
+	* @param string $val Valor
+	* @return boolean True si se realizó sin problemas
+	*/
+	
+	public function setEntregaCliente($val = ''){
+		$this->entregacliente = $val;
+		return true;
+	}
+	
+	/**
+	* Retorna si se entrego o no al cliente
+	*
+	* @autor Hugo
+	* @access public
+	* @return string Dato
+	*/
+	
+	public function getEntregaCliente(){
+		return $this->entregaCliente;
+	}
+	
+	/**
+	* Establece las notas
+	*
+	* @autor Hugo
+	* @access public
+	* @param string $val Valor
+	* @return boolean True si se realizó sin problemas
+	*/
+	
+	public function setNotas($val = ''){
+		$this->notas = $val;
+		return true;
+	}
+	
+	/**
+	* Retorna las notas
+	*
+	* @autor Hugo
+	* @access public
+	* @return string Dato
+	*/
+	
+	public function getNotas(){
+		return $this->notas;
+	}
+	
+	/**
 	* Guarda los datos en la base de datos
 	*
 	* @autor Hugo
@@ -479,8 +587,23 @@ class TMovimiento{
 	
 	public function guardar(){
 		$db = TBase::conectaDB();
-		
-		$rs = $db->Execute("INSERT INTO movimiento(idOrden, idArea, clave, descripcion, cantidad, observaciones, importe, fecha) VALUES(".$this->getOrden().", ".$this->area->getId().", '".$this->getClave()."', '".$this->getDescripcion()."', ".$this->getCantidad().", '".$this->getObservaciones()."', ".$this->getImporte().", now());");
+		$rs = $db->Execute("select idOrden from movimiento where idOrden = ".$this->getOrden()." and clave = '".$this->getClave()."'");
+		if ($fs->EOF){
+			$rs = $db->Execute("INSERT INTO movimiento(idOrden, idArea, clave, descripcion, cantidad, observaciones, importe, fecha) VALUES(".$this->getOrden().", ".$this->area->getId().", '".$this->getClave()."', '".$this->getDescripcion()."', ".$this->getCantidad().", '".$this->getObservaciones()."', ".$this->getImporte().", now());");
+		}else
+			$rs = $db->Execute("update movimiento set
+				notassucusales = '".$this->getNotasSucursales()."',
+				impresiondigital = '".$this->getImpresionDigital()."',
+				disenador = '".$this->getDisenador()."',
+				fechaimpresion = '".$this->getFechaImpresion()."',
+				notasproduccion = '".$this->getNotasProduccion()."',
+				claveimpresor = '".$this->getClaveImpresion()."',
+				fechaenvio = '".$this->getFechaEnvio()."',
+				horaEnvio = '".$this->getHoraEnvio()."',
+				fecharecepcion = '".$this->getFechaRecepcion()."',
+				entregacliente = '".$this->getEntreCliente()."'
+				notas = '".$this->getNotas()."'
+			where idOrden = ".$this->getOrden()." and clave = '".$this->getClave()."'");
 		
 		return $rs?true:false;
 	}

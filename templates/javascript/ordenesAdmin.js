@@ -50,11 +50,29 @@ $(document).ready(function(){
 							}
 						});
 					});
-					var elementos = ['txtNotas', "txtFechaImpresion", "envio", "txtFechaHora", "txtNotasSucursales"];
-					$.each(['txtNotas', "txtFechaImpresion", "envio", "txtFechaHora", "txtNotasSucursales", "txtFechaHora"], function(i, objeto){
-						$("#" + objeto).change(function(){
+					
+					plantilla.find("#btnGuardar").click(function(){
+						if ($("input[campo=clave]").val() == '')
+							alert("Selecciona un artículo de la lista");
+						else{
+							var movimiento = new TMovimiento;
+							var elementos = ['txtNotas', "txtFechaImpresion", "envio", "txtFechaHora", "txtNotasSucursales"];
 							
-						});
+							movimiento.guardar(idOrden, $("input[campo=clave]").val(), $("#txtNotas").val(), $("#txtFechaImpresion").val(), $("#txtFechaEnvio").val(), $("#txtFechaEnvio").val(), $("#txtNotasSucursales").val(), {
+								before: function(){
+									$.each(elementos, function(i, el){
+										$(el).prop("disabled", true);
+									});
+								}, after: function(resp){
+									$.each(elementos, function(i, el){
+										$(el).prop("disabled", false);
+									});
+									
+									if (!resp.band)
+										alert("No se pudo guardar el cambio");
+								}
+							});
+						}
 					});
 				});
 			});

@@ -210,7 +210,7 @@ $conf['listaOrdenesAdmin'] = array(
 	'vista' => 'ordenes/panelAdmin.tpl',
 	'descripcion' => 'Ordenes',
 	'seguridad' => true,
-	'js' => array('orden.class.js'),
+	'js' => array('orden.class.js', "movimiento.class.js"),
 	'jsTemplate' => array('ordenesAdmin.js'),
 	'capa' => LAYOUT_DEFECTO);
 	
@@ -231,5 +231,11 @@ $conf['detalleOrden'] = array(
 	'controlador' => 'ordenes.php',
 	'vista' => 'ordenes/orden.tpl',
 	'descripcion' => 'Detalle de la orden',
+	'seguridad' => true,
+	'capa' => LAYOUT_AJAX);
+	
+$conf['cmovimientos'] = array(
+	'controlador' => 'movimientos.php',
+	'descripcion' => 'Controlador de movimientos',
 	'seguridad' => true,
 	'capa' => LAYOUT_AJAX);

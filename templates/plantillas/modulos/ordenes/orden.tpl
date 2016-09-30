@@ -167,14 +167,17 @@
 		</div>
 		<br />
 		<div class="row">
-			<div class="col-md-4 col-md-offset-2">
+			<div class="col-md-2 col-md-offset-2">
 						<input type="checkbox" id="envio"> <b>Envio</b>
 			</div>
 			<div class="col-md-3">
 				<b>Fecha y hora</b>
 			</div>
 			<div class="col-md-3">
-				<input class="form-control" value="" readonly disabled campo="fechaHora" id="txtFechaHora"/>
+				<input class="form-control" value="" readonly disabled campo="fechaenvio" id="txtFecha"/>
+			</div>
+			<div class="col-md-2">
+				<input class="form-control" value="" readonly disabled campo="horaenvio" id="txtHora"/>
 			</div>
 		</div>
 	</div>
@@ -184,3 +187,8 @@
 	</div>
 </div>
 <hr />
+<div class="row">
+	<div class="col-md-12">
+		<button class="btn btn-success pull-right" id="btnGuardar">Guardar</button>
+	</div>
+</div>

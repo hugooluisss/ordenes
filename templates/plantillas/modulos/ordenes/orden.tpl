@@ -9,7 +9,7 @@
 	</div>
 	<div class="col-md-4">
 		<b>Estado</b><br /><br />
-		<select id="selEstado" name="selEstado" class="form-control">
+		<select id="selEstadoOrden" name="selEstadoOrden" class="form-control">
 			{foreach key=key item=item from=$estados}
 				<option value="{$item.idEstado}" {if $orden->estado->getId() eq $item.idEstado}selected{/if}>{$item.nombre}</option>
 			{/foreach}
@@ -138,3 +138,49 @@
 		<input class="form-control" value="" readonly disabled campo="observaciones"/>
 	</div>
 </div>
+
+<hr />
+<div class="row">
+	<div class="col-md-2">
+		<b>Notas sucursales</b>
+	</div>
+	<div class="col-md-10">
+		<textarea campo="notasSucursales" class="form-control" id="txtNotasSucursales"></textarea>
+	</div>
+</div>
+<hr />
+<div class="row">
+	<div class="col-md-8">
+		<div class="row">
+			<div class="col-md-3">
+				<b>Observaciones</b>
+			</div>
+			<div class="col-md-4">
+				<input class="form-control text-right" value="" campo="notas" id="txtNotas"/>
+			</div>
+			<div class="col-md-2">
+				<b>Impresion</b>
+			</div>
+			<div class="col-md-3">
+				<input class="form-control" value="" campo="fechaImpresion" id="txtFechaImpresion"/>
+			</div>
+		</div>
+		<br />
+		<div class="row">
+			<div class="col-md-4 col-md-offset-2">
+						<input type="checkbox" id="envio"> <b>Envio</b>
+			</div>
+			<div class="col-md-3">
+				<b>Fecha y hora</b>
+			</div>
+			<div class="col-md-3">
+				<input class="form-control" value="" readonly disabled campo="fechaHora" id="txtFechaHora"/>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<b>Notas de produccion</b>
+		<textarea campo="notasProduccion" class="form-control" rows="4"></textarea>
+	</div>
+</div>
+<hr />

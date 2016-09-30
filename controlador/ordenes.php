@@ -126,6 +126,12 @@ switch($objModulo->getId()){
 	break;
 	case 'cordenes':
 		switch($objModulo->getAction()){
+			case 'guardar':
+				$obj = new TOrden($_POST['id']);
+				$obj->estado->setId($_POST['estado']);
+				
+				echo json_encode(array("band" => $obj->guardar()));
+			break;
 			case 'uploadfile':
 				if(isset($_FILES['upl']) && $_FILES['upl']['error'] == 0){
 					$ext = explode(".", $_FILES['upl']['name']);

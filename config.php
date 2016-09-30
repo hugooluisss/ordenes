@@ -210,7 +210,7 @@ $conf['listaOrdenesAdmin'] = array(
 	'vista' => 'ordenes/panelAdmin.tpl',
 	'descripcion' => 'Ordenes',
 	'seguridad' => true,
-	#'js' => array('vendedor.class.js'),
+	'js' => array('orden.class.js'),
 	'jsTemplate' => array('ordenesAdmin.js'),
 	'capa' => LAYOUT_DEFECTO);
 	

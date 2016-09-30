@@ -400,7 +400,7 @@ class TMovimiento{
 	* @return boolean True si se realizó sin problemas
 	*/
 	
-	public function setImpresionDigital($val = ''){
+	public function setNombreImpresor($val = ''){
 		$this->impresiondigital = $val;
 		return true;
 	}

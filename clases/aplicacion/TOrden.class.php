@@ -214,10 +214,7 @@ class TOrden{
 			
 		$rs = $db->Execute("UPDATE orden
 			SET
-				idEstado = ".$this->estado->getId().",
-				cliente = '".$this->getCliente()."',
-				elaboracion = '".$this->getElaboracion()."',
-				registro = now()
+				idEstado = ".$this->estado->getId()."
 			WHERE idOrden = ".$this->getId());
 			
 		return $rs?true:false;

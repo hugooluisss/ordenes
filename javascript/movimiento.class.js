@@ -1,12 +1,16 @@
-TOrden = function(){
+TMovimiento = function(){
 	var self = this;
-	
-	this.guardar = function(id,	estado, fn){
+	this.guardar = function(orden, clave, notas, fechaImpresion, envio, fechaHora, notasSucursales, fn){
 		if (fn.before !== undefined) fn.before();
 		
-		$.post('cordenes', {
-				"id": id,
-				"estado": estado,
+		$.post('cmovimientos', {
+				"orden": orden,
+				"clave": clave,
+				"notas": notas,
+				"fechaImpresion": fechaImpresion,
+				"envio": envio,
+				"fechaHora": fechaHora,
+				"notasSucursales": notasSucursales,
 				"action": "guardar"
 			}, function(data){
 				if (data.band == 'false')

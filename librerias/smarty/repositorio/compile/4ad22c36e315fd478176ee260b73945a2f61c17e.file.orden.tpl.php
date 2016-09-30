@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-09-29 22:52:13
+<?php /* Smarty version Smarty-3.1.11, created on 2016-09-30 10:55:45
          compiled from "templates/plantillas/modulos/ordenes/orden.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:37653668957ed5428b69e99-41372028%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '4ad22c36e315fd478176ee260b73945a2f61c17e' => 
     array (
       0 => 'templates/plantillas/modulos/ordenes/orden.tpl',
-      1 => 1475207530,
+      1 => 1475250862,
       2 => 'file',
     ),
   ),
@@ -39,7 +39,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 	</div>
 	<div class="col-md-4">
 		<b>Estado</b><br /><br />
-		<select id="selEstado" name="selEstado" class="form-control">
+		<select id="selEstadoOrden" name="selEstadoOrden" class="form-control">
 			<?php  $_smarty_tpl->tpl_vars['item'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['item']->_loop = false;
  $_smarty_tpl->tpl_vars['key'] = new Smarty_Variable;
  $_from = $_smarty_tpl->tpl_vars['estados']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
@@ -196,4 +196,50 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 	<div class="col-md-6">
 		<input class="form-control" value="" readonly disabled campo="observaciones"/>
 	</div>
-</div><?php }} ?>
+</div>
+
+<hr />
+<div class="row">
+	<div class="col-md-2">
+		<b>Notas sucursales</b>
+	</div>
+	<div class="col-md-10">
+		<textarea campo="notasSucursales" class="form-control" id="txtNotasSucursales"></textarea>
+	</div>
+</div>
+<hr />
+<div class="row">
+	<div class="col-md-8">
+		<div class="row">
+			<div class="col-md-3">
+				<b>Observaciones</b>
+			</div>
+			<div class="col-md-4">
+				<input class="form-control text-right" value="" campo="notas" id="txtNotas"/>
+			</div>
+			<div class="col-md-2">
+				<b>Impresion</b>
+			</div>
+			<div class="col-md-3">
+				<input class="form-control" value="" campo="fechaImpresion" id="txtFechaImpresion"/>
+			</div>
+		</div>
+		<br />
+		<div class="row">
+			<div class="col-md-4 col-md-offset-2">
+						<input type="checkbox" id="envio"> <b>Envio</b>
+			</div>
+			<div class="col-md-3">
+				<b>Fecha y hora</b>
+			</div>
+			<div class="col-md-3">
+				<input class="form-control" value="" readonly disabled campo="fechaHora" id="txtFechaHora"/>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<b>Notas de produccion</b>
+		<textarea campo="notasProduccion" class="form-control" rows="4"></textarea>
+	</div>
+</div>
+<hr /><?php }} ?>

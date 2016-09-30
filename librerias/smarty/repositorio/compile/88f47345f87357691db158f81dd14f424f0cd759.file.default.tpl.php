@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-09-29 12:39:54
+<?php /* Smarty version Smarty-3.1.11, created on 2016-09-29 22:31:07
          compiled from "templates/plantillas/layout/default.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:63036317557ebd07f226f67-52175711%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '88f47345f87357691db158f81dd14f424f0cd759' => 
     array (
       0 => 'templates/plantillas/layout/default.tpl',
-      1 => 1475170790,
+      1 => 1475206265,
       2 => 'file',
     ),
   ),
@@ -99,6 +99,10 @@ img/logoPanel.png" /></span>
 				<!-- Navbar Right Menu -->
 				<div class="navbar-custom-menu">
 					<ul class="nav navbar-nav">
+						<li class="nav-item">
+							<a class="nav-link" href="#"><?php echo date("Y-m-d");?>
+</a>
+						</li>
 						<li class="dropdown user user-menu">
 							<!-- Menu Toggle Button -->
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">

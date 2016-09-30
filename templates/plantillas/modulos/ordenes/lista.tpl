@@ -7,7 +7,7 @@
 					<th>Cliente</th>
 					<th>Vendedor</th>
 					<th>Sucursal</th>
-					<th>Importada</th>
+					<th>Fecha</th>
 					<th>Estado</th>
 					<th>&nbsp;</th>
 				</tr>
@@ -19,7 +19,7 @@
 						<td>{$row.cliente}</td>
 						<td>{$row.vendedor}</td>
 						<td>{$row.sucursal}</td>
-						<td>{$row.registro}</td>
+						<td {if $row.actual eq 1}class="text-danger"{/if}>{$row.registro}</td>
 						<td>{$row.estado}</td>
 						<td class="text-right">
 							<button type="button" class="btn btn-success" action="detalle" title="Detalle" datos='{$row.json}'><i class="fa fa-search"></i></button>

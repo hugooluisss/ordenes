@@ -98,7 +98,7 @@ switch($objModulo->getId()){
 		$sucursal = $userSesion->sucursal->getId();
 		$sucursal = $_POST['sucursal'] == ''?$sucursal:$_POST['sucursal'];
 
-		$rs = $db->Execute("select a.*, b.nombre as vendedor, c.nombre as sucursal, d.color as colorEstado, d.nombre as estado from orden a join vendedor b using(idVendedor) join sucursal c using(idSucursal) join estado d using(idEstado) where idSucursal = ".$sucursal);
+		$rs = $db->Execute("select a.*, b.nombre as vendedor, c.nombre as sucursal, d.color as colorEstado, d.nombre as estado, if(cast(registro as date) < cast(now() as date), 1, 0) as actual from orden a join vendedor b using(idVendedor) join sucursal c using(idSucursal) join estado d using(idEstado) where idSucursal = ".$sucursal);
 		$datos = array();
 		while(!$rs->EOF){
 			$rs->fields['json'] = json_encode($rs->fields);
@@ -113,6 +113,16 @@ switch($objModulo->getId()){
 		$orden = new TOrden($_POST['orden']);
 		
 		$smarty->assign("orden", $orden);
+		
+		$db = TBase::conectaDB();
+		$rs = $db->Execute("select * from estado");
+		$datos = array();
+		while(!$rs->EOF){
+			array_push($datos, $rs->fields);
+			$rs->moveNext();
+		}
+		
+		$smarty->assign("estados", $datos);
 	break;
 	case 'cordenes':
 		switch($objModulo->getAction()){

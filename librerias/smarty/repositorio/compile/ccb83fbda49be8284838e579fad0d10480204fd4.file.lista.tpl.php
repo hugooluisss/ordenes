@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-09-29 11:50:18
+<?php /* Smarty version Smarty-3.1.11, created on 2016-09-29 22:37:03
          compiled from "templates/plantillas/modulos/ordenes/lista.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:175045319657ed4124ae3436-41292219%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'ccb83fbda49be8284838e579fad0d10480204fd4' => 
     array (
       0 => 'templates/plantillas/modulos/ordenes/lista.tpl',
-      1 => 1475167814,
+      1 => 1475206620,
       2 => 'file',
     ),
   ),
@@ -33,7 +33,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 					<th>Cliente</th>
 					<th>Vendedor</th>
 					<th>Sucursal</th>
-					<th>Importada</th>
+					<th>Fecha</th>
 					<th>Estado</th>
 					<th>&nbsp;</th>
 				</tr>
@@ -54,7 +54,7 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 </td>
 						<td><?php echo $_smarty_tpl->tpl_vars['row']->value['sucursal'];?>
 </td>
-						<td><?php echo $_smarty_tpl->tpl_vars['row']->value['registro'];?>
+						<td <?php if ($_smarty_tpl->tpl_vars['row']->value['actual']==1){?>class="text-danger"<?php }?>><?php echo $_smarty_tpl->tpl_vars['row']->value['registro'];?>
 </td>
 						<td><?php echo $_smarty_tpl->tpl_vars['row']->value['estado'];?>
 </td>

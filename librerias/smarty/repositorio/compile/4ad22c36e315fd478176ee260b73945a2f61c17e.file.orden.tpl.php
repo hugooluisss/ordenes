@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-09-29 13:44:28
+<?php /* Smarty version Smarty-3.1.11, created on 2016-09-29 22:52:13
          compiled from "templates/plantillas/modulos/ordenes/orden.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:37653668957ed5428b69e99-41372028%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '4ad22c36e315fd478176ee260b73945a2f61c17e' => 
     array (
       0 => 'templates/plantillas/modulos/ordenes/orden.tpl',
-      1 => 1475174666,
+      1 => 1475207530,
       2 => 'file',
     ),
   ),
@@ -20,20 +20,38 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'variables' => 
   array (
     'orden' => 0,
+    'estados' => 0,
+    'item' => 0,
     'row' => 0,
   ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_57ed5428b8a3f6_58135594')) {function content_57ed5428b8a3f6_58135594($_smarty_tpl) {?><div class="row" style="margin-left: 10px;"> <!--style="border: 1px solid #3c8dbc; margin: 5px auto;" -->
-	<div class="col-xs-2 text-center" style="color: <?php echo $_smarty_tpl->tpl_vars['orden']->value->sucursal->getColor();?>
+	<div class="col-md-2 text-center" style="color: <?php echo $_smarty_tpl->tpl_vars['orden']->value->sucursal->getColor();?>
 ; background: #ecf0f5;">
 		<i class="fa fa-tag fa-5x" aria-hidden="true"></i>
 		<br />
 		<?php echo $_smarty_tpl->tpl_vars['orden']->value->sucursal->getnombre();?>
 
 	</div>
-	<div class="col-xs-10">
+	<div class="col-md-6">
 		<h1 style="color: #3c8dbc">Orden de servicio</h1>
+	</div>
+	<div class="col-md-4">
+		<b>Estado</b><br /><br />
+		<select id="selEstado" name="selEstado" class="form-control">
+			<?php  $_smarty_tpl->tpl_vars['item'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['item']->_loop = false;
+ $_smarty_tpl->tpl_vars['key'] = new Smarty_Variable;
+ $_from = $_smarty_tpl->tpl_vars['estados']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
+foreach ($_from as $_smarty_tpl->tpl_vars['item']->key => $_smarty_tpl->tpl_vars['item']->value){
+$_smarty_tpl->tpl_vars['item']->_loop = true;
+ $_smarty_tpl->tpl_vars['key']->value = $_smarty_tpl->tpl_vars['item']->key;
+?>
+				<option value="<?php echo $_smarty_tpl->tpl_vars['item']->value['idEstado'];?>
+" <?php if ($_smarty_tpl->tpl_vars['orden']->value->estado->getId()==$_smarty_tpl->tpl_vars['item']->value['idEstado']){?>selected<?php }?>><?php echo $_smarty_tpl->tpl_vars['item']->value['nombre'];?>
+</option>
+			<?php } ?>
+		</select>
 	</div>
 </div>
 <hr />
@@ -45,6 +63,16 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 		<input class="form-control text-right" value="<?php echo $_smarty_tpl->tpl_vars['orden']->value->getCodigo();?>
 " readonly disabled />
 	</div>
+	<div class="col-md-2 col-md-offset-3">
+		<b>Fecha y hora</b>
+	</div>
+	<div class="col-md-3">
+		<input class="form-control text-right" value="<?php echo $_smarty_tpl->tpl_vars['orden']->value->getRegistro();?>
+" readonly disabled />
+	</div>
+</div>
+<br />
+<div class="row">
 	<div class="col-md-2">
 		<b>Id Vendedor</b>
 	</div>
@@ -53,10 +81,10 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 " readonly disabled />
 	</div>
 	<div class="col-md-2">
-		<b>Fecha y hora</b>
+		<b>Nombre</b>
 	</div>
-	<div class="col-md-2">
-		<input class="form-control text-right" value="<?php echo $_smarty_tpl->tpl_vars['orden']->value->getRegistro();?>
+	<div class="col-md-6">
+		<input class="form-control" value="<?php echo $_smarty_tpl->tpl_vars['orden']->value->vendedor->getNombre();?>
 " readonly disabled />
 	</div>
 </div>
@@ -80,6 +108,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 					<th>Descripción</th>
 					<th>Importe</th>
 					<th>Área</th>
+					<th>Fecha</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -112,6 +141,8 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 </td>
 					<td class="text-center"><?php echo $_smarty_tpl->tpl_vars['row']->value->area->getNombre();?>
 </td>
+					<td><?php echo $_smarty_tpl->tpl_vars['row']->value->getFecha();?>
+</td>
 				</tr>
 				<?php } ?>
 			</tbody>
@@ -133,12 +164,14 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 	<div class="col-md-2">
 		<input class="form-control text-right" value="" readonly disabled campo="clave"/>
 	</div>
+	<!--
 	<div class="col-md-2">
 		<b>Fecha elaboración
 	</div>
 	<div class="col-md-2">
 		<input class="form-control text-right" value="" readonly disabled campo="elaboracion"/>
 	</div>
+	-->
 </div>
 <br />
 <div class="row">
@@ -160,7 +193,7 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 	<div class="col-md-2">
 		<b>Observaciones</b>
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-6">
 		<input class="form-control" value="" readonly disabled campo="observaciones"/>
 	</div>
 </div><?php }} ?>

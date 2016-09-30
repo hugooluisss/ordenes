@@ -1,11 +1,19 @@
 <div class="row" style="margin-left: 10px;"> <!--style="border: 1px solid #3c8dbc; margin: 5px auto;" -->
-	<div class="col-xs-2 text-center" style="color: {$orden->sucursal->getColor()}; background: #ecf0f5;">
+	<div class="col-md-2 text-center" style="color: {$orden->sucursal->getColor()}; background: #ecf0f5;">
 		<i class="fa fa-tag fa-5x" aria-hidden="true"></i>
 		<br />
 		{$orden->sucursal->getnombre()}
 	</div>
-	<div class="col-xs-10">
+	<div class="col-md-6">
 		<h1 style="color: #3c8dbc">Orden de servicio</h1>
+	</div>
+	<div class="col-md-4">
+		<b>Estado</b><br /><br />
+		<select id="selEstado" name="selEstado" class="form-control">
+			{foreach key=key item=item from=$estados}
+				<option value="{$item.idEstado}" {if $orden->estado->getId() eq $item.idEstado}selected{/if}>{$item.nombre}</option>
+			{/foreach}
+		</select>
 	</div>
 </div>
 <hr />
@@ -16,6 +24,15 @@
 	<div class="col-md-2">
 		<input class="form-control text-right" value="{$orden->getCodigo()}" readonly disabled />
 	</div>
+	<div class="col-md-2 col-md-offset-3">
+		<b>Fecha y hora</b>
+	</div>
+	<div class="col-md-3">
+		<input class="form-control text-right" value="{$orden->getRegistro()}" readonly disabled />
+	</div>
+</div>
+<br />
+<div class="row">
 	<div class="col-md-2">
 		<b>Id Vendedor</b>
 	</div>
@@ -23,10 +40,10 @@
 		<input class="form-control text-right" value="{$orden->vendedor->getClave()}" readonly disabled />
 	</div>
 	<div class="col-md-2">
-		<b>Fecha y hora</b>
+		<b>Nombre</b>
 	</div>
-	<div class="col-md-2">
-		<input class="form-control text-right" value="{$orden->getRegistro()}" readonly disabled />
+	<div class="col-md-6">
+		<input class="form-control" value="{$orden->vendedor->getNombre()}" readonly disabled />
 	</div>
 </div>
 <br />
@@ -48,6 +65,7 @@
 					<th>Descripción</th>
 					<th>Importe</th>
 					<th>Área</th>
+					<th>Fecha</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -65,6 +83,7 @@
 					<td>{$row->getDescripcion()}</td>
 					<td class="text-right">{$row->getImporte()}</td>
 					<td class="text-center">{$row->area->getNombre()}</td>
+					<td>{$row->getFecha()}</td>
 				</tr>
 				{/foreach}
 			</tbody>
@@ -86,12 +105,14 @@
 	<div class="col-md-2">
 		<input class="form-control text-right" value="" readonly disabled campo="clave"/>
 	</div>
+	<!--
 	<div class="col-md-2">
 		<b>Fecha elaboración
 	</div>
 	<div class="col-md-2">
 		<input class="form-control text-right" value="" readonly disabled campo="elaboracion"/>
 	</div>
+	-->
 </div>
 <br />
 <div class="row">
@@ -113,7 +134,7 @@
 	<div class="col-md-2">
 		<b>Observaciones</b>
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-6">
 		<input class="form-control" value="" readonly disabled campo="observaciones"/>
 	</div>
 </div>

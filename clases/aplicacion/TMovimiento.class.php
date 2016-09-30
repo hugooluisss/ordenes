@@ -13,6 +13,7 @@ class TMovimiento{
 	private $descripcion;
 	private $observaciones;
 	private $importe;
+	private $fecha;
 	
 	/**
 	* Constructor de la clase
@@ -213,6 +214,18 @@ class TMovimiento{
 	}
 	
 	/**
+	* Retorna la fecha de inserción en la BD
+	*
+	* @autor Hugo
+	* @access public
+	* @return date Fecha
+	*/
+	
+	public function getFecha(){
+		return $this->fecha == ''?date("Y-m-d H:i:s"):$this->fecha;
+	}
+	
+	/**
 	* Guarda los datos en la base de datos
 	*
 	* @autor Hugo
@@ -223,7 +236,7 @@ class TMovimiento{
 	public function guardar(){
 		$db = TBase::conectaDB();
 		
-		$rs = $db->Execute("INSERT INTO movimiento(idOrden, idArea, clave, descripcion, cantidad, observaciones, importe) VALUES(".$this->getOrden().", ".$this->area->getId().", '".$this->getClave()."', '".$this->getDescripcion()."', ".$this->getCantidad().", '".$this->getObservaciones()."', ".$this->getImporte().");");
+		$rs = $db->Execute("INSERT INTO movimiento(idOrden, idArea, clave, descripcion, cantidad, observaciones, importe, fecha) VALUES(".$this->getOrden().", ".$this->area->getId().", '".$this->getClave()."', '".$this->getDescripcion()."', ".$this->getCantidad().", '".$this->getObservaciones()."', ".$this->getImporte().", now());");
 		
 		return $rs?true:false;
 	}

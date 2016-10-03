@@ -10,6 +10,7 @@ define('STATUS', 'En desarrollo');
 define('LAYOUT_DEFECTO', 'layout/default.tpl');
 define('LAYOUT_AJAX', 'layout/update.tpl');
 define('LAYOUT_JSON', 'layout/json.tpl');
+define('LAYOUT_TOPNAV', 'layout/topnav.tpl');
 
 #Login y su controlador
 $conf['inicio'] = array(
@@ -239,3 +240,12 @@ $conf['cmovimientos'] = array(
 	'descripcion' => 'Controlador de movimientos',
 	'seguridad' => true,
 	'capa' => LAYOUT_AJAX);
+	
+$conf['archivosorden'] = array(
+	'controlador' => 'ordenes.php',
+	'vista' => 'ordenes/archivos.tpl',
+	'descripcion' => 'Ordenes',
+	'seguridad' => true,
+	#'js' => array('orden.class.js', "movimiento.class.js"),
+	'jsTemplate' => array('archivos.js'),
+	'capa' => LAYOUT_TOPNAV);

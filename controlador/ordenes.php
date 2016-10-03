@@ -123,6 +123,14 @@ switch($objModulo->getId()){
 		}
 		
 		$smarty->assign("estados", $datos);
+		
+		$smarty->assign("perfil", 2);
+	break;
+	case 'archivosorden':
+		$orden = new TOrden($_GET['orden']);
+		$smarty->assign("orden", $orden);
+		$movimiento = new TMovimiento($_GET['orden'], $_GET['clave']);
+		$smarty->assign("movimiento", $movimiento);
 	break;
 	case 'cordenes':
 		switch($objModulo->getAction()){

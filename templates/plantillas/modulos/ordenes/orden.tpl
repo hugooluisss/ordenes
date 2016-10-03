@@ -66,6 +66,9 @@
 					<th>Importe</th>
 					<th>Área</th>
 					<th>Fecha</th>
+					{if in_array($perfil, array(2))}
+						<th>&nbsp;</th>
+					{/if}
 				</tr>
 			</thead>
 			<tbody>
@@ -83,11 +86,11 @@
 					fecha="{$row->getFecha()}"
 					notasucursales="{$row->getNotasSucursales()}"
 					impresiondigital="{$row->getImpresionDigital()}"
-					disenador="{$row->getDisenador()}"
+					disenador="{if $row->getDisenador() eq ''}{$PAGE.usuario->getNombre()}{else}{$row->getDisenador()}{/if}"
 					fechaimpresion="{$row->getFechaImpresion()}"
 					notasproduccion="{$row->getNotasProduccion()}"
-					claveimpresor="{$row->getClaveImpresor()}"
-					nombreimpresor="{$row->getNombreImpresor()}"
+					claveimpresor="{if $row->getClaveImpresor() eq ''}{$PAGE.usuario->getClave()}{else}{$row->getClaveImpresor()}{/if}"
+					nombreimpresor="{if $row->getNombreImpresor() eq ''}{$PAGE.usuario->getNombre()}{else}{$row->getNombreImpresor()}{/if}"
 					fechaenvio="{$row->getFechaEnvio()}"
 					horaenvio="{$row->getHoraEnvio()}"
 					envio="{$row->getEnvio()}"
@@ -101,6 +104,11 @@
 					<td class="text-right">{$row->getImporte()}</td>
 					<td class="text-center">{$row->area->getNombre()}</td>
 					<td>{$row->getFecha()}</td>
+					{if in_array($perfil, array(2))}
+						<td class="text-center">
+							<a href="index.php?mod=archivosorden&orden={$row->getOrden()|escape:"url"}&clave={$row->getClave()|escape:"url"}" target="_blank"><i class="fa fa-paperclip" aria-hidden="true"></i></a>
+						</td>
+					{/if}
 				</tr>
 				{/foreach}
 			</tbody>
@@ -165,6 +173,18 @@
 		<textarea campo="notasSucursales" class="form-control" id="txtNotasSucursales"></textarea>
 	</div>
 </div>
+<br />
+<div class="row">
+	<div class="col-md-4">
+		<input type="checkbox" id="chkImpresionDigital" value="Si"> <b>Impresiones digitales</b>
+	</div>
+	<div class="col-md-2">
+		<b>Diseñador</b>
+	</div>
+	<div class="col-md-6">
+		<input class="form-control" value="" id="txtDisenador" />
+	</div>
+</div>
 <hr />
 <div class="row">
 	<div class="col-md-8">
@@ -173,7 +193,7 @@
 				<b>Observaciones</b>
 			</div>
 			<div class="col-md-4">
-				<input class="form-control text-right" value="" campo="notas" id="txtNotas"/>
+				<input class="form-control" value="" campo="notas" id="txtNotas"/>
 			</div>
 			<div class="col-md-2">
 				<b>Impresion</b>
@@ -184,8 +204,8 @@
 		</div>
 		<br />
 		<div class="row">
-			<div class="col-md-2 col-md-offset-2">
-						<input type="checkbox" id="chkEnvio" value="Si"> <b>Envio</b>
+			<div class="col-md-2 col-md-offset-1">
+				<input type="checkbox" id="chkEnvio" value="Si"> <b>Envio</b>
 			</div>
 			<div class="col-md-3">
 				<b>Fecha y hora</b>
@@ -193,14 +213,44 @@
 			<div class="col-md-3">
 				<input class="form-control" value="" placeholder="YYYY-MM-DD" readonly campo="fechaenvio" id="txtFechaEnvio"/>
 			</div>
-			<div class="col-md-2">
-				<input class="form-control" value="" campo="horaenvio" id="txtHoraEnvio"/>
+			<div class="col-md-3">
+				<select id="selHoraEnvio" class="form-control">
+					<option value="11:30:00">11:30</option>
+					<option value="17:30:00">17:30</option>
+				</select>
 			</div>
 		</div>
 	</div>
 	<div class="col-md-4">
 		<b>Notas de produccion</b>
 		<textarea campo="notasProduccion" class="form-control" rows="4" id="txtNotasProduccion"></textarea>
+	</div>
+</div>
+<br />
+<div class="row">
+	<div class="col-md-2">
+		<b>Impresor</b>
+	</div>
+	<div class="col-md-2">
+		<input class="form-control text-right" readonly disabled="true" id="txtClaveImpresor"/>
+	</div>
+	<div class="col-md-8">
+		<input class="form-control" readonly disabled="true" value="" id="txtNombreImpresor"/>
+	</div>
+</div>
+<hr />
+<div class="row">
+	<div class="col-md-3">
+		<b>Fecha de recepción</b>
+	</div>
+	<div class="col-md-3">
+		<input class="form-control text-right" readonly="true" value="" id="txtFechaRecepcion"/>
+	</div>
+	<div class="col-md-3">
+		<b>Entrega al cliente</b>
+	</div>
+	<div class="col-md-3">
+		<input class="form-control" readonly="true" value="" id="txtFechaEntregaCliente"/>
 	</div>
 </div>
 <hr />

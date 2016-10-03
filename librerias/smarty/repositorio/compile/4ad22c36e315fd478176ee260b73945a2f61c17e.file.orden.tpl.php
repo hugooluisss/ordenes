@@ -1,32 +1,34 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-09-30 13:58:19
+<?php /* Smarty version Smarty-3.1.11, created on 2016-10-02 20:07:18
          compiled from "templates/plantillas/modulos/ordenes/orden.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:37653668957ed5428b69e99-41372028%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:172903277857f1af46e41ba0-49069075%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '4ad22c36e315fd478176ee260b73945a2f61c17e' => 
     array (
       0 => 'templates/plantillas/modulos/ordenes/orden.tpl',
-      1 => 1475261706,
+      1 => 1475456834,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '37653668957ed5428b69e99-41372028',
+  'nocache_hash' => '172903277857f1af46e41ba0-49069075',
   'function' => 
   array (
   ),
-  'version' => 'Smarty-3.1.11',
-  'unifunc' => 'content_57ed5428b8a3f6_58135594',
   'variables' => 
   array (
     'orden' => 0,
     'estados' => 0,
     'item' => 0,
+    'perfil' => 0,
     'row' => 0,
+    'PAGE' => 0,
   ),
   'has_nocache_code' => false,
+  'version' => 'Smarty-3.1.11',
+  'unifunc' => 'content_57f1af4716db60_87376730',
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_57ed5428b8a3f6_58135594')) {function content_57ed5428b8a3f6_58135594($_smarty_tpl) {?><div class="row" style="margin-left: 10px;"> <!--style="border: 1px solid #3c8dbc; margin: 5px auto;" -->
+<?php if ($_valid && !is_callable('content_57f1af4716db60_87376730')) {function content_57f1af4716db60_87376730($_smarty_tpl) {?><div class="row" style="margin-left: 10px;"> <!--style="border: 1px solid #3c8dbc; margin: 5px auto;" -->
 	<div class="col-md-2 text-center" style="color: <?php echo $_smarty_tpl->tpl_vars['orden']->value->sucursal->getColor();?>
 ; background: #ecf0f5;">
 		<i class="fa fa-tag fa-5x" aria-hidden="true"></i>
@@ -109,6 +111,9 @@ $_smarty_tpl->tpl_vars['item']->_loop = true;
 					<th>Importe</th>
 					<th>Área</th>
 					<th>Fecha</th>
+					<?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(2))){?>
+						<th>&nbsp;</th>
+					<?php }?>
 				</tr>
 			</thead>
 			<tbody>
@@ -141,16 +146,19 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 "
 					impresiondigital="<?php echo $_smarty_tpl->tpl_vars['row']->value->getImpresionDigital();?>
 "
-					disenador="<?php echo $_smarty_tpl->tpl_vars['row']->value->getDisenador();?>
-"
+					disenador="<?php if ($_smarty_tpl->tpl_vars['row']->value->getDisenador()==''){?><?php echo $_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getNombre();?>
+<?php }else{ ?><?php echo $_smarty_tpl->tpl_vars['row']->value->getDisenador();?>
+<?php }?>"
 					fechaimpresion="<?php echo $_smarty_tpl->tpl_vars['row']->value->getFechaImpresion();?>
 "
 					notasproduccion="<?php echo $_smarty_tpl->tpl_vars['row']->value->getNotasProduccion();?>
 "
-					claveimpresor="<?php echo $_smarty_tpl->tpl_vars['row']->value->getClaveImpresor();?>
-"
-					nombreimpresor="<?php echo $_smarty_tpl->tpl_vars['row']->value->getNombreImpresor();?>
-"
+					claveimpresor="<?php if ($_smarty_tpl->tpl_vars['row']->value->getClaveImpresor()==''){?><?php echo $_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getClave();?>
+<?php }else{ ?><?php echo $_smarty_tpl->tpl_vars['row']->value->getClaveImpresor();?>
+<?php }?>"
+					nombreimpresor="<?php if ($_smarty_tpl->tpl_vars['row']->value->getNombreImpresor()==''){?><?php echo $_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getNombre();?>
+<?php }else{ ?><?php echo $_smarty_tpl->tpl_vars['row']->value->getNombreImpresor();?>
+<?php }?>"
 					fechaenvio="<?php echo $_smarty_tpl->tpl_vars['row']->value->getFechaEnvio();?>
 "
 					horaenvio="<?php echo $_smarty_tpl->tpl_vars['row']->value->getHoraEnvio();?>
@@ -175,6 +183,13 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 </td>
 					<td><?php echo $_smarty_tpl->tpl_vars['row']->value->getFecha();?>
 </td>
+					<?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(2))){?>
+						<td class="text-center">
+							<a href="index.php?mod=archivosorden&orden=<?php echo rawurlencode($_smarty_tpl->tpl_vars['row']->value->getOrden());?>
+&clave=<?php echo rawurlencode($_smarty_tpl->tpl_vars['row']->value->getClave());?>
+" target="_blank"><i class="fa fa-paperclip" aria-hidden="true"></i></a>
+						</td>
+					<?php }?>
 				</tr>
 				<?php } ?>
 			</tbody>
@@ -239,6 +254,18 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 		<textarea campo="notasSucursales" class="form-control" id="txtNotasSucursales"></textarea>
 	</div>
 </div>
+<br />
+<div class="row">
+	<div class="col-md-4">
+		<input type="checkbox" id="chkImpresionDigital" value="Si"> <b>Impresiones digitales</b>
+	</div>
+	<div class="col-md-2">
+		<b>Diseñador</b>
+	</div>
+	<div class="col-md-6">
+		<input class="form-control" value="" id="txtDisenador" />
+	</div>
+</div>
 <hr />
 <div class="row">
 	<div class="col-md-8">
@@ -247,7 +274,7 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 				<b>Observaciones</b>
 			</div>
 			<div class="col-md-4">
-				<input class="form-control text-right" value="" campo="notas" id="txtNotas"/>
+				<input class="form-control" value="" campo="notas" id="txtNotas"/>
 			</div>
 			<div class="col-md-2">
 				<b>Impresion</b>
@@ -258,8 +285,8 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 		</div>
 		<br />
 		<div class="row">
-			<div class="col-md-2 col-md-offset-2">
-						<input type="checkbox" id="chkEnvio" value="Si"> <b>Envio</b>
+			<div class="col-md-2 col-md-offset-1">
+				<input type="checkbox" id="chkEnvio" value="Si"> <b>Envio</b>
 			</div>
 			<div class="col-md-3">
 				<b>Fecha y hora</b>
@@ -267,14 +294,44 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 			<div class="col-md-3">
 				<input class="form-control" value="" placeholder="YYYY-MM-DD" readonly campo="fechaenvio" id="txtFechaEnvio"/>
 			</div>
-			<div class="col-md-2">
-				<input class="form-control" value="" campo="horaenvio" id="txtHoraEnvio"/>
+			<div class="col-md-3">
+				<select id="selHoraEnvio" class="form-control">
+					<option value="11:30:00">11:30</option>
+					<option value="17:30:00">17:30</option>
+				</select>
 			</div>
 		</div>
 	</div>
 	<div class="col-md-4">
 		<b>Notas de produccion</b>
 		<textarea campo="notasProduccion" class="form-control" rows="4" id="txtNotasProduccion"></textarea>
+	</div>
+</div>
+<br />
+<div class="row">
+	<div class="col-md-2">
+		<b>Impresor</b>
+	</div>
+	<div class="col-md-2">
+		<input class="form-control text-right" readonly disabled="true" id="txtClaveImpresor"/>
+	</div>
+	<div class="col-md-8">
+		<input class="form-control" readonly disabled="true" value="" id="txtNombreImpresor"/>
+	</div>
+</div>
+<hr />
+<div class="row">
+	<div class="col-md-3">
+		<b>Fecha de recepción</b>
+	</div>
+	<div class="col-md-3">
+		<input class="form-control text-right" readonly="true" value="" id="txtFechaRecepcion"/>
+	</div>
+	<div class="col-md-3">
+		<b>Entrega al cliente</b>
+	</div>
+	<div class="col-md-3">
+		<input class="form-control" readonly="true" value="" id="txtFechaEntregaCliente"/>
 	</div>
 </div>
 <hr />

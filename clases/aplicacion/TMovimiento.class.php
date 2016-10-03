@@ -384,7 +384,7 @@ class TMovimiento{
 	}
 	
 	/**
-	* Retorna el dato de impresiondigital
+	* Retorna la clave del impresor digital
 	*
 	* @autor Hugo
 	* @access public
@@ -405,7 +405,7 @@ class TMovimiento{
 	*/
 	
 	public function setNombreImpresor($val = ''){
-		$this->impresiondigital = $val;
+		$this->nombreimpresor = $val;
 		return true;
 	}
 	
@@ -548,7 +548,7 @@ class TMovimiento{
 	*/
 	
 	public function getEntregaCliente(){
-		return $this->entregaCliente;
+		return $this->entregacliente;
 	}
 	
 	/**

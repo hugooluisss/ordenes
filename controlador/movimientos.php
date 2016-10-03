@@ -21,8 +21,11 @@ switch($objModulo->getId()){
 				if (isset($_POST['notasProduccion']))
 					$obj->setNotasProduccion($_POST['notasProduccion']);
 					
-				if (isset($_POST['claveImpresion']))
-					$obj->setImpresionDigital($_POST['claveImpresion']);
+				if (isset($_POST['claveImpresor']))
+					$obj->setClaveImpresor($_POST['claveImpresor']);
+					
+				if (isset($_POST['nombreImpresor']))
+					$obj->setNombreImpresor($_POST['nombreImpresor']);
 					
 				if (isset($_POST['fechaEnvio']))
 					$obj->setFechaEnvio(str_replace("_", "0", $_POST['fechaEnvio']));
@@ -41,15 +44,19 @@ switch($objModulo->getId()){
 				
 				echo json_encode(array("band" => $obj->guardar()));
 			break;
-			case 'del':
-				$obj = new TArea($_POST['id']);
-				echo json_encode(array("band" => $obj->eliminar()));
-			break;
-			case 'validaClave':
-				$db = TBase::conectaDB();
-				$rs = $db->Execute("select idArea from area where clave = '".$_POST['txtClave']."' and not idArea = '".$_POST['id']."'");
+			case 'uploadfile':
+				if(isset($_FILES['upl']) and $_FILES['upl']['error'] == 0 and $_POST['orden'] <> '' and $_POST['movimiento'] <> ''){
+					$carpeta = "repositorio/ordenes/orden_".$_POST['orden']."/movimiento_".$_POST['movimiento']."/";
+					mkdir($carpeta, 0777, true);
+					chmod($carpeta, 0755);
+					if(move_uploaded_file($_FILES['upl']['tmp_name'], $carpeta.$_FILES['upl']['name'])){
+						chmod($carpeta.$_FILES['upl']['tmp_name'], 0755);
+						echo '{"status":"success"}';
+						exit;
+					}
+				}
 				
-				echo $rs->EOF?"true":"false";
+				echo '{"status":"error"}';
 			break;
 		}
 	break;

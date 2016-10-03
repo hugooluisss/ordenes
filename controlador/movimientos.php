@@ -1,6 +1,22 @@
 <?php
 global $objModulo;
 switch($objModulo->getId()){
+	case 'listaArchivos':
+		$carpeta = "repositorio/ordenes/orden_".$_POST['orden']."/movimiento_".$_POST['movimiento']."/";
+		$datos = array();
+		foreach(scandir($carpeta, 1) as $archivo){
+			if (!in_array($archivo, array(".", ".DS_Store", "..")) and !is_dir($carpeta.$archivo)){
+				$el = array();
+				$el["nombre"] = $archivo;
+				$el["ruta"] = $carpeta.$archivo;
+				$el["tamano"] = formatBytes(filesize($carpeta.$archivo), 3);
+				$el['creacion'] = date("Y-m-d H:i:s", filectime($carpeta.$archivo));
+				$el['json'] = json_encode($el);
+				array_push($datos, $el);
+			}
+		}
+		$smarty->assign("lista", $datos);
+	break;
 	case 'cmovimientos':
 		switch($objModulo->getAction()){
 			case 'guardar':
@@ -49,6 +65,7 @@ switch($objModulo->getId()){
 					$carpeta = "repositorio/ordenes/orden_".$_POST['orden']."/movimiento_".$_POST['movimiento']."/";
 					mkdir($carpeta, 0777, true);
 					chmod($carpeta, 0755);
+					
 					if(move_uploaded_file($_FILES['upl']['tmp_name'], $carpeta.$_FILES['upl']['name'])){
 						chmod($carpeta.$_FILES['upl']['tmp_name'], 0755);
 						echo '{"status":"success"}';
@@ -57,6 +74,9 @@ switch($objModulo->getId()){
 				}
 				
 				echo '{"status":"error"}';
+			break;
+			case 'eliminar': #Eliminar un archivo
+				echo json_encode(array("band" => unlink($_POST['archivo'])));
 			break;
 		}
 	break;

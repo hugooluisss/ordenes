@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-10-02 21:35:55
+<?php /* Smarty version Smarty-3.1.11, created on 2016-10-03 10:00:57
          compiled from "templates/plantillas/modulos/ordenes/archivos.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:40453334257f1acd3d77042-53063986%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '52480e74915999cd0e4fa59272c515c91bb79d06' => 
     array (
       0 => 'templates/plantillas/modulos/ordenes/archivos.tpl',
-      1 => 1475462154,
+      1 => 1475505940,
       2 => 'file',
     ),
   ),
@@ -52,19 +52,37 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 </div>
 
 <div class="panel">
-	<form id="upload2" method="post" action="?mod=cmovimientos&action=uploadfile" enctype="multipart/form-data">
-		<input type="hidden" id="orden" name="orden" value="<?php echo $_smarty_tpl->tpl_vars['orden']->value->getId();?>
-">
-		<input type="hidden" id="movimiento" name="movimiento" value="<?php echo $_smarty_tpl->tpl_vars['movimiento']->value->getClave();?>
-">
-		<input type="file" name="upl" multiple />
-		<ul class="elementos list-group">
-		<!-- The file list will be shown here -->
-		</ul>
-	</form>
+	<div class="alert alert-danger">
+		<b>No cierres la ventana</b>
+		<p>En este momento el sistema está subiendo el o los archivos que indicaste, no cierres la ventana para no interrumpir el proceso</p>
+	</div>
+	<br />
 	<div class="progress">
 		<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
 	</div>
-	<div id="listaArchivos">
+	
+	<ul class="nav nav-tabs">
+		<li class="active"><a data-toggle="tab" href="#listaArchivos">Lista de archivos</a></li>
+		<li><a data-toggle="tab" href="#log">Subir</a></li>
+	</ul>
+	
+	<div class="tab-content">
+		<div id="listaArchivos" class="tab-pane fade in active">
+			
+		</div>
+		<div id="log" class="tab-pane fade">
+			<br />
+			<form id="upload2" method="post" action="?mod=cmovimientos&action=uploadfile" enctype="multipart/form-data">
+				<input type="hidden" id="orden" name="orden" value="<?php echo $_smarty_tpl->tpl_vars['orden']->value->getId();?>
+">
+				<input type="hidden" id="movimiento" name="movimiento" value="<?php echo $_smarty_tpl->tpl_vars['movimiento']->value->getClave();?>
+">
+				<input type="file" name="upl" multiple />
+				<ul class="elementos list-group">
+				<!-- The file list will be shown here -->
+				</ul>
+			</form>
+			<div id="historial"></div>
+		</div>
 	</div>
 </div><?php }} ?>

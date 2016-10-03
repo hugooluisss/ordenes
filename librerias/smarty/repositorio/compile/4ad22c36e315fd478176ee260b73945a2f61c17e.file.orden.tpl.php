@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-10-02 20:07:18
+<?php /* Smarty version Smarty-3.1.11, created on 2016-10-03 08:52:19
          compiled from "templates/plantillas/modulos/ordenes/orden.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:172903277857f1af46e41ba0-49069075%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '4ad22c36e315fd478176ee260b73945a2f61c17e' => 
     array (
       0 => 'templates/plantillas/modulos/ordenes/orden.tpl',
-      1 => 1475456834,
+      1 => 1475501042,
       2 => 'file',
     ),
   ),
@@ -15,6 +15,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
+  'version' => 'Smarty-3.1.11',
+  'unifunc' => 'content_57f1af4716db60_87376730',
   'variables' => 
   array (
     'orden' => 0,
@@ -25,8 +27,6 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'PAGE' => 0,
   ),
   'has_nocache_code' => false,
-  'version' => 'Smarty-3.1.11',
-  'unifunc' => 'content_57f1af4716db60_87376730',
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_57f1af4716db60_87376730')) {function content_57f1af4716db60_87376730($_smarty_tpl) {?><div class="row" style="margin-left: 10px;"> <!--style="border: 1px solid #3c8dbc; margin: 5px auto;" -->
 	<div class="col-md-2 text-center" style="color: <?php echo $_smarty_tpl->tpl_vars['orden']->value->sucursal->getColor();?>

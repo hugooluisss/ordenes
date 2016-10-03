@@ -249,3 +249,10 @@ $conf['archivosorden'] = array(
 	#'js' => array('orden.class.js', "movimiento.class.js"),
 	'jsTemplate' => array('archivos.js'),
 	'capa' => LAYOUT_TOPNAV);
+	
+$conf['listaArchivos'] = array(
+	'controlador' => 'movimientos.php',
+	'vista' => 'ordenes/listaArchivos.tpl',
+	'descripcion' => 'Lista de archivos',
+	'seguridad' => true,
+	'capa' => LAYOUT_AJAX);

@@ -122,13 +122,15 @@
 					</li>
 					{/if}
 					
-					{if $PAGE.usuario->getIdTipo() eq 1}
+					{if in_array($PAGE.usuario->getIdTipo(), array(1, 2, 3, 4))}
 					<li class="{if in_array($PAGE.modulo, array('importar', 'listaOrdenesAdmin'))}active{/if} treeview">
 						<a href="#">
 							<span>Ordenes</span> <i class="fa fa-angle-left pull-right"></i>
 						</a>
 						<ul class="treeview-menu">
-							<li {if $PAGE.modulo eq 'importar'}class="active"{/if}><a href="importar"><i class="fa fa-upload"></i> Importar</a></li>
+							{if $PAGE.usuario->getIdTipo() eq 1}
+								<li {if $PAGE.modulo eq 'importar'}class="active"{/if}><a href="importar"><i class="fa fa-upload"></i> Importar</a></li>
+							{/if}
 							<li {if $PAGE.modulo eq 'listaOrdenesAdmin'}class="active"{/if}><a href="listaOrdenesAdmin"><i class="fa fa-list"></i> Lista</a></li>
 						</ul>
 					</li>

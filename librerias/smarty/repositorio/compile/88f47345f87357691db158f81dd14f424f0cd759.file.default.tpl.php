@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-10-03 08:45:12
+<?php /* Smarty version Smarty-3.1.11, created on 2016-10-03 10:40:48
          compiled from "templates/plantillas/layout/default.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:102432003457f260e8e7e487-45155529%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '88f47345f87357691db158f81dd14f424f0cd759' => 
     array (
       0 => 'templates/plantillas/layout/default.tpl',
-      1 => 1475243603,
+      1 => 1475509244,
       2 => 'file',
     ),
   ),
@@ -15,14 +15,14 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
+  'version' => 'Smarty-3.1.11',
+  'unifunc' => 'content_57f260e902b029_81761389',
   'variables' => 
   array (
     'PAGE' => 0,
     'script' => 0,
   ),
   'has_nocache_code' => false,
-  'version' => 'Smarty-3.1.11',
-  'unifunc' => 'content_57f260e902b029_81761389',
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_57f260e902b029_81761389')) {function content_57f260e902b029_81761389($_smarty_tpl) {?><!DOCTYPE html>
 <html>
@@ -170,13 +170,15 @@ img/logoPanel.png" /></span>
 					</li>
 					<?php }?>
 					
-					<?php if ($_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdTipo()==1){?>
+					<?php if (in_array($_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdTipo(),array(1,2,3,4))){?>
 					<li class="<?php if (in_array($_smarty_tpl->tpl_vars['PAGE']->value['modulo'],array('importar','listaOrdenesAdmin'))){?>active<?php }?> treeview">
 						<a href="#">
 							<span>Ordenes</span> <i class="fa fa-angle-left pull-right"></i>
 						</a>
 						<ul class="treeview-menu">
-							<li <?php if ($_smarty_tpl->tpl_vars['PAGE']->value['modulo']=='importar'){?>class="active"<?php }?>><a href="importar"><i class="fa fa-upload"></i> Importar</a></li>
+							<?php if ($_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdTipo()==1){?>
+								<li <?php if ($_smarty_tpl->tpl_vars['PAGE']->value['modulo']=='importar'){?>class="active"<?php }?>><a href="importar"><i class="fa fa-upload"></i> Importar</a></li>
+							<?php }?>
 							<li <?php if ($_smarty_tpl->tpl_vars['PAGE']->value['modulo']=='listaOrdenesAdmin'){?>class="active"<?php }?>><a href="listaOrdenesAdmin"><i class="fa fa-list"></i> Lista</a></li>
 						</ul>
 					</li>

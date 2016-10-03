@@ -11,7 +11,15 @@
 		<b>Estado</b><br /><br />
 		<select id="selEstadoOrden" name="selEstadoOrden" class="form-control">
 			{foreach key=key item=item from=$estados}
-				<option value="{$item.idEstado}" {if $orden->estado->getId() eq $item.idEstado}selected{/if}>{$item.nombre}</option>
+				{if $item.idEstado eq 4}
+					{if $PAGE.usuario->getIdTipo() neq 1}
+						<option value="{$item.idEstado}" {if $orden->estado->getId() eq $item.idEstado}selected{/if} disabled>{$item.nombre}</option>
+					{else}
+						<option value="{$item.idEstado}" {if $orden->estado->getId() eq $item.idEstado}selected{/if}>{$item.nombre}</option>
+					{/if}
+				{else}
+					<option value="{$item.idEstado}" {if $orden->estado->getId() eq $item.idEstado}selected{/if}>{$item.nombre}</option>
+				{/if}
 			{/foreach}
 		</select>
 	</div>
@@ -165,80 +173,85 @@
 </div>
 
 <hr />
-<div class="row">
-	<div class="col-md-2">
-		<b>Notas sucursales</b>
-	</div>
-	<div class="col-md-10">
-		<textarea campo="notasSucursales" class="form-control" id="txtNotasSucursales"></textarea>
-	</div>
-</div>
-<br />
-<div class="row">
-	<div class="col-md-4">
-		<input type="checkbox" id="chkImpresionDigital" value="Si"> <b>Impresiones digitales</b>
-	</div>
-	<div class="col-md-2">
-		<b>Diseñador</b>
-	</div>
-	<div class="col-md-6">
-		<input class="form-control" value="" id="txtDisenador" />
-	</div>
-</div>
-<hr />
-<div class="row">
-	<div class="col-md-8">
-		<div class="row">
-			<div class="col-md-3">
-				<b>Observaciones</b>
-			</div>
-			<div class="col-md-4">
-				<input class="form-control" value="" campo="notas" id="txtNotas"/>
-			</div>
-			<div class="col-md-2">
-				<b>Impresion</b>
-			</div>
-			<div class="col-md-3">
-				<input class="form-control" value="" placeholder="YYYY-MM-DD" readonly="" campo="fechaImpresion" id="txtFechaImpresion"/>
-			</div>
+{if in_array($perfil, array(1, 2, 3))}
+	<div class="row">
+		<div class="col-md-2">
+			<b>Notas sucursales</b>
 		</div>
-		<br />
-		<div class="row">
-			<div class="col-md-2 col-md-offset-1">
-				<input type="checkbox" id="chkEnvio" value="Si"> <b>Envio</b>
-			</div>
-			<div class="col-md-3">
-				<b>Fecha y hora</b>
-			</div>
-			<div class="col-md-3">
-				<input class="form-control" value="" placeholder="YYYY-MM-DD" readonly campo="fechaenvio" id="txtFechaEnvio"/>
-			</div>
-			<div class="col-md-3">
-				<select id="selHoraEnvio" class="form-control">
-					<option value="11:30:00">11:30</option>
-					<option value="17:30:00">17:30</option>
-				</select>
-			</div>
+		<div class="col-md-10">
+			<textarea campo="notasSucursales" class="form-control" id="txtNotasSucursales" {if in_array($perfil, array(3))}readonly disabled{/if}></textarea>
 		</div>
 	</div>
-	<div class="col-md-4">
-		<b>Notas de produccion</b>
-		<textarea campo="notasProduccion" class="form-control" rows="4" id="txtNotasProduccion"></textarea>
+	<br />
+	<div class="row">
+		<div class="col-md-4">
+			<input type="checkbox" id="chkImpresionDigital" value="Si" {if in_array($perfil, array(3))}readonly disabled{/if}> <b>Impresiones digitales</b>
+		</div>
+		<div class="col-md-2">
+			<b>Diseñador</b>
+		</div>
+		<div class="col-md-6">
+			<input class="form-control" value="" id="txtDisenador" {if in_array($perfil, array(3))}readonly disabled{/if}/>
+		</div>
 	</div>
-</div>
-<br />
-<div class="row">
-	<div class="col-md-2">
-		<b>Impresor</b>
+	<hr />
+{/if}
+{if in_array($perfil, array(1, 3))}
+	<div class="row">
+		<div class="col-md-8">
+			<div class="row">
+				<div class="col-md-3">
+					<b>Observaciones</b>
+				</div>
+				<div class="col-md-4">
+					<input class="form-control" value="" campo="notas" id="txtNotas"/>
+				</div>
+				<div class="col-md-2">
+					<b>Impresion</b>
+				</div>
+				<div class="col-md-3">
+					<input class="form-control" value="" placeholder="YYYY-MM-DD" readonly="" campo="fechaImpresion" id="txtFechaImpresion"/>
+				</div>
+			</div>
+			<br />
+			<div class="row">
+				<div class="col-md-2 col-md-offset-1">
+					<input type="checkbox" id="chkEnvio" value="Si"> <b>Envio</b>
+				</div>
+				<div class="col-md-3">
+					<b>Fecha y hora</b>
+				</div>
+				<div class="col-md-3">
+					<input class="form-control" value="" placeholder="YYYY-MM-DD" readonly campo="fechaenvio" id="txtFechaEnvio"/>
+				</div>
+				<div class="col-md-3">
+					<select id="selHoraEnvio" class="form-control">
+						<option value="11:30:00">11:30</option>
+						<option value="17:30:00">17:30</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<b>Notas de produccion</b>
+			<textarea campo="notasProduccion" class="form-control" rows="4" id="txtNotasProduccion"></textarea>
+		</div>
 	</div>
-	<div class="col-md-2">
-		<input class="form-control text-right" readonly disabled="true" id="txtClaveImpresor"/>
+	<br />
+	<div class="row">
+		<div class="col-md-2">
+			<b>Impresor</b>
+		</div>
+		<div class="col-md-2">
+			<input class="form-control text-right" readonly disabled="true" id="txtClaveImpresor"/>
+		</div>
+		<div class="col-md-8">
+			<input class="form-control" readonly disabled="true" value="" id="txtNombreImpresor"/>
+		</div>
 	</div>
-	<div class="col-md-8">
-		<input class="form-control" readonly disabled="true" value="" id="txtNombreImpresor"/>
-	</div>
-</div>
-<hr />
+	<hr />
+{/if}
+{if in_array($perfil, array(1, 4))}
 <div class="row">
 	<div class="col-md-3">
 		<b>Fecha de recepción</b>
@@ -254,6 +267,7 @@
 	</div>
 </div>
 <hr />
+{/if}
 <div class="row">
 	<div class="col-md-12">
 		<button class="btn btn-success pull-right" id="btnGuardar">Guardar</button>

@@ -124,7 +124,7 @@ switch($objModulo->getId()){
 		
 		$smarty->assign("estados", $datos);
 		
-		$smarty->assign("perfil", 2);
+		$smarty->assign("perfil", $userSesion->getIdTipo());
 	break;
 	case 'archivosorden':
 		$orden = new TOrden($_GET['orden']);

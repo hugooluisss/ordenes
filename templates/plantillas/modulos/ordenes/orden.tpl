@@ -112,7 +112,7 @@
 					<td class="text-right">{$row->getImporte()}</td>
 					<td class="text-center">{$row->area->getNombre()}</td>
 					<td>{$row->getFecha()}</td>
-					{if in_array($perfil, array(2))}
+					{if in_array($perfil, array(1, 2, 3))}
 						<td class="text-center">
 							<a href="index.php?mod=archivosorden&orden={$row->getOrden()|escape:"url"}&clave={$row->getClave()|escape:"url"}" target="_blank"><i class="fa fa-paperclip" aria-hidden="true"></i></a>
 						</td>

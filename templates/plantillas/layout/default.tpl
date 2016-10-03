@@ -123,7 +123,7 @@
 					{/if}
 					
 					{if in_array($PAGE.usuario->getIdTipo(), array(1, 2, 3, 4))}
-					<li class="{if in_array($PAGE.modulo, array('importar', 'listaOrdenesAdmin'))}active{/if} treeview">
+					<li class="{if in_array($PAGE.modulo, array('importar', 'listaOrdenesAdmin', 'reporte'))}active{/if} treeview">
 						<a href="#">
 							<span>Ordenes</span> <i class="fa fa-angle-left pull-right"></i>
 						</a>
@@ -132,6 +132,7 @@
 								<li {if $PAGE.modulo eq 'importar'}class="active"{/if}><a href="importar"><i class="fa fa-upload"></i> Importar</a></li>
 							{/if}
 							<li {if $PAGE.modulo eq 'listaOrdenesAdmin'}class="active"{/if}><a href="listaOrdenesAdmin"><i class="fa fa-list"></i> Lista</a></li>
+							<li {if $PAGE.modulo eq 'reporte'}class="active"{/if}><a href="reporte"><i class="fa fa-line-chart" aria-hidden="true"></i> Reporte</a></li>
 						</ul>
 					</li>
 
@@ -234,6 +235,8 @@
 	<link rel="stylesheet" href="{$PAGE.ruta}plugins/treegrid/css/jquery.treegrid.css" />
 	<script type="text/javascript" src="{$PAGE.ruta}plugins/treegrid/js/jquery.treegrid.js"></script>
 	<script type="text/javascript" src="{$PAGE.ruta}plugins/treegrid/js/jquery.treegrid.bootstrap3.js"></script>
+	
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     
     {foreach from=$PAGE.scriptsJS item=script}
 		<script type="text/javascript" src="{$script}?m={rand()}"></script>

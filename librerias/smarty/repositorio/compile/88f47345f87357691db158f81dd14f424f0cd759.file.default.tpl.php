@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-10-03 10:40:48
+<?php /* Smarty version Smarty-3.1.11, created on 2016-10-03 12:26:55
          compiled from "templates/plantillas/layout/default.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:102432003457f260e8e7e487-45155529%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '88f47345f87357691db158f81dd14f424f0cd759' => 
     array (
       0 => 'templates/plantillas/layout/default.tpl',
-      1 => 1475509244,
+      1 => 1475515565,
       2 => 'file',
     ),
   ),
@@ -171,7 +171,7 @@ img/logoPanel.png" /></span>
 					<?php }?>
 					
 					<?php if (in_array($_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdTipo(),array(1,2,3,4))){?>
-					<li class="<?php if (in_array($_smarty_tpl->tpl_vars['PAGE']->value['modulo'],array('importar','listaOrdenesAdmin'))){?>active<?php }?> treeview">
+					<li class="<?php if (in_array($_smarty_tpl->tpl_vars['PAGE']->value['modulo'],array('importar','listaOrdenesAdmin','reporte'))){?>active<?php }?> treeview">
 						<a href="#">
 							<span>Ordenes</span> <i class="fa fa-angle-left pull-right"></i>
 						</a>
@@ -180,6 +180,7 @@ img/logoPanel.png" /></span>
 								<li <?php if ($_smarty_tpl->tpl_vars['PAGE']->value['modulo']=='importar'){?>class="active"<?php }?>><a href="importar"><i class="fa fa-upload"></i> Importar</a></li>
 							<?php }?>
 							<li <?php if ($_smarty_tpl->tpl_vars['PAGE']->value['modulo']=='listaOrdenesAdmin'){?>class="active"<?php }?>><a href="listaOrdenesAdmin"><i class="fa fa-list"></i> Lista</a></li>
+							<li <?php if ($_smarty_tpl->tpl_vars['PAGE']->value['modulo']=='reporte'){?>class="active"<?php }?>><a href="reporte"><i class="fa fa-line-chart" aria-hidden="true"></i> Reporte</a></li>
 						</ul>
 					</li>
 
@@ -327,6 +328,8 @@ plugins/treegrid/css/jquery.treegrid.css" />
 plugins/treegrid/js/jquery.treegrid.js"></script>
 	<script type="text/javascript" src="<?php echo $_smarty_tpl->tpl_vars['PAGE']->value['ruta'];?>
 plugins/treegrid/js/jquery.treegrid.bootstrap3.js"></script>
+	
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     
     <?php  $_smarty_tpl->tpl_vars['script'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['script']->_loop = false;
  $_from = $_smarty_tpl->tpl_vars['PAGE']->value['scriptsJS']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}

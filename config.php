@@ -256,3 +256,19 @@ $conf['listaArchivos'] = array(
 	'descripcion' => 'Lista de archivos',
 	'seguridad' => true,
 	'capa' => LAYOUT_AJAX);
+
+//Reportes
+$conf['reporte'] = array(
+	'controlador' => 'reportes.php',
+	'vista' => 'reportes/panel.tpl',
+	'descripcion' => 'Ordenes',
+	'seguridad' => true,
+	#'js' => array('orden.class.js', "movimiento.class.js"),
+	'jsTemplate' => array('reportes.js'),
+	'capa' => LAYOUT_DEFECTO);
+	
+$conf['creportes'] = array(
+	'controlador' => 'reportes.php',
+	'descripcion' => 'Controlador de reportes',
+	'seguridad' => true,
+	'capa' => LAYOUT_AJAX);

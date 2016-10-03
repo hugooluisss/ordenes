@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-10-03 11:20:38
+<?php /* Smarty version Smarty-3.1.11, created on 2016-10-03 13:05:45
          compiled from "templates/plantillas/modulos/ordenes/orden.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:172903277857f1af46e41ba0-49069075%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '4ad22c36e315fd478176ee260b73945a2f61c17e' => 
     array (
       0 => 'templates/plantillas/modulos/ordenes/orden.tpl',
-      1 => 1475511635,
+      1 => 1475513118,
       2 => 'file',
     ),
   ),
@@ -195,7 +195,7 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 </td>
 					<td><?php echo $_smarty_tpl->tpl_vars['row']->value->getFecha();?>
 </td>
-					<?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(2))){?>
+					<?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(1,2,3))){?>
 						<td class="text-center">
 							<a href="index.php?mod=archivosorden&orden=<?php echo rawurlencode($_smarty_tpl->tpl_vars['row']->value->getOrden());?>
 &clave=<?php echo rawurlencode($_smarty_tpl->tpl_vars['row']->value->getClave());?>

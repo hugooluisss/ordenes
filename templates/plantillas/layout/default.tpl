@@ -67,7 +67,7 @@
 							<ul class="dropdown-menu">
 								<!-- The user image in the menu -->
 								<li class="user-header">
-									<img src="?mod=cusuarios&action=getFoto&ancho=180&alto=180" class="img-circle" alt="User Image"/>
+									<img src="{$PAGE.ruta}img/logoazul.png" alt="User Image"/>
 									<p>
 										{$PAGE.usuario->getNombre()}
 										<small>{$PAGE.usuario->getEmail()}</small>
@@ -122,7 +122,7 @@
 					</li>
 					{/if}
 					
-					{if in_array($PAGE.usuario->getIdTipo(), array(1, 2, 3, 4))}
+					{if in_array($PAGE.usuario->getIdTipo(), array(1, 2, 3, 4, 5))}
 					<li class="{if in_array($PAGE.modulo, array('importar', 'listaOrdenesAdmin', 'reporte'))}active{/if} treeview">
 						<a href="#">
 							<span>Ordenes</span> <i class="fa fa-angle-left pull-right"></i>

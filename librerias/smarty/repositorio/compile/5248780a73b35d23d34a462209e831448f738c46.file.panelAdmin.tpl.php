@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-10-03 11:15:27
+<?php /* Smarty version Smarty-3.1.11, created on 2016-10-05 10:26:15
          compiled from "templates/plantillas/modulos/ordenes/panelAdmin.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:37068833057f2628db2a8b0-03114787%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '5248780a73b35d23d34a462209e831448f738c46' => 
     array (
       0 => 'templates/plantillas/modulos/ordenes/panelAdmin.tpl',
-      1 => 1475511325,
+      1 => 1475681174,
       2 => 'file',
     ),
   ),
@@ -33,7 +33,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 
 <div class="panel panel-default">
 	<div class="panel-body">
-		<?php if ($_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdTipo()==1){?>
+		<?php if (in_array($_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdTipo(),array(1,3,5))){?>
 			<form role="form" id="frmBuscar" class="form-horizontal" onsubmit="javascript: return false;">
 				<div class="form-group">
 					<label for="selSucursal" class="col-lg-2">Sucursal</label>

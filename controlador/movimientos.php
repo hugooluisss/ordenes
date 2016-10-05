@@ -32,7 +32,7 @@ switch($objModulo->getId()){
 					$obj->setDisenador($_POST['disenador']);
 				
 				if (isset($_POST['fechaImpresion']))
-					$obj->setFechaImpresion($_POST['fechaImpresion']);
+					$obj->setFechaImpresion(str_replace("_", "0", $_POST['fechaImpresion']).":00");
 				
 				if (isset($_POST['notasProduccion']))
 					$obj->setNotasProduccion($_POST['notasProduccion']);
@@ -50,13 +50,19 @@ switch($objModulo->getId()){
 					$obj->setHoraEnvio(str_replace("_", "0", $_POST['horaEnvio']));
 					
 				if (isset($_POST['fechaRecepcion']))
-					$obj->setFechaRecepcion($_POST['fechaRecepcion']);
+					$obj->setFechaRecepcion(str_replace("_", "0", $_POST['fechaRecepcion']).":00");
 					
 				if (isset($_POST['entregaCliente']))
-					$obj->setEntregaCliente($_POST['entregaCliente']);
+					$obj->setEntregaCliente(str_replace("_", "0", $_POST['entregaCliente']).":00");
 					
 				if (isset($_POST['notas']))
 					$obj->setNotas($_POST['notas']);
+					
+				$orden = new TOrden($_POST['orden']);
+				if ($orden->estado->getId() == 1){
+					$orden->estado->setId(2);
+					$orden->guardar();
+				}
 				
 				echo json_encode(array("band" => $obj->guardar()));
 			break;
@@ -68,6 +74,10 @@ switch($objModulo->getId()){
 					
 					if(move_uploaded_file($_FILES['upl']['tmp_name'], $carpeta.$_FILES['upl']['name'])){
 						chmod($carpeta.$_FILES['upl']['tmp_name'], 0755);
+						$movimiento = new TMovimiento($_POST['orden'], $_POST['movimiento']);
+						$movimiento->setDisenador($userSesion->getNombreCompleto());
+						$movimiento->guardar();
+						
 						echo '{"status":"success"}';
 						exit;
 					}

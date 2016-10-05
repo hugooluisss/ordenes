@@ -6,7 +6,7 @@
 
 <div class="panel panel-default">
 	<div class="panel-body">
-		{if $PAGE.usuario->getIdTipo() eq 1}
+		{if in_array($PAGE.usuario->getIdTipo(), array(1, 3, 5))}
 			<form role="form" id="frmBuscar" class="form-horizontal" onsubmit="javascript: return false;">
 				<div class="form-group">
 					<label for="selSucursal" class="col-lg-2">Sucursal</label>

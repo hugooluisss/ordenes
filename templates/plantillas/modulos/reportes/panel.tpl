@@ -39,3 +39,7 @@
 </div>
 
 <div id="piechart" style="width: 100%; height: 500px;"></div>
+
+<br />
+<div class="well well-lg" id="listaOrdenes">
+</div>

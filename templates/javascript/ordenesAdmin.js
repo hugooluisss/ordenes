@@ -40,11 +40,41 @@ $(document).ready(function(){
 			}, function( data ) {
 				var plantilla = $("#winOrden");
 				plantilla.find(".modal-body").html(data);
+				$("#txtFechaRecepcion").inputmask("9999-99-99 99:99");
+				$("#txtFechaRecepcion").click(function(){
+					if ($(this).val() == ''){
+						var d = new Date();
+						 mes = (d.getMonth() < 10?"0":"") + d.getMonth();
+						 dia = (d.getDate() < 10?"0":"") + d.getDate();
+						$(this).val(d.getFullYear() + "-" + mes + "-" + dia + " 00:00");
+					}
+				});
+				
+				$("#txtFechaEntregaCliente").inputmask("9999-99-99 99:99");
+				$("#txtFechaEntregaCliente").click(function(){
+					if ($(this).val() == ''){
+						var d = new Date();
+						 mes = (d.getMonth() < 10?"0":"") + d.getMonth();
+						 dia = (d.getDate() < 10?"0":"") + d.getDate();
+						$(this).val(d.getFullYear() + "-" + mes + "-" + dia + " 00:00");
+					}
+				});
+				
+				$("#txtFechaImpresion").inputmask("9999-99-99 99:99");
+				$("#txtFechaImpresion").click(function(){
+					if ($(this).val() == ''){
+						var d = new Date();
+						 mes = (d.getMonth() < 10?"0":"") + d.getMonth();
+						 dia = (d.getDate() < 10?"0":"") + d.getDate();
+						$(this).val(d.getFullYear() + "-" + mes + "-" + dia + " 00:00");
+					}
+				});
+				
 				//plantilla.find("#txtFechaImpresion").datepicker("option", "dateFormat", "yyyy-mm-dd");
-				plantilla.find("#txtFechaImpresion").datepicker({"dateFormat": "yyyy-mm-dd", "autoclose": true});
+				//plantilla.find("#txtFechaImpresion").datepicker({"dateFormat": "yyyy-mm-dd", "autoclose": true});
 				plantilla.find("#txtFechaEnvio").datepicker({"dateFormat": "yyyy-mm-dd", "autoclose": true});
-				plantilla.find("#txtFechaRecepcion").datepicker({"dateFormat": "yyyy-mm-dd", "autoclose": true});
-				plantilla.find("#txtFechaEntregaCliente").datepicker({"dateFormat": "yyyy-mm-dd", "autoclose": true});
+				//plantilla.find("#txtFechaRecepcion").datepicker({"dateFormat": "yyyy-mm-dd", "autoclose": true});
+				//plantilla.find("#txtFechaEntregaCliente").datepicker({"dateFormat": "yyyy-mm-dd", "autoclose": true});
 				
 				plantilla.find("#txtHoraEnvio").inputmask("99:99");
 				
@@ -150,7 +180,8 @@ $(document).ready(function(){
 									});
 									
 									if (resp.band){
-										getOrden(el)
+										getOrden(el);
+										getLista();
 										alert("Orden guardada");
 									}else
 										alert("No se pudo guardar el cambio");

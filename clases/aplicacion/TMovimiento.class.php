@@ -578,6 +578,32 @@ class TMovimiento{
 	}
 	
 	/**
+	* Retorna la fecha del último archivo subido para este movimiento
+	*
+	* @autor Hugo
+	* @access public
+	* @return mixed Date y si no existe retorna ''
+	*/
+	
+	public function getFechaArchivo(){
+		$carpeta = "repositorio/ordenes/orden_".$this->getOrden()."/movimiento_".$this->getClave()."/";
+		$fecha = '';
+		
+		foreach(scandir($carpeta) as $file){
+			if (!in_array($file, array(".", "..", ".DS_Store"))){
+				$hora = filemtime($carpeta.$file);
+				
+				$fecha = $fecha == ''?$hora:$fecha;
+				
+				if ($fecha < $hora)
+					$fecha = $hora;
+			}
+		}
+		
+		return date("Y-m-d H:i:s", $fecha);
+	}
+	
+	/**
 	* Guarda los datos en la base de datos
 	*
 	* @autor Hugo

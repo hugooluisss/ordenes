@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-10-03 13:00:14
+<?php /* Smarty version Smarty-3.1.11, created on 2016-10-05 10:59:31
          compiled from "templates/plantillas/modulos/reportes/panel.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:27139084857f2923bab0f29-49541800%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'e1ddcb92f60099fae7bed851d36cdb2131315a31' => 
     array (
       0 => 'templates/plantillas/modulos/reportes/panel.tpl',
-      1 => 1475517613,
+      1 => 1475683168,
       2 => 'file',
     ),
   ),
@@ -73,4 +73,8 @@ $_smarty_tpl->tpl_vars['item']->_loop = true;
 	</div>
 </div>
 
-<div id="piechart" style="width: 100%; height: 500px;"></div><?php }} ?>
+<div id="piechart" style="width: 100%; height: 500px;"></div>
+
+<br />
+<div class="well well-lg" id="listaOrdenes">
+</div><?php }} ?>

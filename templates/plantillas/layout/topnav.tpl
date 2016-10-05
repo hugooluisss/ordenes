@@ -43,10 +43,7 @@
 				<nav class="navbar navbar-static-top">
 					<div class="container">
 						<div class="navbar-header">
-							<a href="#" class="navbar-brand"><b>O</b>S</a>
-							<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
-								<i class="fa fa-bars"></i>
-							</button>
+							<img src="{$PAGE.ruta}img/logoPanel.png" />
 						</div>
 					</div>
 				</nav>
@@ -55,7 +52,10 @@
 			<div class="content-wrapper">
 				<!-- Content Header (Page header) -->
 				<section class="content-header">
+					<button type="button" class="btn btn-danger pull-right" id="btnCerrarVentana">Cerrar</button>
+					<br /><br />
 				</section>
+				
 				<!-- Main content -->
 				<section class="content">
 					<div class="row">

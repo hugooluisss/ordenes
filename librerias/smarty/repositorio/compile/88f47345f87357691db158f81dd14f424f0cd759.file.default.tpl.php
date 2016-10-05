@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-10-03 12:26:55
+<?php /* Smarty version Smarty-3.1.11, created on 2016-10-05 11:21:40
          compiled from "templates/plantillas/layout/default.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:102432003457f260e8e7e487-45155529%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '88f47345f87357691db158f81dd14f424f0cd759' => 
     array (
       0 => 'templates/plantillas/layout/default.tpl',
-      1 => 1475515565,
+      1 => 1475684498,
       2 => 'file',
     ),
   ),
@@ -113,7 +113,8 @@ img/logoPanel.png" /></span>
 							<ul class="dropdown-menu">
 								<!-- The user image in the menu -->
 								<li class="user-header">
-									<img src="?mod=cusuarios&action=getFoto&ancho=180&alto=180" class="img-circle" alt="User Image"/>
+									<img src="<?php echo $_smarty_tpl->tpl_vars['PAGE']->value['ruta'];?>
+img/logoazul.png" alt="User Image"/>
 									<p>
 										<?php echo $_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getNombre();?>
 
@@ -170,7 +171,7 @@ img/logoPanel.png" /></span>
 					</li>
 					<?php }?>
 					
-					<?php if (in_array($_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdTipo(),array(1,2,3,4))){?>
+					<?php if (in_array($_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdTipo(),array(1,2,3,4,5))){?>
 					<li class="<?php if (in_array($_smarty_tpl->tpl_vars['PAGE']->value['modulo'],array('importar','listaOrdenesAdmin','reporte'))){?>active<?php }?> treeview">
 						<a href="#">
 							<span>Ordenes</span> <i class="fa fa-angle-left pull-right"></i>

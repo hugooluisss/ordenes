@@ -3,7 +3,7 @@
 		<tr>
 			<th>Nombre</th>
 			<th>Tamaño</th>
-			<th>Fecha upload</th>
+			<th>Fecha FTP</th>
 			<th>&nbsp;</th>
 		</tr>
 	</thead>

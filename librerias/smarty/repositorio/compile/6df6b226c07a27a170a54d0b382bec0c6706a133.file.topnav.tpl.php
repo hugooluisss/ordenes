@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-10-03 08:52:23
+<?php /* Smarty version Smarty-3.1.11, created on 2016-10-05 10:21:54
          compiled from "templates/plantillas/layout/topnav.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:198147540457f1ac218ea5f3-33037439%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '6df6b226c07a27a170a54d0b382bec0c6706a133' => 
     array (
       0 => 'templates/plantillas/layout/topnav.tpl',
-      1 => 1475501042,
+      1 => 1475680860,
       2 => 'file',
     ),
   ),
@@ -86,10 +86,8 @@ plugins/upload/css/jquery.fileupload.css">
 				<nav class="navbar navbar-static-top">
 					<div class="container">
 						<div class="navbar-header">
-							<a href="#" class="navbar-brand"><b>O</b>S</a>
-							<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
-								<i class="fa fa-bars"></i>
-							</button>
+							<img src="<?php echo $_smarty_tpl->tpl_vars['PAGE']->value['ruta'];?>
+img/logoPanel.png" />
 						</div>
 					</div>
 				</nav>
@@ -98,7 +96,10 @@ plugins/upload/css/jquery.fileupload.css">
 			<div class="content-wrapper">
 				<!-- Content Header (Page header) -->
 				<section class="content-header">
+					<button type="button" class="btn btn-danger pull-right" id="btnCerrarVentana">Cerrar</button>
+					<br /><br />
 				</section>
+				
 				<!-- Main content -->
 				<section class="content">
 					<div class="row">

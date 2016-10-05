@@ -272,3 +272,10 @@ $conf['creportes'] = array(
 	'descripcion' => 'Controlador de reportes',
 	'seguridad' => true,
 	'capa' => LAYOUT_AJAX);
+	
+$conf['listaOrdenesReportes'] = array(
+	'controlador' => 'reportes.php',
+	'vista' => 'reportes/lista.tpl',
+	'descripcion' => 'Lista de ordenes en reportes',
+	'seguridad' => true,
+	'capa' => LAYOUT_AJAX);

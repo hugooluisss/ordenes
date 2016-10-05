@@ -1,6 +1,9 @@
 $(document).ready(function(){
 	$(".alert-danger").hide();
-	
+	$("#btnCerrarVentana").click(function(){
+		if (confirm("¿Seguro?"))
+			window.close();
+	});
 	lista();
 	
 	$('#upload2').fileupload({

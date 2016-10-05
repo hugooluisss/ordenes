@@ -9,7 +9,7 @@
 	</div>
 	<div class="col-md-4">
 		<b>Estado</b><br /><br />
-		<select id="selEstadoOrden" name="selEstadoOrden" class="form-control">
+		<select id="selEstadoOrden" name="selEstadoOrden" class="form-control" {if !in_array($PAGE.usuario->getIdTipo(), array(1, 2, 4))}disabled readonly{/if}>
 			{foreach key=key item=item from=$estados}
 				{if $item.idEstado eq 4}
 					{if $PAGE.usuario->getIdTipo() neq 1}
@@ -73,7 +73,7 @@
 					<th>Descripción</th>
 					<th>Importe</th>
 					<th>Área</th>
-					<th>Fecha</th>
+					<th>Archivo PDF</th>
 					{if in_array($perfil, array(2))}
 						<th>&nbsp;</th>
 					{/if}
@@ -111,7 +111,7 @@
 					<td>{$row->getDescripcion()}</td>
 					<td class="text-right">{$row->getImporte()}</td>
 					<td class="text-center">{$row->area->getNombre()}</td>
-					<td>{$row->getFecha()}</td>
+					<td>{$row->getFechaArchivo()}</td>
 					{if in_array($perfil, array(1, 2, 3))}
 						<td class="text-center">
 							<a href="index.php?mod=archivosorden&orden={$row->getOrden()|escape:"url"}&clave={$row->getClave()|escape:"url"}" target="_blank"><i class="fa fa-paperclip" aria-hidden="true"></i></a>
@@ -173,30 +173,30 @@
 </div>
 
 <hr />
-{if in_array($perfil, array(1, 2, 3))}
+{if in_array($perfil, array(1, 2, 3, 4, 5))}
 	<div class="row">
 		<div class="col-md-2">
 			<b>Notas sucursales</b>
 		</div>
 		<div class="col-md-10">
-			<textarea campo="notasSucursales" class="form-control" id="txtNotasSucursales" {if in_array($perfil, array(3))}readonly disabled{/if}></textarea>
+			<textarea campo="notasSucursales" class="form-control" id="txtNotasSucursales" {if in_array($perfil, array(3, 5))}readonly disabled{/if}></textarea>
 		</div>
 	</div>
 	<br />
 	<div class="row">
 		<div class="col-md-4">
-			<input type="checkbox" id="chkImpresionDigital" value="Si" {if in_array($perfil, array(3))}readonly disabled{/if}> <b>Impresiones digitales</b>
+			<input type="checkbox" id="chkImpresionDigital" value="Si" {if in_array($perfil, array(3, 4, 5))}readonly disabled{/if}> <b>Impresión digital</b>
 		</div>
 		<div class="col-md-2">
 			<b>Diseñador</b>
 		</div>
 		<div class="col-md-6">
-			<input class="form-control" value="" id="txtDisenador" {if in_array($perfil, array(3))}readonly disabled{/if}/>
+			<input class="form-control" value="" id="txtDisenador" readonly disabled/>
 		</div>
 	</div>
 	<hr />
 {/if}
-{if in_array($perfil, array(1, 3))}
+{if in_array($perfil, array(1, 3, 4, 5))}
 	<div class="row">
 		<div class="col-md-8">
 			<div class="row">
@@ -204,38 +204,50 @@
 					<b>Observaciones</b>
 				</div>
 				<div class="col-md-4">
-					<input class="form-control" value="" campo="notas" id="txtNotas"/>
-				</div>
-				<div class="col-md-2">
-					<b>Impresion</b>
-				</div>
-				<div class="col-md-3">
-					<input class="form-control" value="" placeholder="YYYY-MM-DD" readonly="" campo="fechaImpresion" id="txtFechaImpresion"/>
+					<input class="form-control" value="" campo="notas" id="txtNotas" {if in_array($perfil, array(4, 5))}disabled{/if}/>
 				</div>
 			</div>
 			<br />
 			<div class="row">
+				{if in_array($perfil, array(1, 3, 5))}
+				<div class="col-md-3">
+					<b>Fecha Impresión</b>
+				</div>
+				<div class="col-md-4">
+					<input class="form-control" value="" placeholder="YYYY-MM-DD" {if in_array($perfil, array(5))}disabled{/if} campo="fechaImpresion" id="txtFechaImpresion"/>
+				</div>
+				{/if}
+			</div>
+			<br />
+			{if in_array($perfil, array(1, 3, 5))}
+			<div class="row">
 				<div class="col-md-2 col-md-offset-1">
-					<input type="checkbox" id="chkEnvio" value="Si"> <b>Envio</b>
+					<input type="checkbox" id="chkEnvio" value="Si" {if in_array($perfil, array(5))}disabled{/if}> <b>Envío</b>
+				</div>
+				<div class="col-md-1">
+					<b>Fecha</b>
+				</div>
+				<div class="col-md-4">
+					<input class="form-control" value="" placeholder="YYYY-MM-DD" readonly {if in_array($perfil, array(5))}disabled{/if} campo="fechaenvio" id="txtFechaEnvio"/>
+				</div>
+				<div class="col-md-1">
+					<b>Hora</b>
 				</div>
 				<div class="col-md-3">
-					<b>Fecha y hora</b>
-				</div>
-				<div class="col-md-3">
-					<input class="form-control" value="" placeholder="YYYY-MM-DD" readonly campo="fechaenvio" id="txtFechaEnvio"/>
-				</div>
-				<div class="col-md-3">
-					<select id="selHoraEnvio" class="form-control">
+					<select id="selHoraEnvio" class="form-control" {if in_array($perfil, array(5))}readonly disabled{/if}>
 						<option value="11:30:00">11:30</option>
 						<option value="17:30:00">17:30</option>
 					</select>
 				</div>
 			</div>
+			{/if}
 		</div>
+		{if in_array($perfil, array(1, 3, 5))}
 		<div class="col-md-4">
 			<b>Notas de produccion</b>
-			<textarea campo="notasProduccion" class="form-control" rows="4" id="txtNotasProduccion"></textarea>
+			<textarea campo="notasProduccion" class="form-control" rows="4" id="txtNotasProduccion" {if in_array($perfil, array(5))}disabled{/if}></textarea>
 		</div>
+		{/if}
 	</div>
 	<br />
 	<div class="row">
@@ -251,25 +263,27 @@
 	</div>
 	<hr />
 {/if}
-{if in_array($perfil, array(1, 4))}
+{if in_array($perfil, array(1, 4, 5))}
 <div class="row">
 	<div class="col-md-3">
 		<b>Fecha de recepción</b>
 	</div>
 	<div class="col-md-3">
-		<input class="form-control text-right" readonly="true" value="" id="txtFechaRecepcion"/>
+		<input class="form-control text-right" value="" id="txtFechaRecepcion" {if in_array($perfil, array(5))}disabled{/if}/>
 	</div>
 	<div class="col-md-3">
 		<b>Entrega al cliente</b>
 	</div>
 	<div class="col-md-3">
-		<input class="form-control" readonly="true" value="" id="txtFechaEntregaCliente"/>
+		<input class="form-control" value="" id="txtFechaEntregaCliente" {if in_array($perfil, array(5))}disabled{/if}/>
 	</div>
 </div>
 <hr />
 {/if}
 <div class="row">
 	<div class="col-md-12">
-		<button class="btn btn-success pull-right" id="btnGuardar">Guardar</button>
+		{if !in_array($perfil, array(5))}
+			<button class="btn btn-success pull-right" id="btnGuardar">Guardar</button>
+		{/if}
 	</div>
 </div>

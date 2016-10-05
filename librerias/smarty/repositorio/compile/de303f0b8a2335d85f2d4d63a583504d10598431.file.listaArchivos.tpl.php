@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-10-03 10:29:23
+<?php /* Smarty version Smarty-3.1.11, created on 2016-10-05 10:13:26
          compiled from "templates/plantillas/modulos/ordenes/listaArchivos.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:33207867457f273279ef684-21095439%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'de303f0b8a2335d85f2d4d63a583504d10598431' => 
     array (
       0 => 'templates/plantillas/modulos/ordenes/listaArchivos.tpl',
-      1 => 1475508560,
+      1 => 1475680372,
       2 => 'file',
     ),
   ),
@@ -30,7 +30,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 		<tr>
 			<th>Nombre</th>
 			<th>Tamaño</th>
-			<th>Fecha upload</th>
+			<th>Fecha FTP</th>
 			<th>&nbsp;</th>
 		</tr>
 	</thead>

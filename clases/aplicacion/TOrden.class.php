@@ -203,7 +203,7 @@ class TOrden{
 		$db = TBase::conectaDB();
 		
 		if ($this->getId() == ''){
-			$rs = $db->Execute("INSERT INTO orden(idSucursal, idEstado, idVendedor, codigo, cliente, elaboracion, registro) VALUES(".$this->sucursal->getId().", ".$this->estado->getId().", ".$this->vendedor->getId().",".$this->getCodigo().", '".$this->getCliente()."', '".$this->getElaboracion()."', now());");
+			$rs = $db->Execute("INSERT INTO orden(idSucursal, idEstado, idVendedor, codigo, cliente, elaboracion, registro) VALUES(".$this->sucursal->getId().", ".$this->estado->getId().", ".$this->vendedor->getId().", '".$this->getCodigo()."', '".$this->getCliente()."', '".$this->getElaboracion()."', now());");
 			if (!$rs) return false;
 				
 			$this->idOrden = $db->Insert_ID();

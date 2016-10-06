@@ -21,6 +21,7 @@ switch($objModulo->getId()){
 		$data->setOutputEncoding('CP1251');
 		$data->read('temporal/'.$_POST['archivo']);
 		$datos = array();
+		$codigos = array();
 		$band = true;
 		$fi = utf8_encode($data->sheets[0]['cells'][2][1]);
 		$ff = utf8_encode($data->sheets[0]['cells'][2][1]);
@@ -29,6 +30,7 @@ switch($objModulo->getId()){
 			$el = array();
 			
 			$el['codigo'] = utf8_encode($data->sheets[0]['cells'][$i][1]);
+			$el['original'] = utf8_encode($data->sheets[0]['cells'][$i][1]);
 			$el['cantidad'] = utf8_encode($data->sheets[0]['cells'][$i][2]);
 			$el['cveart'] = utf8_encode($data->sheets[0]['cells'][$i][3]);
 			$el['desart'] = utf8_encode($data->sheets[0]['cells'][$i][4]);
@@ -43,7 +45,6 @@ switch($objModulo->getId()){
 			$fi = $el['codigo'] < $fi?$el['codigo']:$fi;
 			$ff = $el['codigo'] > $ff?$el['codigo']:$ff;
 			
-			//$el['json'] = json_encode($el);
 			$db = TBase::conectaDB();
 			
 			$rs = $db->Execute("select idOrden from orden a join sucursal b using(idSucursal) join razonsocial c using(idRazon) where idRazon = ".$_POST['razonSocial']." and codigo = '".$el['codigo']."'");
@@ -73,8 +74,21 @@ switch($objModulo->getId()){
 			$el['sucursalExiste'] = !$rs->EOF;
 			$band = $rs->EOF?false:$band;
 			
+			if (!isset($codigos[$el['codigo']])){
+				$codigos[$el['codigo']] = array();
+				$codigos[$el['codigo']]["cont"] = 1;
+				$codigos[$el['codigo']]["indice"] = $i;
+			}else{
+				$codigos[$el['codigo']]["cont"]++;
+				if ($codigos[$el['codigo']]["cont"] == 2)
+					$datos[$codigos[$el['codigo']]["indice"] - 2]["codigo"] .= "_1";
+				
+				$el['codigo'] .= "_".$codigos[$el['codigo']]["cont"];
+			}
+			
 			array_push($datos, $el);
 		}
+		
 		$smarty->assign("lista", $datos);
 		$smarty->assign("listaJson", json_encode($datos));
 		$smarty->assign("error", $band);
@@ -161,7 +175,7 @@ switch($objModulo->getId()){
 				
 				try {
 					foreach($elementos as $mov){
-						$rs = $db->Execute("select idOrden from orden where codigo = '".$mov->codigo."'");
+						$rs = $db->Execute("select idOrden from orden where codigo = '".$mov->original."'");
 						
 						$orden = new TOrden;
 						if ($rs->EOF){

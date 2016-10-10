@@ -17,6 +17,7 @@ class TUsuario{
 	private $area;
 	private $codigo;
 	public $sucursal;
+	public $areas;
 	
 	/**
 	* Constructor de la clase
@@ -26,6 +27,7 @@ class TUsuario{
 	* @param int $id identificador del objeto
 	*/
 	public function TUsuario($id = ''){
+		$this->areas = array();
 		$this->sucursal = new TSucursal;
 		$this->setId($id);		
 		return true;
@@ -55,6 +57,8 @@ class TUsuario{
 					$this->$field = $val;
 			}
 		}
+		
+		$this->getAreas();
 		
 		return true;
 	}
@@ -343,7 +347,9 @@ class TUsuario{
 				area = '".$this->getArea()."',
 				codigo = '".$this->getCodigo()."'
 			WHERE idUsuario = ".$this->getId());
-			
+		
+		$this->getAreas();
+		
 		return $rs?true:false;
 	}
 	
@@ -362,6 +368,68 @@ class TUsuario{
 		$rs = $db->Execute("delete from usuario where idUsuario = ".$this->getId());
 		
 		return $rs?true:false;
+	}
+	
+	/**
+	* Agrega una área a la cual tiene acceso el usuario
+	*
+	* @autor Hugo
+	* @access public
+	* @return boolean True si se realizó sin problemas
+	*/
+	
+	public function addArea($area = ''){
+		if ($this->getId() == '') return false;
+		if ($area == '') return false;
+		
+		$db = TBase::conectaDB();
+		$rs = $db->Execute("insert into usuarioarea(idUsuario, idArea) values (".$this->getId().", ".$area.")");
+		
+		$this->getAreas();
+		
+		return $rs?true:false;
+	}
+	
+	/**
+	* Quita una área de la lista a la cual puede tener acceso
+	*
+	* @autor Hugo
+	* @access public
+	* @return boolean True si se realizó sin problemas
+	*/
+	
+	public function delArea($area = ''){
+		if ($this->getId() == '') return false;
+		if ($area == '') return false;
+		
+		$db = TBase::conectaDB();
+		$rs = $db->Execute("delete from usuarioarea where idUsuario = ".$this->getId()." and idArea =  ".$area."");
+		
+		$this->getAreas();
+		
+		return $rs?true:false;
+	}
+	
+	/**
+	* genera la lista de áreas del usuario
+	*
+	* @autor Hugo
+	* @access public
+	* @return boolean True si se realizó sin problemas
+	*/
+	
+	public function getAreas(){
+		if ($this->getId() == '') return false;
+		
+		$db = TBase::conectaDB();
+		$rs = $db->Execute("select * from usuarioarea where idUsuario = ".$this->getId()."");
+		$this->areas = array();
+		while(!$rs->EOF){
+			$this->areas[$rs->fields['idArea']] = $rs->fields;
+			$rs->moveNext();
+		}
+		
+		return true;
 	}
 }
 ?>

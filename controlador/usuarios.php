@@ -25,6 +25,15 @@ switch($objModulo->getId()){
 		}
 		
 		$smarty->assign("sucursales", $datos);
+		
+		$rs = $db->Execute("select * from area");
+		$datos = array();
+		while(!$rs->EOF){
+			array_push($datos, $rs->fields);
+			$rs->moveNext();
+		}
+		
+		$smarty->assign("areas", $datos);
 	break;
 	case 'listaUsuarios':
 		$db = TBase::conectaDB();
@@ -34,7 +43,9 @@ switch($objModulo->getId()){
 		$datos = array();
 		while(!$rs->EOF){
 			$obj = new TUsuario($rs->fields['idUsuario']);
+			
 			$rs->fields['tipo'] = $obj->getTipo();
+			$rs->fields['areas'] = $obj->areas;
 			$rs->fields['json'] = json_encode($rs->fields);
 			array_push($datos, $rs->fields);
 			$rs->moveNext();
@@ -108,6 +119,14 @@ switch($objModulo->getId()){
 				$obj->setPass($_POST['pass']);
 				
 				echo json_encode(array("band" => $obj->guardar()));
+			break;
+			case 'addArea':
+				$obj = new TUsuario($_POST['usuario']);
+				echo json_encode(array("band" => $obj->addArea($_POST['area'])));
+			break;
+			case 'delArea':
+				$obj = new TUsuario($_POST['usuario']);
+				echo json_encode(array("band" => $obj->delArea($_POST['area'])));
 			break;
 		}
 	break;

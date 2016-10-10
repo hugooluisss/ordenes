@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-10-03 10:42:54
+<?php /* Smarty version Smarty-3.1.11, created on 2016-10-10 08:36:41
          compiled from "templates/plantillas/modulos/usuarios/panel.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:24114046457f27c7e5a5728-41579231%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '75fca16c9665563fbe115b9d9483a90d1409c54e' => 
     array (
       0 => 'templates/plantillas/modulos/usuarios/panel.tpl',
-      1 => 1475155660,
+      1 => 1476106600,
       2 => 'file',
     ),
   ),
@@ -15,16 +15,18 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
+  'version' => 'Smarty-3.1.11',
+  'unifunc' => 'content_57f27c7e6a7ee3_90987097',
   'variables' => 
   array (
     'tipos' => 0,
     'key' => 0,
     'item' => 0,
     'sucursales' => 0,
+    'areas' => 0,
+    'row' => 0,
   ),
   'has_nocache_code' => false,
-  'version' => 'Smarty-3.1.11',
-  'unifunc' => 'content_57f27c7e6a7ee3_90987097',
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_57f27c7e6a7ee3_90987097')) {function content_57f27c7e6a7ee3_90987097($_smarty_tpl) {?><div class="row">
 	<div class="col-lg-12">
@@ -137,5 +139,33 @@ $_smarty_tpl->tpl_vars['item']->_loop = true;
 				</div>
 			</div>
 		</form>
+	</div>
+</div>
+
+
+<div class="modal fade" id="winAreas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h3>Areas asignadas al usuario</h3>
+			</div>
+			<div class="modal-body">
+				<input type="hidden" id="usuario" />
+				<?php  $_smarty_tpl->tpl_vars["row"] = new Smarty_Variable; $_smarty_tpl->tpl_vars["row"]->_loop = false;
+ $_from = $_smarty_tpl->tpl_vars['areas']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
+foreach ($_from as $_smarty_tpl->tpl_vars["row"]->key => $_smarty_tpl->tpl_vars["row"]->value){
+$_smarty_tpl->tpl_vars["row"]->_loop = true;
+?>
+					<div class="container">
+						<label class="checkbox col-md-12">
+							<input type="checkbox" value="<?php echo $_smarty_tpl->tpl_vars['row']->value['idArea'];?>
+"/> <?php echo $_smarty_tpl->tpl_vars['row']->value['nombre'];?>
+
+						</label>
+					</div>
+				<?php } ?>
+			</div>
+		</div>
 	</div>
 </div><?php }} ?>

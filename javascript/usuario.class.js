@@ -83,4 +83,36 @@ TUsuario = function(){
 			}
 		}, "json");
 	}
+	
+	this.setArea = function(usuario, area, fn){
+		if (fn.before !== undefined) fn.before();
+		
+		$.post('cusuarios', {
+				"usuario": usuario,
+				"area": area,
+				"action": "addArea"
+			}, function(data){
+				if (data.band == 'false')
+					console.log(data.mensaje);
+					
+				if (fn.after !== undefined)
+					fn.after(data);
+			}, "json");
+	}
+	
+	this.delArea = function(usuario, area, fn){
+		if (fn.before !== undefined) fn.before();
+		
+		$.post('cusuarios', {
+				"usuario": usuario,
+				"area": area,
+				"action": "delArea"
+			}, function(data){
+				if (data.band == 'false')
+					console.log(data.mensaje);
+					
+				if (fn.after !== undefined)
+					fn.after(data);
+			}, "json");
+	}
 };

@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-10-03 10:42:55
+<?php /* Smarty version Smarty-3.1.11, created on 2016-10-10 08:36:03
          compiled from "templates/plantillas/modulos/usuarios/lista.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:32831917257f27c7fecd0c0-75728595%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '0792779071f81e2ec50c2a73a57f2de0982f47da' => 
     array (
       0 => 'templates/plantillas/modulos/usuarios/lista.tpl',
-      1 => 1475155660,
+      1 => 1476106490,
       2 => 'file',
     ),
   ),
@@ -15,14 +15,14 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
+  'version' => 'Smarty-3.1.11',
+  'unifunc' => 'content_57f27c7fef81c1_53265625',
   'variables' => 
   array (
     'lista' => 0,
     'row' => 0,
   ),
   'has_nocache_code' => false,
-  'version' => 'Smarty-3.1.11',
-  'unifunc' => 'content_57f27c7fef81c1_53265625',
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_57f27c7fef81c1_53265625')) {function content_57f27c7fef81c1_53265625($_smarty_tpl) {?><div class="box">
 	<div class="box-body">
@@ -52,6 +52,10 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 						<td><?php echo $_smarty_tpl->tpl_vars['row']->value['tipo'];?>
 </td>
 						<td style="text-align: right">
+							<?php if ($_smarty_tpl->tpl_vars['row']->value['idTipo']==2){?>
+								<button type="button" class="btn btn-default" action="areas" title="Áreas" datos='<?php echo $_smarty_tpl->tpl_vars['row']->value['json'];?>
+'><i class="fa fa-font-awesome" aria-hidden="true"></i></button>
+							<?php }?>
 							<button type="button" class="btn btn-success" action="modificar" title="Modificar" datos='<?php echo $_smarty_tpl->tpl_vars['row']->value['json'];?>
 '><i class="fa fa-pencil"></i></button>
 							<button type="button" class="btn btn-danger" action="eliminar" title="Eliminar" usuario="<?php echo $_smarty_tpl->tpl_vars['row']->value['idUsuario'];?>

@@ -95,3 +95,25 @@
 		</form>
 	</div>
 </div>
+
+
+<div class="modal fade" id="winAreas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h3>Areas asignadas al usuario</h3>
+			</div>
+			<div class="modal-body">
+				<input type="hidden" id="usuario" />
+				{foreach from=$areas item="row"}
+					<div class="container">
+						<label class="checkbox col-md-12">
+							<input type="checkbox" value="{$row.idArea}"/> {$row.nombre}
+						</label>
+					</div>
+				{/foreach}
+			</div>
+		</div>
+	</div>
+</div>

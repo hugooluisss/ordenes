@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-10-10 08:56:50
+<?php /* Smarty version Smarty-3.1.11, created on 2016-10-10 11:40:51
          compiled from "templates/plantillas/modulos/usuarios/lista.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:32831917257f27c7fecd0c0-75728595%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '0792779071f81e2ec50c2a73a57f2de0982f47da' => 
     array (
       0 => 'templates/plantillas/modulos/usuarios/lista.tpl',
-      1 => 1476107340,
+      1 => 1476117377,
       2 => 'file',
     ),
   ),
@@ -52,7 +52,7 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 						<td><?php echo $_smarty_tpl->tpl_vars['row']->value['tipo'];?>
 </td>
 						<td style="text-align: right">
-							<?php if ($_smarty_tpl->tpl_vars['row']->value['idTipo']==2){?>
+							<?php if ($_smarty_tpl->tpl_vars['row']->value['idTipo']==3){?>
 								<button type="button" class="btn btn-default" action="areas" title="Áreas" datos='<?php echo $_smarty_tpl->tpl_vars['row']->value['json'];?>
 '><i class="fa fa-font-awesome" aria-hidden="true"></i></button>
 							<?php }?>

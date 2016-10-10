@@ -114,6 +114,9 @@ switch($objModulo->getId()){
 
 		switch($userSesion->getIdTipo()){
 			case 2:
+				$rs = $db->Execute("select a.*, b.nombre as vendedor, c.nombre as sucursal, d.color as colorEstado, d.nombre as estado, if(cast(registro as date) < cast(now() as date), 1, 0) as actual from orden a join vendedor b using(idVendedor) join sucursal c using(idSucursal) join estado d using(idEstado) where idSucursal = ".$sucursal." and b.clave = '".$userSesion->getCodigo()."'");
+			break;
+			case 3:
 				$rs = $db->Execute("select a.*, b.nombre as vendedor, c.nombre as sucursal, d.color as colorEstado, d.nombre as estado, if(cast(registro as date) < cast(now() as date), 1, 0) as actual from orden a join vendedor b using(idVendedor) join sucursal c using(idSucursal) join estado d using(idEstado) join movimiento e using(idOrden) where idSucursal = ".$sucursal." and idArea in (select idArea from usuarioarea where idUsuario = ".$userSesion->getId().")");
 			break;
 			default:

@@ -18,7 +18,7 @@
 						<td>{$row.nombre}</td>
 						<td>{$row.tipo}</td>
 						<td style="text-align: right">
-							{if $row.idTipo eq 2}
+							{if $row.idTipo eq 3}
 								<button type="button" class="btn btn-default" action="areas" title="Áreas" datos='{$row.json}'><i class="fa fa-font-awesome" aria-hidden="true"></i></button>
 							{/if}
 							<button type="button" class="btn btn-success" action="modificar" title="Modificar" datos='{$row.json}'><i class="fa fa-pencil"></i></button>

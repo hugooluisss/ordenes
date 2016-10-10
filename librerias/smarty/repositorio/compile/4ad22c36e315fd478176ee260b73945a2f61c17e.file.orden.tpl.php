@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-10-05 11:51:55
+<?php /* Smarty version Smarty-3.1.11, created on 2016-10-10 09:14:14
          compiled from "templates/plantillas/modulos/ordenes/orden.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:172903277857f1af46e41ba0-49069075%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '4ad22c36e315fd478176ee260b73945a2f61c17e' => 
     array (
       0 => 'templates/plantillas/modulos/ordenes/orden.tpl',
-      1 => 1475686313,
+      1 => 1476108851,
       2 => 'file',
     ),
   ),
@@ -88,7 +88,7 @@ $_smarty_tpl->tpl_vars['item']->_loop = true;
 <br />
 <div class="row">
 	<div class="col-md-2">
-		<b>Id Vendedor</b>
+		<b>Vendedor</b>
 	</div>
 	<div class="col-md-2">
 		<input class="form-control text-right" value="<?php echo $_smarty_tpl->tpl_vars['orden']->value->vendedor->getClave();?>
@@ -299,7 +299,7 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 					<b>Fecha Impresión</b>
 				</div>
 				<div class="col-md-4">
-					<input class="form-control" value="" placeholder="YYYY-MM-DD" <?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(5))){?>disabled<?php }?> campo="fechaImpresion" id="txtFechaImpresion"/>
+					<input class="form-control" value="" placeholder="YYYY-MM-DD" <?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(5))){?>disabled<?php }?> readonly campo="fechaImpresion" id="txtFechaImpresion"/>
 				</div>
 				<?php }?>
 			</div>

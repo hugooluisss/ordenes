@@ -31,8 +31,12 @@ switch($objModulo->getId()){
 				if (isset($_POST['disenador']))
 					$obj->setDisenador($_POST['disenador']);
 				
-				if (isset($_POST['fechaImpresion']))
-					$obj->setFechaImpresion(str_replace("_", "0", $_POST['fechaImpresion']).":00");
+				if (isset($_POST['fechaImpresion'])){
+					$aux = str_replace("_", "0", $_POST['fechaImpresion']);
+					$aux = explode(" ", $aux);
+					
+					$obj->setFechaImpresion($aux[0]." ".date("H:i:s"));
+				}
 				
 				if (isset($_POST['notasProduccion']))
 					$obj->setNotasProduccion($_POST['notasProduccion']);
@@ -49,10 +53,10 @@ switch($objModulo->getId()){
 				if (isset($_POST['horaEnvio']))
 					$obj->setHoraEnvio(str_replace("_", "0", $_POST['horaEnvio']));
 					
-				if (isset($_POST['fechaRecepcion']))
+				if (isset($_POST['fechaRecepcion']) and $_POST['fechaRecepcion'] <> '')
 					$obj->setFechaRecepcion(str_replace("_", "0", $_POST['fechaRecepcion']).":00");
 					
-				if (isset($_POST['entregaCliente']))
+				if (isset($_POST['entregaCliente']) and $_POST['entregaCliente'] <> '')
 					$obj->setEntregaCliente(str_replace("_", "0", $_POST['entregaCliente']).":00");
 					
 				if (isset($_POST['notas']))

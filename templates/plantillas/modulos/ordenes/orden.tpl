@@ -42,7 +42,7 @@
 <br />
 <div class="row">
 	<div class="col-md-2">
-		<b>Id Vendedor</b>
+		<b>Vendedor</b>
 	</div>
 	<div class="col-md-2">
 		<input class="form-control text-right" value="{$orden->vendedor->getClave()}" readonly disabled />
@@ -214,7 +214,7 @@
 					<b>Fecha Impresión</b>
 				</div>
 				<div class="col-md-4">
-					<input class="form-control" value="" placeholder="YYYY-MM-DD" {if in_array($perfil, array(5))}disabled{/if} campo="fechaImpresion" id="txtFechaImpresion"/>
+					<input class="form-control" value="" placeholder="YYYY-MM-DD" {if in_array($perfil, array(5))}disabled{/if} readonly campo="fechaImpresion" id="txtFechaImpresion"/>
 				</div>
 				{/if}
 			</div>

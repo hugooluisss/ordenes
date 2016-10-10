@@ -76,12 +76,12 @@ switch($objModulo->getId()){
 			
 			if (!isset($codigos[$el['codigo']])){
 				$codigos[$el['codigo']] = array();
-				$codigos[$el['codigo']]["cont"] = 1;
+				$codigos[$el['codigo']]["cont"] = "a";
 				$codigos[$el['codigo']]["indice"] = $i;
 			}else{
 				$codigos[$el['codigo']]["cont"]++;
-				if ($codigos[$el['codigo']]["cont"] == 2)
-					$datos[$codigos[$el['codigo']]["indice"] - 2]["codigo"] .= "_1";
+				if ($codigos[$el['codigo']]["cont"] == 'b')
+					$datos[$codigos[$el['codigo']]["indice"] - 2]["codigo"] .= "_a";
 				
 				$el['codigo'] .= "_".$codigos[$el['codigo']]["cont"];
 			}

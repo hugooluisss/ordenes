@@ -16,6 +16,29 @@ $(document).ready(function(){
 			$("#dvLista").find("[action=detalle]").click(function(){
 				$("#winOrden").modal();
 				getOrden(jQuery.parseJSON($(this).attr("datos")));
+				getLista();
+			});
+			
+			$("#dvLista").find("[action=setEstado]").click(function(){
+				if (confirm("¿Seguro?")){
+					var el = jQuery.parseJSON($(this).attr("datos"));
+					var orden = new TOrden();
+					var btn = $(this);
+					
+					orden.guardar(el.idOrden, btn.attr("estado"), {
+						before: function(){
+							btn.prop("disabled", true);
+						}, after: function(resp){
+							btn.prop("disabled", false);
+							if (resp.band)
+								getLista();
+							else
+								alert("No se pudo actualizar el estado");
+						}
+					});
+				}
+				
+				getLista();
 			});
 			
 			$("#tblDatos").DataTable({
@@ -62,13 +85,23 @@ $(document).ready(function(){
 				
 				//$("#txtFechaImpresion").inputmask("9999-99-99");
 				
-				plantilla.find("#txtFechaImpresion").datepicker("option", "dateFormat", "yyyy-mm-dd");
-				plantilla.find("#txtFechaImpresion").datepicker({"dateFormat": "yyyy-mm-dd", "autoclose": true});
+				//plantilla.find("#txtFechaImpresion").datepicker("option", "dateFormat", "yyyy-mm-dd");
+				//plantilla.find("#txtFechaImpresion").datepicker({"dateFormat": "yyyy-mm-dd", "autoclose": true});
 				plantilla.find("#txtFechaEnvio").datepicker({"dateFormat": "yyyy-mm-dd", "autoclose": true});
 				//plantilla.find("#txtFechaRecepcion").datepicker({"dateFormat": "yyyy-mm-dd", "autoclose": true});
 				//plantilla.find("#txtFechaEntregaCliente").datepicker({"dateFormat": "yyyy-mm-dd", "autoclose": true});
 				
 				plantilla.find("#txtHoraEnvio").inputmask("99:99");
+				
+				plantilla.find("#btnFechaImpresion").click(function(){
+					var f = new Date();
+					var fecha = f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + f.getHours() + ':' + f.getMinutes() + ':' + f.getSeconds();
+					plantilla.find("#txtFechaImpresion").val(fecha);
+					
+					plantilla.find("#txtFechaImpresion").prop("disabled", true);
+					
+					guardar();
+				});
 				
 				plantilla.find("#tblDatos").find("tbody tr").click(function(){
 					var el = $(this);
@@ -88,6 +121,8 @@ $(document).ready(function(){
 					plantilla.find("#txtClaveImpresior").val(el.attr("claveImpresior"));
 					plantilla.find("#txtFechaEnvio").val(el.attr("fechaenvio"));
 					plantilla.find("#selHoraEnvio").val(el.attr("horaenvio"));
+					
+					$("#btnFechaImpresion").prop("disabled", !(el.attr("fechaImpresion") == ''));
 					
 					//Vista de diseñador
 					plantilla.find("#chkImpresionDigital").prop("checked", el.attr("impresiondigital") == 'S');
@@ -140,6 +175,10 @@ $(document).ready(function(){
 				});
 				
 				plantilla.find("#btnGuardar").click(function(){
+					guardar();
+				});
+				
+				function guardar(){
 					if ($("input[campo=clave]").val() == '')
 						alert("Selecciona un artículo de la lista");
 					else{
@@ -181,7 +220,7 @@ $(document).ready(function(){
 							}
 						);
 					}
-				});
+				}
 			});
 		}
 	}

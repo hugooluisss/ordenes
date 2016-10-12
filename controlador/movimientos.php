@@ -16,6 +16,7 @@ switch($objModulo->getId()){
 			}
 		}
 		$smarty->assign("lista", $datos);
+		$smarty->assign("orden", new TOrden($_POST['orden']));
 	break;
 	case 'cmovimientos':
 		switch($objModulo->getAction()){
@@ -63,7 +64,7 @@ switch($objModulo->getId()){
 					$obj->setNotas($_POST['notas']);
 					
 				$orden = new TOrden($_POST['orden']);
-				if ($orden->estado->getId() == 1){
+				if ($orden->estado->getId() == 3){
 					$orden->estado->setId(2);
 					$orden->guardar();
 				}

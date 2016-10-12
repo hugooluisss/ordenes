@@ -15,7 +15,7 @@
 				<td class="text-right">{$row.creacion}</td>
 				<td class="text-right">
 					<a class="btn btn-default" href="{$row.ruta}" download="{$row.nombre}"> <i class="fa fa-search"></i></a>
-					{if $PAGE.usuario->getIdTipo() eq 2}
+					{if $PAGE.usuario->getIdTipo() eq 2 and $orden->estado->getId() neq 2}
 						<button type="button" class="btn btn-danger" action="borrar" title="Eliminar" datos='{$row.json}'><i class="fa fa-times"></i></button>
 					{/if}
 				</td>

@@ -3,7 +3,10 @@ global $objModulo;
 switch($objModulo->getId()){
 	case 'reporte':
 		$db = TBase::conectaDB();
-		$rs = $db->Execute("select * from sucursal");
+		if (in_array($userSesion->getIdTipo(), array(1, 3, 5)))
+			$rs = $db->Execute("select * from sucursal");
+		else
+			$rs = $db->Execute("select * from sucursal where idSucursal in (select idSucursal from usuariosucursal where idUsuario = ".$userSesion->getId().")");
 		$datos = array();
 		while(!$rs->EOF){
 			$rs->fields['json'] = json_encode($rs->fields);

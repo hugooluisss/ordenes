@@ -16,8 +16,8 @@ class TUsuario{
 	private $puesto;
 	private $area;
 	private $codigo;
-	public $sucursal;
 	public $areas;
+	public $sucursales;
 	
 	/**
 	* Constructor de la clase
@@ -28,7 +28,7 @@ class TUsuario{
 	*/
 	public function TUsuario($id = ''){
 		$this->areas = array();
-		$this->sucursal = new TSucursal;
+		$this->sucursales = array();
 		$this->setId($id);		
 		return true;
 	}
@@ -50,15 +50,13 @@ class TUsuario{
 		
 		foreach($rs->fields as $field => $val){
 			switch($field){
-				case 'idSucursal':
-					$this->sucursal = new TSucursal($val);
-				break;
 				default:
 					$this->$field = $val;
 			}
 		}
 		
 		$this->getAreas();
+		$this->getSucursales();
 		
 		return true;
 	}
@@ -260,32 +258,6 @@ class TUsuario{
 	}
 	
 	/**
-	* Establece el area
-	*
-	* @autor Hugo
-	* @access public
-	* @param string $val Valor a asignar
-	* @return boolean True si se realizó sin problemas
-	*/
-	
-	public function setArea($val = ''){
-		$this->area = $val;
-		return true;
-	}
-	
-	/**
-	* Retorna el area
-	*
-	* @autor Hugo
-	* @access public
-	* @return string Texto
-	*/
-	
-	public function getArea(){
-		return $this->area;
-	}
-	
-	/**
 	* Establece el código
 	*
 	* @autor Hugo
@@ -321,12 +293,11 @@ class TUsuario{
 	
 	public function guardar(){
 		if ($this->getIdTipo() == '') return false;
-		if ($this->sucursal->getId() == '') return false;
 		
 		$db = TBase::conectaDB();
 		
 		if ($this->getId() == ''){
-			$rs = $db->Execute("INSERT INTO usuario(idTipo, idSucursal) VALUES(".$this->getIdTipo().", ".$this->sucursal->getId().");");
+			$rs = $db->Execute("INSERT INTO usuario(idTipo) VALUES(".$this->getIdTipo().");");
 			if (!$rs) return false;
 				
 			$this->idUsuario = $db->Insert_ID();
@@ -338,17 +309,16 @@ class TUsuario{
 		$rs = $db->Execute("UPDATE usuario
 			SET
 				idTipo = ".$this->getIdTipo().",
-				idSucursal = ".$this->sucursal->getId().",
 				nombre = '".$this->getNombre()."',
 				clave = '".$this->getClave()."',
 				email = '".$this->getEmail()."',
 				pass = '".$this->getPass()."',
 				puesto = '".$this->getPuesto()."',
-				area = '".$this->getArea()."',
 				codigo = '".$this->getCodigo()."'
 			WHERE idUsuario = ".$this->getId());
 		
 		$this->getAreas();
+		$this->getSucursales();
 		
 		return $rs?true:false;
 	}
@@ -386,6 +356,7 @@ class TUsuario{
 		$rs = $db->Execute("insert into usuarioarea(idUsuario, idArea) values (".$this->getId().", ".$area.")");
 		
 		$this->getAreas();
+		$this->getSucursales();
 		
 		return $rs?true:false;
 	}
@@ -406,6 +377,7 @@ class TUsuario{
 		$rs = $db->Execute("delete from usuarioarea where idUsuario = ".$this->getId()." and idArea =  ".$area."");
 		
 		$this->getAreas();
+		$this->getSucursales();
 		
 		return $rs?true:false;
 	}
@@ -428,6 +400,86 @@ class TUsuario{
 			$this->areas[$rs->fields['idArea']] = $rs->fields;
 			$rs->moveNext();
 		}
+		
+		return true;
+	}
+	
+	/**
+	* Agrega una sucursal al usuario
+	*
+	* @autor Hugo
+	* @access public
+	* @return boolean True si se realizó sin problemas
+	*/
+	
+	public function addSucursal($sucursal = ''){
+		if ($this->getId() == '') return false;
+		if ($sucursal == '') return false;
+		
+		$db = TBase::conectaDB();
+		$rs = $db->Execute("insert into usuariosucursal(idUsuario, idSucursal) values (".$this->getId().", ".$sucursal.")");
+		
+		$this->getSucursales();
+		
+		return $rs?true:false;
+	}
+	
+	/**
+	* Quita una sucursal de la lista a la cual puede tener acceso
+	*
+	* @autor Hugo
+	* @access public
+	* @return boolean True si se realizó sin problemas
+	*/
+	
+	public function delSucursal($sucursal = ''){
+		if ($this->getId() == '') return false;
+		if ($area == '') return false;
+		
+		$db = TBase::conectaDB();
+		$rs = $db->Execute("delete from usuarioarea where idUsuario = ".$this->getId()." and idSucursal =  ".$idSucursal."");
+		
+		$this->getSucursales();
+		
+		return $rs?true:false;
+	}
+	
+	/**
+	* Genera la lista de sucursales del usuario
+	*
+	* @autor Hugo
+	* @access public
+	* @return boolean True si se realizó sin problemas
+	*/
+	
+	public function getSucursales(){
+		if ($this->getId() == '') return false;
+		
+		$db = TBase::conectaDB();
+		$rs = $db->Execute("select * from usuariosucursal where idUsuario = ".$this->getId()."");
+		$this->sucursales = array();
+		while(!$rs->EOF){
+			$this->sucursales[$rs->fields['idSucursal']] = $rs->fields;
+			$rs->moveNext();
+		}
+		
+		return true;
+	}
+	
+	/**
+	* Borrar todas las sucursales
+	*
+	* @autor Hugo
+	* @access public
+	* @return boolean True si se realizó sin problemas
+	*/
+	
+	public function delAllSucursales(){
+		if ($this->getId() == '') return false;
+		
+		$db = TBase::conectaDB();
+		$rs = $db->Execute("delete from usuariosucursal where idUsuario = ".$this->getId()."");
+		$this->sucursales = array();
 		
 		return true;
 	}

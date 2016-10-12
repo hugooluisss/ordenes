@@ -48,6 +48,7 @@ $conf['admonUsuarios'] = array(
 	'seguridad' => true,
 	'js' => array('usuario.class.js'),
 	'jsTemplate' => array('usuarios.js'),
+	'perfiles' => array(1),
 	'capa' => LAYOUT_DEFECTO);
 
 $conf['listaUsuarios'] = array(
@@ -90,7 +91,7 @@ $conf['panelPrincipal'] = array(
 	'js' => array(),
 	'capa' => LAYOUT_DEFECTO);
 
-#Productos
+#Sucursales
 $conf['sucursales'] = array(
 	'controlador' => 'sucursales.php',
 	'vista' => 'sucursales/panel.tpl',
@@ -98,6 +99,7 @@ $conf['sucursales'] = array(
 	'seguridad' => true,
 	'js' => array('sucursal.class.js'),
 	'jsTemplate' => array('sucursales.js'),
+	'perfiles' => array(1),
 	'capa' => LAYOUT_DEFECTO);
 
 $conf['listaSucursales'] = array(
@@ -121,6 +123,7 @@ $conf['areas'] = array(
 	'seguridad' => true,
 	'js' => array('area.class.js'),
 	'jsTemplate' => array('areas.js'),
+	'perfiles' => array(1),
 	'capa' => LAYOUT_DEFECTO);
 
 $conf['listaAreas'] = array(
@@ -144,6 +147,7 @@ $conf['estados'] = array(
 	'seguridad' => true,
 	'js' => array('estado.class.js'),
 	'jsTemplate' => array('estados.js'),
+	'perfiles' => array(1),
 	'capa' => LAYOUT_DEFECTO);
 	
 $conf['listadoEstados'] = array(
@@ -167,6 +171,7 @@ $conf['vendedores'] = array(
 	'seguridad' => true,
 	'js' => array('vendedor.class.js'),
 	'jsTemplate' => array('vendedores.js'),
+	'perfiles' => array(1),
 	'capa' => LAYOUT_DEFECTO);
 	
 $conf['listaVendedores'] = array(
@@ -190,6 +195,7 @@ $conf['importar'] = array(
 	'seguridad' => true,
 	'js' => array('orden.class.js'),
 	'jsTemplate' => array('importar.js'),
+	'perfiles' => array(1),
 	'capa' => LAYOUT_DEFECTO);
 	
 $conf['cordenes'] = array(

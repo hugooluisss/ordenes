@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-10-05 10:13:26
+<?php /* Smarty version Smarty-3.1.11, created on 2016-10-12 11:46:39
          compiled from "templates/plantillas/modulos/ordenes/listaArchivos.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:33207867457f273279ef684-21095439%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'de303f0b8a2335d85f2d4d63a583504d10598431' => 
     array (
       0 => 'templates/plantillas/modulos/ordenes/listaArchivos.tpl',
-      1 => 1475680372,
+      1 => 1476290791,
       2 => 'file',
     ),
   ),
@@ -22,6 +22,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'lista' => 0,
     'row' => 0,
     'PAGE' => 0,
+    'orden' => 0,
   ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
@@ -51,7 +52,7 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 					<a class="btn btn-default" href="<?php echo $_smarty_tpl->tpl_vars['row']->value['ruta'];?>
 " download="<?php echo $_smarty_tpl->tpl_vars['row']->value['nombre'];?>
 "> <i class="fa fa-search"></i></a>
-					<?php if ($_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdTipo()==2){?>
+					<?php if ($_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdTipo()==2&&$_smarty_tpl->tpl_vars['orden']->value->estado->getId()!=2){?>
 						<button type="button" class="btn btn-danger" action="borrar" title="Eliminar" datos='<?php echo $_smarty_tpl->tpl_vars['row']->value['json'];?>
 '><i class="fa fa-times"></i></button>
 					<?php }?>

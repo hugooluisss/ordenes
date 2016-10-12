@@ -29,6 +29,7 @@ class TModulo{
 		$this->idModulo = $id;
 		$this->categoria = $conf[$id]["categoria"] == ''?"Sin especificar":$conf[$id]["categoria"];
 		$this->seguridad = $conf[$id]["seguridad"];
+		$this->perfiles = $conf[$id]["perfiles"];
 		$this->scriptsJS = array();
 		
 		if (isset($conf[$id]['js'])){
@@ -126,5 +127,16 @@ class TModulo{
 	
 	public function getDebugSeguridad(){
 		return $this->debugSeg == false?false:true;
+	}
+	
+	#Para saber si el perfil de usuario puede ver el módulo
+	public function userCanSee($perfil){
+		if ($this->perfiles == '') return true;
+		
+		if (!is_array($this->perfiles)) return true;
+		
+		if (in_array($perfil, $this->perfiles)) return true;
+		
+		return false;
 	}
 }

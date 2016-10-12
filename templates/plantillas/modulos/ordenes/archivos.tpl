@@ -34,7 +34,7 @@
 	
 	<ul class="nav nav-tabs">
 		<li class="active"><a data-toggle="tab" href="#listaArchivos">Lista de archivos</a></li>
-		<li><a data-toggle="tab" href="#log" {if in_array($PAGE.usuario->getIdTipo(), array(3))}class="hide"{/if}>Subir</a></li>
+		<li><a data-toggle="tab" href="#log" {if in_array($PAGE.usuario->getIdTipo(), array(3)) or $orden->estado->getId() eq 2}class="hide"{/if}>Subir</a></li>
 	</ul>
 	
 	<div class="tab-content">

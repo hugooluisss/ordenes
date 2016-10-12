@@ -7,22 +7,36 @@
 	<div class="col-md-6">
 		<h1 style="color: #3c8dbc">Orden de servicio</h1>
 	</div>
-	<div class="col-md-4">
+	{if $PAGE.usuario->getIdTipo() eq 3}
+		<div class="col-md-4">
 		<b>Estado</b><br /><br />
-		<select id="selEstadoOrden" name="selEstadoOrden" class="form-control" {if !in_array($PAGE.usuario->getIdTipo(), array(1, 2, 4))}disabled readonly{/if}>
+		<select id="selEstadoOrden" name="selEstadoOrden" class="form-control" {if !in_array($PAGE.usuario->getIdTipo(), array(1, 2, 3, 4))}disabled readonly{/if}>
 			{foreach key=key item=item from=$estados}
-				{if $item.idEstado eq 4}
-					{if $PAGE.usuario->getIdTipo() neq 1}
-						<option value="{$item.idEstado}" {if $orden->estado->getId() eq $item.idEstado}selected{/if} disabled>{$item.nombre}</option>
-					{else}
-						<option value="{$item.idEstado}" {if $orden->estado->getId() eq $item.idEstado}selected{/if}>{$item.nombre}</option>
-					{/if}
+				{if in_array($item.idEstado, array(4, 7)) neq true}
+					<option value="{$item.idEstado}" {if $orden->estado->getId() eq $item.idEstado}selected{/if} disabled>{$item.nombre}</option>
 				{else}
 					<option value="{$item.idEstado}" {if $orden->estado->getId() eq $item.idEstado}selected{/if}>{$item.nombre}</option>
 				{/if}
 			{/foreach}
 		</select>
-	</div>
+	{else}
+		<div class="col-md-4">
+			<b>Estado</b><br /><br />
+			<select id="selEstadoOrden" name="selEstadoOrden" class="form-control" {if !in_array($PAGE.usuario->getIdTipo(), array(1, 2, 4))}disabled readonly{/if}>
+				{foreach key=key item=item from=$estados}
+					{if $item.idEstado eq 4}
+						{if $PAGE.usuario->getIdTipo() neq 1}
+							<option value="{$item.idEstado}" {if $orden->estado->getId() eq $item.idEstado}selected{/if} disabled>{$item.nombre}</option>
+						{else}
+							<option value="{$item.idEstado}" {if $orden->estado->getId() eq $item.idEstado}selected{/if}>{$item.nombre}</option>
+						{/if}
+					{else}
+						<option value="{$item.idEstado}" {if $orden->estado->getId() eq $item.idEstado}selected{/if}>{$item.nombre}</option>
+					{/if}
+				{/foreach}
+			</select>
+		</div>
+	{/if}
 </div>
 <hr />
 <div class="row">
@@ -210,8 +224,8 @@
 			<br />
 			<div class="row">
 				{if in_array($perfil, array(1, 3, 5))}
-				<div class="col-md-3">
-					<b>Fecha Impresión</b>
+				<div class="col-md-4">
+					<button id="btnFechaImpresion" class="btn btn-warning">Impresión terminada</button>
 				</div>
 				<div class="col-md-4">
 					<input class="form-control" value="" placeholder="YYYY-MM-DD" {if in_array($perfil, array(5))}disabled{/if} readonly campo="fechaImpresion" id="txtFechaImpresion"/>
@@ -254,9 +268,11 @@
 		<div class="col-md-2">
 			<b>Impresor</b>
 		</div>
+		<!--
 		<div class="col-md-2">
 			<input class="form-control text-right" readonly disabled="true" id="txtClaveImpresor"/>
 		</div>
+		-->
 		<div class="col-md-8">
 			<input class="form-control" readonly disabled="true" value="" id="txtNombreImpresor"/>
 		</div>

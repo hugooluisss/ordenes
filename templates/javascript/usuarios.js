@@ -107,10 +107,15 @@ $(document).ready(function(){
 				$("#txtPass").val(el.pass);
 				$("#txtClave").val(el.clave);
 				$("#txtCodigo").val(el.codigo);
-				$("#txtArea").val(el.area);
 				$("#txtPuesto").val(el.puesto);
 				$("#selTipo").val(el.idTipo);
-				$("#selSucursal").val(el.idSucursal);
+				$("#selSucursal").val("");
+				
+				$.each(el.sucursales, function(i, e){
+					
+					$("#selSucursal option[value='" + e.idSucursal + "']").prop("selected", true);
+				});
+
 				$('#panelTabs a[href="#add"]').tab('show');
 			});
 			

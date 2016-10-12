@@ -22,6 +22,13 @@
 						<td {if $row.actual eq 1}class="text-danger"{/if}>{$row.registro}</td>
 						<td>{$row.estado}</td>
 						<td class="text-right">
+							{if $PAGE.usuario->getIdTipo() eq 6 and $row.idEstado neq 9}
+								<button type="button" class="btn btn-warning" action="setEstado" estado="9" title="Pasar a En tránsito" datos='{$row.json}'><i class="fa fa-arrow-circle-o-right"></i></button>
+							{/if}
+							{if $PAGE.usuario->getIdTipo() eq 4 and in_array($row.idEstado, array(10, 11)) neq true}
+								<button type="button" class="btn btn-warning" action="setEstado" estado="10" title="Pasar a En Rack" datos='{$row.json}'><i class="fa fa-list-alt"></i></button>
+								<button type="button" class="btn btn-warning" action="setEstado" estado="11" title="Pasar a Perdido" datos='{$row.json}'><i class="fa fa-lastfm"></i></button>
+							{/if}
 							<button type="button" class="btn btn-success" action="detalle" title="Detalle" datos='{$row.json}'><i class="fa fa-search"></i></button>
 						</td>
 					</tr>

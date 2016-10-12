@@ -33,7 +33,7 @@
 					<div class="form-group">
 						<label for="selSucursal" class="col-lg-2">Sucursal</label>
 						<div class="col-lg-4">
-							<select class="form-control" id="selSucursal" name="selSucursal">
+							<select class="form-control" id="selSucursal" multiple name="selSucursal">
 								{foreach key=key item=item from=$sucursales}
 									<option value="{$key}">{$item}
 								{/foreach}
@@ -65,12 +65,6 @@
 						<label for="txtCodigo" class="col-lg-2">Código</label>
 						<div class="col-lg-2">
 							<input class="form-control" id="txtCodigo" name="txtCodigo" type="text">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="txtArea" class="col-lg-2">Área</label>
-						<div class="col-lg-3">
-							<input class="form-control" id="txtArea" name="txtArea" type="text">
 						</div>
 					</div>
 					<div class="form-group">

@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-10-05 10:10:35
+<?php /* Smarty version Smarty-3.1.11, created on 2016-10-12 11:47:48
          compiled from "templates/plantillas/modulos/ordenes/archivos.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:40453334257f1acd3d77042-53063986%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '52480e74915999cd0e4fa59272c515c91bb79d06' => 
     array (
       0 => 'templates/plantillas/modulos/ordenes/archivos.tpl',
-      1 => 1475680234,
+      1 => 1476290866,
       2 => 'file',
     ),
   ),
@@ -64,7 +64,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 	
 	<ul class="nav nav-tabs">
 		<li class="active"><a data-toggle="tab" href="#listaArchivos">Lista de archivos</a></li>
-		<li><a data-toggle="tab" href="#log" <?php if (in_array($_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdTipo(),array(3))){?>class="hide"<?php }?>>Subir</a></li>
+		<li><a data-toggle="tab" href="#log" <?php if (in_array($_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdTipo(),array(3))||$_smarty_tpl->tpl_vars['orden']->value->estado->getId()==2){?>class="hide"<?php }?>>Subir</a></li>
 	</ul>
 	
 	<div class="tab-content">

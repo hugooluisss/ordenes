@@ -46,6 +46,7 @@ switch($objModulo->getId()){
 			
 			$rs->fields['tipo'] = $obj->getTipo();
 			$rs->fields['areas'] = $obj->areas;
+			$rs->fields['sucursales'] = $obj->sucursales;
 			$rs->fields['json'] = json_encode($rs->fields);
 			array_push($datos, $rs->fields);
 			$rs->moveNext();
@@ -92,11 +93,12 @@ switch($objModulo->getId()){
 				$obj->setPass($_POST['pass']);
 				$obj->setTipo($_POST['tipo']);
 				$obj->setPuesto($_POST['puesto']);
-				$obj->setArea($_POST['area']);
 				$obj->setCodigo($_POST['codigo']);
-				$obj->sucursal = new TSucursal($_POST['sucursal']);
+				$obj->delAllSucursales();
 
 				echo json_encode(array("band" => $obj->guardar()));
+				foreach($_POST['sucursal'] as $sucursal)
+					$obj->addSucursal($sucursal);
 			break;
 			case 'del':
 				$obj = new TUsuario($_POST['usuario']);

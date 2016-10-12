@@ -96,7 +96,11 @@ switch($objModulo->getId()){
 	break;
 	case 'listaOrdenesAdmin':
 		$db = TBase::conectaDB();
-		$rs = $db->Execute("select * from sucursal");
+		if (in_array($userSesion->getIdTipo(), array(1, 3, 5)))
+			$rs = $db->Execute("select * from sucursal");
+		else
+			$rs = $db->Execute("select * from sucursal where idSucursal in (select idSucursal from usuariosucursal where idUsuario = ".$userSesion->getId().")");
+			
 		$datos = array();
 		while(!$rs->EOF){
 			$rs->fields['json'] = json_encode($rs->fields);
@@ -109,15 +113,14 @@ switch($objModulo->getId()){
 	break;
 	case 'listaOrdenes':
 		$db = TBase::conectaDB();
-		$sucursal = $userSesion->sucursal->getId();
 		$sucursal = $_POST['sucursal'] == ''?$sucursal:$_POST['sucursal'];
 
 		switch($userSesion->getIdTipo()){
-			case 2:
-				$rs = $db->Execute("select a.*, b.nombre as vendedor, c.nombre as sucursal, d.color as colorEstado, d.nombre as estado, if(cast(registro as date) < cast(now() as date), 1, 0) as actual from orden a join vendedor b using(idVendedor) join sucursal c using(idSucursal) join estado d using(idEstado) where idSucursal = ".$sucursal." and b.clave = '".$userSesion->getCodigo()."'");
+			case 2: #diseñador
+				$rs = $db->Execute("select a.*, b.nombre as vendedor, c.nombre as sucursal, d.color as colorEstado, d.nombre as estado, if(cast(registro as date) < cast(now() as date), 1, 0) as actual from orden a join vendedor b using(idVendedor) join sucursal c using(idSucursal) join estado d using(idEstado) where idSucursal = ".$sucursal." and b.clave = '".$userSesion->getCodigo()."' and not a.idEstado = 2");
 			break;
-			case 3:
-				$rs = $db->Execute("select a.*, b.nombre as vendedor, c.nombre as sucursal, d.color as colorEstado, d.nombre as estado, if(cast(registro as date) < cast(now() as date), 1, 0) as actual from orden a join vendedor b using(idVendedor) join sucursal c using(idSucursal) join estado d using(idEstado) join movimiento e using(idOrden) where idSucursal = ".$sucursal." and idArea in (select idArea from usuarioarea where idUsuario = ".$userSesion->getId().")");
+			case 3: #produccion
+				$rs = $db->Execute("select a.*, b.nombre as vendedor, c.nombre as sucursal, d.color as colorEstado, d.nombre as estado, if(cast(registro as date) < cast(now() as date), 1, 0) as actual from orden a join vendedor b using(idVendedor) join sucursal c using(idSucursal) join estado d using(idEstado) join movimiento e using(idOrden) where idSucursal = ".$sucursal." and idArea in (select idArea from usuarioarea where idUsuario = ".$userSesion->getId().") and (e.fechaImpresion is null) and a.idEstado in (1, 2, 8)");
 			break;
 			default:
 				$rs = $db->Execute("select a.*, b.nombre as vendedor, c.nombre as sucursal, d.color as colorEstado, d.nombre as estado, if(cast(registro as date) < cast(now() as date), 1, 0) as actual from orden a join vendedor b using(idVendedor) join sucursal c using(idSucursal) join estado d using(idEstado) where idSucursal = ".$sucursal);
@@ -136,6 +139,20 @@ switch($objModulo->getId()){
 	break;
 	case 'detalleOrden':
 		$orden = new TOrden($_POST['orden']);
+		if ($userSesion->getIdTipo() == 3){ #produccion
+			if ($orden->estado->getId() == 1){
+				$orden->estado->setId(2);
+				
+				$orden->guardar();
+			}
+			
+			foreach($orden->movimientos as $mov){
+				$mov->setNombreImpresor($userSesion->getNombreCompleto());
+				$mov->setClaveImpresor($userSesion->getClave());
+				
+				$mov->guardar();
+			}
+		}
 		
 		$smarty->assign("orden", $orden);
 		

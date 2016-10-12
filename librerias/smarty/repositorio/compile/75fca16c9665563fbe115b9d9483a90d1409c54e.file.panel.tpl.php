@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-10-10 08:56:49
+<?php /* Smarty version Smarty-3.1.11, created on 2016-10-12 10:45:43
          compiled from "templates/plantillas/modulos/usuarios/panel.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:24114046457f27c7e5a5728-41579231%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '75fca16c9665563fbe115b9d9483a90d1409c54e' => 
     array (
       0 => 'templates/plantillas/modulos/usuarios/panel.tpl',
-      1 => 1476107340,
+      1 => 1476287133,
       2 => 'file',
     ),
   ),
@@ -71,7 +71,7 @@ $_smarty_tpl->tpl_vars['item']->_loop = true;
 					<div class="form-group">
 						<label for="selSucursal" class="col-lg-2">Sucursal</label>
 						<div class="col-lg-4">
-							<select class="form-control" id="selSucursal" name="selSucursal">
+							<select class="form-control" id="selSucursal" multiple name="selSucursal">
 								<?php  $_smarty_tpl->tpl_vars['item'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['item']->_loop = false;
  $_smarty_tpl->tpl_vars['key'] = new Smarty_Variable;
  $_from = $_smarty_tpl->tpl_vars['sucursales']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
@@ -111,12 +111,6 @@ $_smarty_tpl->tpl_vars['item']->_loop = true;
 						<label for="txtCodigo" class="col-lg-2">Código</label>
 						<div class="col-lg-2">
 							<input class="form-control" id="txtCodigo" name="txtCodigo" type="text">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="txtArea" class="col-lg-2">Área</label>
-						<div class="col-lg-3">
-							<input class="form-control" id="txtArea" name="txtArea" type="text">
 						</div>
 					</div>
 					<div class="form-group">

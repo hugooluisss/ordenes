@@ -103,43 +103,57 @@ $(document).ready(function(){
 					guardar();
 				});
 				
-				plantilla.find("#tblDatos").find("tbody tr").click(function(){
-					var el = $(this);
-					$("input[campo=area]").val(el.attr("area"));
-					$("input[campo=clave]").val(el.attr("clave"));
-					$("input[campo=elaboracion]").val(el.attr("elaboracion"));
-					$("input[campo=cantidad]").val(el.attr("cantidad"));
-					$("input[campo=descripcion]").val(el.attr("descripcion"));
-					$("#winOrden").find("input[campo=observaciones]").val(el.attr("observaciones"));
-					
-					//notasSucursales, impresionDigital, disenador, fechaImpresion, notasProduccion, claveImpresion, fechaEnvio, horaEnvio, fechaRecepcion, entregaCliente, notas
-					plantilla.find("#txtNotasSucursales").val(el.attr("notasucursales"));
-					plantilla.find("#txtImpresionDigital").val(el.attr("impresionDigital"));
-					plantilla.find("#txtDisenador").val(el.attr("disenador"));
-					plantilla.find("#txtFechaImpresion").val(el.attr("fechaImpresion"));
-					plantilla.find("#txtNotasProduccion").val(el.attr("notasProduccion"));
-					plantilla.find("#txtClaveImpresior").val(el.attr("claveImpresior"));
-					plantilla.find("#txtFechaEnvio").val(el.attr("fechaenvio"));
-					plantilla.find("#selHoraEnvio").val(el.attr("horaenvio"));
-					
-					$("#btnFechaImpresion").prop("disabled", !(el.attr("fechaImpresion") == ''));
-					
-					//Vista de diseñador
-					plantilla.find("#chkImpresionDigital").prop("checked", el.attr("impresiondigital") == 'S');
-					plantilla.find("#txtDisenador").val(el.attr("disenador"));
-					
-					plantilla.find("#txtDisenador").val(el.attr("disenador"));
-					plantilla.find("#txtClaveImpresor").val(el.attr("claveimpresor"));
-					plantilla.find("#txtNombreImpresor").val(el.attr("nombreimpresor"));
-					
-					if (plantilla.find("#txtFechaEnvio").val() != '')
-						plantilla.find("#chkEnvio").prop("checked", true);
-					else
-						plantilla.find("#chkEnvio").prop("checked", false);
-					
-					plantilla.find("#txtFechaRecepcion").val(el.attr("fecharecepcion"));
-					plantilla.find("#txtFechaEntregaCliente").val(el.attr("entregacliente"));
-					plantilla.find("#txtNotas").val(el.attr("notas"));
+				var el = plantilla.find("#tblDatos").find("tbody tr:first-child")
+				$("input[campo=area]").val(el.attr("area"));
+				$("input[campo=clave]").val(el.attr("clave"));
+				$("input[campo=elaboracion]").val(el.attr("elaboracion"));
+				$("input[campo=cantidad]").val(el.attr("cantidad"));
+				$("input[campo=descripcion]").val(el.attr("descripcion"));
+				$("#winOrden").find("input[campo=observaciones]").val(el.attr("observaciones"));
+				
+				//notasSucursales, impresionDigital, disenador, fechaImpresion, notasProduccion, claveImpresion, fechaEnvio, horaEnvio, fechaRecepcion, entregaCliente, notas
+				plantilla.find("#txtNotasSucursales").val(el.attr("notasucursales"));
+				plantilla.find("#txtImpresionDigital").val(el.attr("impresionDigital"));
+				plantilla.find("#txtDisenador").val(el.attr("disenador"));
+				plantilla.find("#txtFechaImpresion").val(el.attr("fechaImpresion"));
+				plantilla.find("#txtNotasProduccion").val(el.attr("notasProduccion"));
+				plantilla.find("#txtClaveImpresior").val(el.attr("claveImpresior"));
+				plantilla.find("#txtFechaEnvio").val(el.attr("fechaenvio"));
+				plantilla.find("#selHoraEnvio").val(el.attr("horaenvio"));
+				
+				$("#btnFechaImpresion").prop("disabled", !(el.attr("fechaImpresion") == ''));
+				
+				//Vista de diseñador
+				plantilla.find("#chkImpresionDigital").prop("checked", el.attr("impresiondigital") == 'S');
+				plantilla.find("#txtDisenador").val(el.attr("disenador"));
+				
+				plantilla.find("#txtDisenador").val(el.attr("disenador"));
+				plantilla.find("#txtClaveImpresor").val(el.attr("claveimpresor"));
+				plantilla.find("#txtNombreImpresor").val(el.attr("nombreimpresor"));
+				
+				if (plantilla.find("#txtFechaEnvio").val() != '')
+					plantilla.find("#chkEnvio").prop("checked", true);
+				else
+					plantilla.find("#chkEnvio").prop("checked", false);
+				
+				plantilla.find("#txtFechaRecepcion").val(el.attr("fecharecepcion"));
+				plantilla.find("#txtFechaEntregaCliente").val(el.attr("entregacliente"));
+				plantilla.find("#txtNotas").val(el.attr("notas"));
+				
+				plantilla.find("#lnkUltimoArchivo").click(function(){
+					var orden = new TOrden;
+					orden.guardar(idOrden, 2, {
+						before: function(){
+							plantilla.find("#selEstadoOrden").prop("disabled", true);
+						},
+						after: function(resp){
+							plantilla.find("#selEstadoOrden").prop("disabled", false);
+							if (resp.band)
+								plantilla.find("#selEstadoOrden").val(2);
+							else
+								alert("Ocurrió un error al cambiar el estado a En producción, inténtelo manualmente");
+						}
+					});
 				});
 				
 				plantilla.find("#chkEnvio").change(function(){

@@ -604,6 +604,35 @@ class TMovimiento{
 	}
 	
 	/**
+	* Retorna la ruta del último archivo subido para este movimiento
+	*
+	* @autor Hugo
+	* @access public
+	* @return mixed Date y si no existe retorna ''
+	*/
+	
+	public function getRutaArchivoUltimo($completa = true){
+		$carpeta = "repositorio/ordenes/orden_".$this->getOrden()."/movimiento_".$this->getClave()."/";
+		$fecha = '';
+		$archivo = '';
+		
+		foreach(scandir($carpeta) as $file){
+			if (!in_array($file, array(".", "..", ".DS_Store"))){
+				$hora = filemtime($carpeta.$file);
+				
+				$fecha = $fecha == ''?$hora:$fecha;
+				$archivo = $archivo == ''?$file:$archivo;
+				if ($fecha < $hora){
+					$fecha = $hora;
+					$archivo = $file;
+				}
+			}
+		}
+		
+		return ($completa?$carpeta:"").$archivo;
+	}
+	
+	/**
 	* Guarda los datos en la base de datos
 	*
 	* @autor Hugo

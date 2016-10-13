@@ -140,12 +140,6 @@ switch($objModulo->getId()){
 	case 'detalleOrden':
 		$orden = new TOrden($_POST['orden']);
 		if ($userSesion->getIdTipo() == 3){ #produccion
-			if ($orden->estado->getId() == 1){
-				$orden->estado->setId(2);
-				
-				$orden->guardar();
-			}
-			
 			foreach($orden->movimientos as $mov){
 				$mov->setNombreImpresor($userSesion->getNombreCompleto());
 				$mov->setClaveImpresor($userSesion->getClave());

@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-10-12 13:11:47
+<?php /* Smarty version Smarty-3.1.11, created on 2016-10-12 22:32:19
          compiled from "templates/plantillas/modulos/ordenes/orden.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:172903277857f1af46e41ba0-49069075%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '4ad22c36e315fd478176ee260b73945a2f61c17e' => 
     array (
       0 => 'templates/plantillas/modulos/ordenes/orden.tpl',
-      1 => 1476295899,
+      1 => 1476329536,
       2 => 'file',
     ),
   ),
@@ -41,26 +41,27 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 	</div>
 	<?php if ($_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdTipo()==3){?>
 		<div class="col-md-4">
-		<b>Estado</b><br /><br />
-		<select id="selEstadoOrden" name="selEstadoOrden" class="form-control" <?php if (!in_array($_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdTipo(),array(1,2,3,4))){?>disabled readonly<?php }?>>
-			<?php  $_smarty_tpl->tpl_vars['item'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['item']->_loop = false;
+			<b>Estado</b><br /><br />
+			<select id="selEstadoOrden" name="selEstadoOrden" class="form-control" <?php if (!in_array($_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdTipo(),array(1,2,3,4))){?>disabled readonly<?php }?>>
+				<?php  $_smarty_tpl->tpl_vars['item'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['item']->_loop = false;
  $_smarty_tpl->tpl_vars['key'] = new Smarty_Variable;
  $_from = $_smarty_tpl->tpl_vars['estados']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
 foreach ($_from as $_smarty_tpl->tpl_vars['item']->key => $_smarty_tpl->tpl_vars['item']->value){
 $_smarty_tpl->tpl_vars['item']->_loop = true;
  $_smarty_tpl->tpl_vars['key']->value = $_smarty_tpl->tpl_vars['item']->key;
 ?>
-				<?php if (in_array($_smarty_tpl->tpl_vars['item']->value['idEstado'],array(4,7))!=true){?>
-					<option value="<?php echo $_smarty_tpl->tpl_vars['item']->value['idEstado'];?>
+					<?php if (in_array($_smarty_tpl->tpl_vars['item']->value['idEstado'],array(4,7))!=true){?>
+						<option value="<?php echo $_smarty_tpl->tpl_vars['item']->value['idEstado'];?>
 " <?php if ($_smarty_tpl->tpl_vars['orden']->value->estado->getId()==$_smarty_tpl->tpl_vars['item']->value['idEstado']){?>selected<?php }?> disabled><?php echo $_smarty_tpl->tpl_vars['item']->value['nombre'];?>
 </option>
-				<?php }else{ ?>
-					<option value="<?php echo $_smarty_tpl->tpl_vars['item']->value['idEstado'];?>
+					<?php }else{ ?>
+						<option value="<?php echo $_smarty_tpl->tpl_vars['item']->value['idEstado'];?>
 " <?php if ($_smarty_tpl->tpl_vars['orden']->value->estado->getId()==$_smarty_tpl->tpl_vars['item']->value['idEstado']){?>selected<?php }?>><?php echo $_smarty_tpl->tpl_vars['item']->value['nombre'];?>
 </option>
-				<?php }?>
-			<?php } ?>
-		</select>
+					<?php }?>
+				<?php } ?>
+			</select>
+		</div>
 	<?php }else{ ?>
 		<div class="col-md-4">
 			<b>Estado</b><br /><br />
@@ -93,6 +94,7 @@ $_smarty_tpl->tpl_vars['item']->_loop = true;
 	<?php }?>
 </div>
 <hr />
+<br />
 <div class="row">
 	<div class="col-md-2">
 		<b>Código</b>
@@ -145,9 +147,9 @@ $_smarty_tpl->tpl_vars['item']->_loop = true;
 					<th>Clave</th>
 					<th>Descripción</th>
 					<th>Importe</th>
-					<th>Área</th>
-					<th>Archivo PDF</th>
-					<?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(2))){?>
+					<th>Archivo</th>
+					<th>Fecha Carga</th>
+					<?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(1,2))){?>
 						<th>&nbsp;</th>
 					<?php }?>
 				</tr>
@@ -213,13 +215,24 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 </td>
 					<td><?php echo $_smarty_tpl->tpl_vars['row']->value->getDescripcion();?>
 </td>
-					<td class="text-right"><?php echo $_smarty_tpl->tpl_vars['row']->value->getImporte();?>
-</td>
+					<td class="text-right">
+						<?php if ($_smarty_tpl->tpl_vars['perfil']->value==3&&$_smarty_tpl->tpl_vars['row']->value->getRutaArchivoUltimo()!=''){?>
+							<a id="lnkUltimoArchivo" href="<?php echo $_smarty_tpl->tpl_vars['row']->value->getRutaArchivoUltimo();?>
+" target="_blank" download="<?php echo $_smarty_tpl->tpl_vars['row']->value->getRutaArchivoUltimo(false);?>
+"><?php echo $_smarty_tpl->tpl_vars['row']->value->getRutaArchivoUltimo(false);?>
+</a>
+						<?php }else{ ?>
+							<?php echo $_smarty_tpl->tpl_vars['row']->value->getRutaArchivoUltimo(false);?>
+
+						<?php }?>
+					</td>
 					<td class="text-center"><?php echo $_smarty_tpl->tpl_vars['row']->value->area->getNombre();?>
 </td>
-					<td><?php echo $_smarty_tpl->tpl_vars['row']->value->getFechaArchivo();?>
-</td>
-					<?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(1,2,3))){?>
+					<td>
+						<?php echo $_smarty_tpl->tpl_vars['row']->value->getFechaArchivo();?>
+
+					</td>
+					<?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(1,2))){?>
 						<td class="text-center">
 							<a href="index.php?mod=archivosorden&orden=<?php echo rawurlencode($_smarty_tpl->tpl_vars['row']->value->getOrden());?>
 &clave=<?php echo rawurlencode($_smarty_tpl->tpl_vars['row']->value->getClave());?>

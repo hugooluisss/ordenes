@@ -9,16 +9,17 @@
 	</div>
 	{if $PAGE.usuario->getIdTipo() eq 3}
 		<div class="col-md-4">
-		<b>Estado</b><br /><br />
-		<select id="selEstadoOrden" name="selEstadoOrden" class="form-control" {if !in_array($PAGE.usuario->getIdTipo(), array(1, 2, 3, 4))}disabled readonly{/if}>
-			{foreach key=key item=item from=$estados}
-				{if in_array($item.idEstado, array(4, 7)) neq true}
-					<option value="{$item.idEstado}" {if $orden->estado->getId() eq $item.idEstado}selected{/if} disabled>{$item.nombre}</option>
-				{else}
-					<option value="{$item.idEstado}" {if $orden->estado->getId() eq $item.idEstado}selected{/if}>{$item.nombre}</option>
-				{/if}
-			{/foreach}
-		</select>
+			<b>Estado</b><br /><br />
+			<select id="selEstadoOrden" name="selEstadoOrden" class="form-control" {if !in_array($PAGE.usuario->getIdTipo(), array(1, 2, 3, 4))}disabled readonly{/if}>
+				{foreach key=key item=item from=$estados}
+					{if in_array($item.idEstado, array(4, 7)) neq true}
+						<option value="{$item.idEstado}" {if $orden->estado->getId() eq $item.idEstado}selected{/if} disabled>{$item.nombre}</option>
+					{else}
+						<option value="{$item.idEstado}" {if $orden->estado->getId() eq $item.idEstado}selected{/if}>{$item.nombre}</option>
+					{/if}
+				{/foreach}
+			</select>
+		</div>
 	{else}
 		<div class="col-md-4">
 			<b>Estado</b><br /><br />
@@ -39,6 +40,7 @@
 	{/if}
 </div>
 <hr />
+<br />
 <div class="row">
 	<div class="col-md-2">
 		<b>Código</b>
@@ -86,9 +88,9 @@
 					<th>Clave</th>
 					<th>Descripción</th>
 					<th>Importe</th>
-					<th>Área</th>
-					<th>Archivo PDF</th>
-					{if in_array($perfil, array(2))}
+					<th>Archivo</th>
+					<th>Fecha Carga</th>
+					{if in_array($perfil, array(1, 2))}
 						<th>&nbsp;</th>
 					{/if}
 				</tr>
@@ -123,10 +125,18 @@
 				>
 					<td>{$row->getClave()}</td>
 					<td>{$row->getDescripcion()}</td>
-					<td class="text-right">{$row->getImporte()}</td>
+					<td class="text-right">
+						{if $perfil eq 3 and $row->getRutaArchivoUltimo() neq ''}
+							<a id="lnkUltimoArchivo" href="{$row->getRutaArchivoUltimo()}" target="_blank" download="{$row->getRutaArchivoUltimo(false)}">{$row->getRutaArchivoUltimo(false)}</a>
+						{else}
+							{$row->getRutaArchivoUltimo(false)}
+						{/if}
+					</td>
 					<td class="text-center">{$row->area->getNombre()}</td>
-					<td>{$row->getFechaArchivo()}</td>
-					{if in_array($perfil, array(1, 2, 3))}
+					<td>
+						{$row->getFechaArchivo()}
+					</td>
+					{if in_array($perfil, array(1, 2))}
 						<td class="text-center">
 							<a href="index.php?mod=archivosorden&orden={$row->getOrden()|escape:"url"}&clave={$row->getClave()|escape:"url"}" target="_blank"><i class="fa fa-paperclip" aria-hidden="true"></i></a>
 						</td>

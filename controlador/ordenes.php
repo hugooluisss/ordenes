@@ -151,7 +151,7 @@ switch($objModulo->getId()){
 		$smarty->assign("orden", $orden);
 		
 		$db = TBase::conectaDB();
-		$rs = $db->Execute("select * from estado");
+		$rs = $db->Execute("select estado.* from estado join estadotipousuario using(idEstado) join tipoUsuario on idTipoUsuario = idPerfil where idPerfil = ".$userSesion->getIdTipo());
 		$datos = array();
 		while(!$rs->EOF){
 			array_push($datos, $rs->fields);
@@ -173,6 +173,12 @@ switch($objModulo->getId()){
 			case 'guardar':
 				$obj = new TOrden($_POST['id']);
 				$obj->estado->setId($_POST['estado']);
+				if ($_POST['estado'] == 10){ #si el estado es en Rack
+					foreach($obj->movimientos as $mov){
+						$mov->setFechaRecepcion(date("Y-m-d H:i:s"));
+						$mov->guardar();
+					}
+				}
 				
 				echo json_encode(array("band" => $obj->guardar()));
 			break;

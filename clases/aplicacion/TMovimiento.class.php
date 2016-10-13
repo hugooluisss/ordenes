@@ -28,6 +28,8 @@ class TMovimiento{
 	private $fecharecepcion;
 	private $entregacliente;
 	private $notas;
+	private $notasadministrativas;
+	private $administrativo;
 	
 	/**
 	* Constructor de la clase
@@ -578,6 +580,58 @@ class TMovimiento{
 	}
 	
 	/**
+	* Establece las notas administrativas
+	*
+	* @autor Hugo
+	* @access public
+	* @param string $val Valor
+	* @return boolean True si se realizó sin problemas
+	*/
+	
+	public function setNotasAdministrativas($val = ''){
+		$this->notasadministrativas = $val;
+		return true;
+	}
+	
+	/**
+	* Retorna las notas administrativas
+	*
+	* @autor Hugo
+	* @access public
+	* @return string Dato
+	*/
+	
+	public function getNotasAdministrativas(){
+		return $this->notasadministrativas;
+	}
+	
+	/**
+	* Establece el nombre del usuario administrativo
+	*
+	* @autor Hugo
+	* @access public
+	* @param string $val Valor
+	* @return boolean True si se realizó sin problemas
+	*/
+	
+	public function setAdministrativo($val = ''){
+		$this->administrativo = $val;
+		return true;
+	}
+	
+	/**
+	* Retorna el nombre del usuario administrativo
+	*
+	* @autor Hugo
+	* @access public
+	* @return string Dato
+	*/
+	
+	public function getAdministrativo(){
+		return $this->administrativo;
+	}
+	
+	/**
 	* Retorna la fecha del último archivo subido para este movimiento
 	*
 	* @autor Hugo
@@ -648,7 +702,7 @@ class TMovimiento{
 		}else
 			$rs = $db->Execute("update movimiento set
 				notasucursales = '".$this->getNotasSucursales()."',
-				impresiondigital = '".$this->getImpresionDigital()."',
+				impresiondigital = ".($this->getImpresionDigital() == ''?'null':"'".$this->getImpresionDigital()."'").",
 				disenador = '".$this->getDisenador()."',
 				fechaimpresion = ".($this->getFechaImpresion() == ''?'null':"'".$this->getFechaImpresion()."'").",
 				notasproduccion = '".$this->getNotasProduccion()."',
@@ -657,7 +711,9 @@ class TMovimiento{
 				horaEnvio = '".$this->getHoraEnvio()."',
 				fecharecepcion = ".($this->getFechaRecepcion() == ''?'null':"'".$this->getFechaRecepcion()."'").",
 				entregacliente = ".($this->getEntregaCliente() == ''?'null':"'".$this->getEntregaCliente()."'").",
-				notas = '".$this->getNotas()."'
+				notas = '".$this->getNotas()."',
+				notasAdministrativas = '".$this->getNotasAdministrativas()."',
+				administrativo = '".$this->getAdministrativo()."'
 			where idOrden = ".$this->getOrden()." and clave = '".$this->getClave()."'");
 		
 		return $rs?true:false;

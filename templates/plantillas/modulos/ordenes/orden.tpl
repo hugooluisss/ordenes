@@ -7,37 +7,14 @@
 	<div class="col-md-6">
 		<h1 style="color: #3c8dbc">Orden de servicio</h1>
 	</div>
-	{if $PAGE.usuario->getIdTipo() eq 3}
-		<div class="col-md-4">
-			<b>Estado</b><br /><br />
-			<select id="selEstadoOrden" name="selEstadoOrden" class="form-control" {if !in_array($PAGE.usuario->getIdTipo(), array(1, 2, 3, 4))}disabled readonly{/if}>
-				{foreach key=key item=item from=$estados}
-					{if in_array($item.idEstado, array(4, 7)) neq true}
-						<option value="{$item.idEstado}" {if $orden->estado->getId() eq $item.idEstado}selected{/if} disabled>{$item.nombre}</option>
-					{else}
-						<option value="{$item.idEstado}" {if $orden->estado->getId() eq $item.idEstado}selected{/if}>{$item.nombre}</option>
-					{/if}
-				{/foreach}
-			</select>
-		</div>
-	{else}
-		<div class="col-md-4">
-			<b>Estado</b><br /><br />
-			<select id="selEstadoOrden" name="selEstadoOrden" class="form-control" {if !in_array($PAGE.usuario->getIdTipo(), array(1, 2, 4))}disabled readonly{/if}>
-				{foreach key=key item=item from=$estados}
-					{if $item.idEstado eq 4}
-						{if $PAGE.usuario->getIdTipo() neq 1}
-							<option value="{$item.idEstado}" {if $orden->estado->getId() eq $item.idEstado}selected{/if} disabled>{$item.nombre}</option>
-						{else}
-							<option value="{$item.idEstado}" {if $orden->estado->getId() eq $item.idEstado}selected{/if}>{$item.nombre}</option>
-						{/if}
-					{else}
-						<option value="{$item.idEstado}" {if $orden->estado->getId() eq $item.idEstado}selected{/if}>{$item.nombre}</option>
-					{/if}
-				{/foreach}
-			</select>
-		</div>
-	{/if}
+	<div class="col-md-4">
+		<b>Estado</b><br /><br />
+		<select id="selEstadoOrden" name="selEstadoOrden" class="form-control">
+			{foreach key=key item=item from=$estados}
+				<option value="{$item.idEstado}" {if $orden->estado->getId() eq $item.idEstado}selected{/if}>{$item.nombre}</option>
+			{/foreach}
+		</select>
+	</div>
 </div>
 <hr />
 <br />
@@ -121,6 +98,8 @@
 					fecharecepcion="{$row->getFechaRecepcion()}"
 					entregacliente="{$row->getEntregaCliente()}"
 					notas="{$row->getNotas()}"
+					notasadministrativas="{$row->getNotasAdministrativas()}"
+					administrativo="{$row->getAdministrativo()}"
 					
 				>
 					<td>{$row->getClave()}</td>
@@ -197,7 +176,7 @@
 </div>
 
 <hr />
-{if in_array($perfil, array(1, 2, 3, 4, 5))}
+{if in_array($perfil, array(1, 2, 4, 5, 6))}
 	<div class="row">
 		<div class="col-md-2">
 			<b>Notas sucursales</b>
@@ -208,19 +187,24 @@
 	</div>
 	<br />
 	<div class="row">
-		<div class="col-md-4">
-			<input type="checkbox" id="chkImpresionDigital" value="Si" {if in_array($perfil, array(3, 4, 5))}readonly disabled{/if}> <b>Impresión digital</b>
+		{if !in_array($perfil, array(6))}
+		<div class="col-md-2">
+			<button id="btnImpresionDigital" class="btn btn-warning btn-xs">Impresión digital</button>
 		</div>
+		<div class="col-md-3">
+			<input type="text" id="txtImpresionDigital" disabled="true" readonly="true" value="" class="form-control"/>
+		</div>
+		{/if}
 		<div class="col-md-2">
 			<b>Diseñador</b>
 		</div>
-		<div class="col-md-6">
+		<div class="{if in_array($perfil, array(6))}col-md-10{else}col-md-5{/if}">
 			<input class="form-control" value="" id="txtDisenador" readonly disabled/>
 		</div>
 	</div>
 	<hr />
 {/if}
-{if in_array($perfil, array(1, 3, 4, 5))}
+{if in_array($perfil, array(1, 3, 4, 5, 6))}
 	<div class="row">
 		<div class="col-md-8">
 			<div class="row">
@@ -233,17 +217,17 @@
 			</div>
 			<br />
 			<div class="row">
-				{if in_array($perfil, array(1, 3, 5))}
-				<div class="col-md-4">
-					<button id="btnFechaImpresion" class="btn btn-warning">Impresión terminada</button>
+				{if in_array($perfil, array(1, 3, 5, 6))}
+				<div class="col-md-3">
+					<button id="btnFechaImpresion" class="btn btn-warning btn-xs">Impresión terminada</button>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-5">
 					<input class="form-control" value="" placeholder="YYYY-MM-DD" {if in_array($perfil, array(5))}disabled{/if} readonly campo="fechaImpresion" id="txtFechaImpresion"/>
 				</div>
 				{/if}
 			</div>
 			<br />
-			{if in_array($perfil, array(1, 3, 5))}
+			{if in_array($perfil, array(1, 4, 5))}
 			<div class="row">
 				<div class="col-md-2 col-md-offset-1">
 					<input type="checkbox" id="chkEnvio" value="Si" {if in_array($perfil, array(5))}disabled{/if}> <b>Envío</b>
@@ -266,7 +250,7 @@
 			</div>
 			{/if}
 		</div>
-		{if in_array($perfil, array(1, 3, 5))}
+		{if in_array($perfil, array(1, 3, 4, 5, 6))}
 		<div class="col-md-4">
 			<b>Notas de produccion</b>
 			<textarea campo="notasProduccion" class="form-control" rows="4" id="txtNotasProduccion" {if in_array($perfil, array(5))}disabled{/if}></textarea>
@@ -295,20 +279,41 @@
 		<b>Fecha de recepción</b>
 	</div>
 	<div class="col-md-3">
-		<input class="form-control text-right" value="" id="txtFechaRecepcion" {if in_array($perfil, array(5))}disabled{/if}/>
+		<input class="form-control text-right" value="" id="txtFechaRecepcion" disabled readonly/>
 	</div>
 	<div class="col-md-3">
-		<b>Entrega al cliente</b>
+		<button id="btnFechaEntregaCliente" class="btn btn-warning btn-xs">Fecha entrega al cliente</button>
 	</div>
 	<div class="col-md-3">
-		<input class="form-control" value="" id="txtFechaEntregaCliente" {if in_array($perfil, array(5))}disabled{/if}/>
+		<input class="form-control" value="" id="txtFechaEntregaCliente" disabled readonly/>
+	</div>
+</div>
+<hr />
+{/if}
+
+{if in_array($perfil, array(5))}
+<div class="row">
+	<div class="col-md-3">
+		<b>Notas administrativas</b>
+	</div>
+	<div class="col-md-9">
+		<input class="form-control" value="" id="txtNotasAdministrativas"/>
+	</div>
+</div>
+<br />
+<div class="row">
+	<div class="col-md-3">
+		<b>Usuario Administrativo</b>
+	</div>
+	<div class="col-md-9">
+		<input class="form-control" value="" id="txtAdministrativo" readonly disabled/>
 	</div>
 </div>
 <hr />
 {/if}
 <div class="row">
 	<div class="col-md-12">
-		{if !in_array($perfil, array(5))}
+		{if !in_array($perfil, array())}
 			<button class="btn btn-success pull-right" id="btnGuardar">Guardar</button>
 		{/if}
 	</div>

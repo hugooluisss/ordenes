@@ -55,13 +55,18 @@ switch($objModulo->getId()){
 					$obj->setHoraEnvio(str_replace("_", "0", $_POST['horaEnvio']));
 					
 				if (isset($_POST['fechaRecepcion']) and $_POST['fechaRecepcion'] <> '')
-					$obj->setFechaRecepcion(str_replace("_", "0", $_POST['fechaRecepcion']).":00");
+					$obj->setFechaRecepcion($_POST['fechaRecepcion']);
 					
 				if (isset($_POST['entregaCliente']) and $_POST['entregaCliente'] <> '')
 					$obj->setEntregaCliente(str_replace("_", "0", $_POST['entregaCliente']).":00");
 					
 				if (isset($_POST['notas']))
 					$obj->setNotas($_POST['notas']);
+					
+				if (isset($_POST['notasAdministrativas']) and $obj->getNotasAdministrativas() <> $_POST['notasAdministrativas']){
+					$obj->setNotasAdministrativas($_POST['notasAdministrativas']);
+					$obj->setAdministrativo($userSesion->getNombreCompleto());
+				}
 					
 				$orden = new TOrden($_POST['orden']);
 				if ($orden->estado->getId() == 3){

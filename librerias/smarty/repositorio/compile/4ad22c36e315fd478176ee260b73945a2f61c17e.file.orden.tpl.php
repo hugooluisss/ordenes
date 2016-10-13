@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-10-12 22:32:19
+<?php /* Smarty version Smarty-3.1.11, created on 2016-10-13 13:08:57
          compiled from "templates/plantillas/modulos/ordenes/orden.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:172903277857f1af46e41ba0-49069075%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '4ad22c36e315fd478176ee260b73945a2f61c17e' => 
     array (
       0 => 'templates/plantillas/modulos/ordenes/orden.tpl',
-      1 => 1476329536,
+      1 => 1476382128,
       2 => 'file',
     ),
   ),
@@ -20,11 +20,11 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'variables' => 
   array (
     'orden' => 0,
-    'PAGE' => 0,
     'estados' => 0,
     'item' => 0,
     'perfil' => 0,
     'row' => 0,
+    'PAGE' => 0,
   ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
@@ -39,59 +39,22 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 	<div class="col-md-6">
 		<h1 style="color: #3c8dbc">Orden de servicio</h1>
 	</div>
-	<?php if ($_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdTipo()==3){?>
-		<div class="col-md-4">
-			<b>Estado</b><br /><br />
-			<select id="selEstadoOrden" name="selEstadoOrden" class="form-control" <?php if (!in_array($_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdTipo(),array(1,2,3,4))){?>disabled readonly<?php }?>>
-				<?php  $_smarty_tpl->tpl_vars['item'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['item']->_loop = false;
+	<div class="col-md-4">
+		<b>Estado</b><br /><br />
+		<select id="selEstadoOrden" name="selEstadoOrden" class="form-control">
+			<?php  $_smarty_tpl->tpl_vars['item'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['item']->_loop = false;
  $_smarty_tpl->tpl_vars['key'] = new Smarty_Variable;
  $_from = $_smarty_tpl->tpl_vars['estados']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
 foreach ($_from as $_smarty_tpl->tpl_vars['item']->key => $_smarty_tpl->tpl_vars['item']->value){
 $_smarty_tpl->tpl_vars['item']->_loop = true;
  $_smarty_tpl->tpl_vars['key']->value = $_smarty_tpl->tpl_vars['item']->key;
 ?>
-					<?php if (in_array($_smarty_tpl->tpl_vars['item']->value['idEstado'],array(4,7))!=true){?>
-						<option value="<?php echo $_smarty_tpl->tpl_vars['item']->value['idEstado'];?>
-" <?php if ($_smarty_tpl->tpl_vars['orden']->value->estado->getId()==$_smarty_tpl->tpl_vars['item']->value['idEstado']){?>selected<?php }?> disabled><?php echo $_smarty_tpl->tpl_vars['item']->value['nombre'];?>
-</option>
-					<?php }else{ ?>
-						<option value="<?php echo $_smarty_tpl->tpl_vars['item']->value['idEstado'];?>
+				<option value="<?php echo $_smarty_tpl->tpl_vars['item']->value['idEstado'];?>
 " <?php if ($_smarty_tpl->tpl_vars['orden']->value->estado->getId()==$_smarty_tpl->tpl_vars['item']->value['idEstado']){?>selected<?php }?>><?php echo $_smarty_tpl->tpl_vars['item']->value['nombre'];?>
 </option>
-					<?php }?>
-				<?php } ?>
-			</select>
-		</div>
-	<?php }else{ ?>
-		<div class="col-md-4">
-			<b>Estado</b><br /><br />
-			<select id="selEstadoOrden" name="selEstadoOrden" class="form-control" <?php if (!in_array($_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdTipo(),array(1,2,4))){?>disabled readonly<?php }?>>
-				<?php  $_smarty_tpl->tpl_vars['item'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['item']->_loop = false;
- $_smarty_tpl->tpl_vars['key'] = new Smarty_Variable;
- $_from = $_smarty_tpl->tpl_vars['estados']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
-foreach ($_from as $_smarty_tpl->tpl_vars['item']->key => $_smarty_tpl->tpl_vars['item']->value){
-$_smarty_tpl->tpl_vars['item']->_loop = true;
- $_smarty_tpl->tpl_vars['key']->value = $_smarty_tpl->tpl_vars['item']->key;
-?>
-					<?php if ($_smarty_tpl->tpl_vars['item']->value['idEstado']==4){?>
-						<?php if ($_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdTipo()!=1){?>
-							<option value="<?php echo $_smarty_tpl->tpl_vars['item']->value['idEstado'];?>
-" <?php if ($_smarty_tpl->tpl_vars['orden']->value->estado->getId()==$_smarty_tpl->tpl_vars['item']->value['idEstado']){?>selected<?php }?> disabled><?php echo $_smarty_tpl->tpl_vars['item']->value['nombre'];?>
-</option>
-						<?php }else{ ?>
-							<option value="<?php echo $_smarty_tpl->tpl_vars['item']->value['idEstado'];?>
-" <?php if ($_smarty_tpl->tpl_vars['orden']->value->estado->getId()==$_smarty_tpl->tpl_vars['item']->value['idEstado']){?>selected<?php }?>><?php echo $_smarty_tpl->tpl_vars['item']->value['nombre'];?>
-</option>
-						<?php }?>
-					<?php }else{ ?>
-						<option value="<?php echo $_smarty_tpl->tpl_vars['item']->value['idEstado'];?>
-" <?php if ($_smarty_tpl->tpl_vars['orden']->value->estado->getId()==$_smarty_tpl->tpl_vars['item']->value['idEstado']){?>selected<?php }?>><?php echo $_smarty_tpl->tpl_vars['item']->value['nombre'];?>
-</option>
-					<?php }?>
-				<?php } ?>
-			</select>
-		</div>
-	<?php }?>
+			<?php } ?>
+		</select>
+	</div>
 </div>
 <hr />
 <br />
@@ -209,6 +172,10 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 "
 					notas="<?php echo $_smarty_tpl->tpl_vars['row']->value->getNotas();?>
 "
+					notasadministrativas="<?php echo $_smarty_tpl->tpl_vars['row']->value->getNotasAdministrativas();?>
+"
+					administrativo="<?php echo $_smarty_tpl->tpl_vars['row']->value->getAdministrativo();?>
+"
 					
 				>
 					<td><?php echo $_smarty_tpl->tpl_vars['row']->value->getClave();?>
@@ -295,7 +262,7 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 </div>
 
 <hr />
-<?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(1,2,3,4,5))){?>
+<?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(1,2,4,5,6))){?>
 	<div class="row">
 		<div class="col-md-2">
 			<b>Notas sucursales</b>
@@ -306,19 +273,24 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 	</div>
 	<br />
 	<div class="row">
-		<div class="col-md-4">
-			<input type="checkbox" id="chkImpresionDigital" value="Si" <?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(3,4,5))){?>readonly disabled<?php }?>> <b>Impresión digital</b>
+		<?php if (!in_array($_smarty_tpl->tpl_vars['perfil']->value,array(6))){?>
+		<div class="col-md-2">
+			<button id="btnImpresionDigital" class="btn btn-warning btn-xs">Impresión digital</button>
 		</div>
+		<div class="col-md-3">
+			<input type="text" id="txtImpresionDigital" disabled="true" readonly="true" value="" class="form-control"/>
+		</div>
+		<?php }?>
 		<div class="col-md-2">
 			<b>Diseñador</b>
 		</div>
-		<div class="col-md-6">
+		<div class="<?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(6))){?>col-md-10<?php }else{ ?>col-md-5<?php }?>">
 			<input class="form-control" value="" id="txtDisenador" readonly disabled/>
 		</div>
 	</div>
 	<hr />
 <?php }?>
-<?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(1,3,4,5))){?>
+<?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(1,3,4,5,6))){?>
 	<div class="row">
 		<div class="col-md-8">
 			<div class="row">
@@ -331,17 +303,17 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 			</div>
 			<br />
 			<div class="row">
-				<?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(1,3,5))){?>
-				<div class="col-md-4">
-					<button id="btnFechaImpresion" class="btn btn-warning">Impresión terminada</button>
+				<?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(1,3,5,6))){?>
+				<div class="col-md-3">
+					<button id="btnFechaImpresion" class="btn btn-warning btn-xs">Impresión terminada</button>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-5">
 					<input class="form-control" value="" placeholder="YYYY-MM-DD" <?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(5))){?>disabled<?php }?> readonly campo="fechaImpresion" id="txtFechaImpresion"/>
 				</div>
 				<?php }?>
 			</div>
 			<br />
-			<?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(1,3,5))){?>
+			<?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(1,4,5))){?>
 			<div class="row">
 				<div class="col-md-2 col-md-offset-1">
 					<input type="checkbox" id="chkEnvio" value="Si" <?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(5))){?>disabled<?php }?>> <b>Envío</b>
@@ -364,7 +336,7 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 			</div>
 			<?php }?>
 		</div>
-		<?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(1,3,5))){?>
+		<?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(1,3,4,5,6))){?>
 		<div class="col-md-4">
 			<b>Notas de produccion</b>
 			<textarea campo="notasProduccion" class="form-control" rows="4" id="txtNotasProduccion" <?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(5))){?>disabled<?php }?>></textarea>
@@ -393,20 +365,41 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 		<b>Fecha de recepción</b>
 	</div>
 	<div class="col-md-3">
-		<input class="form-control text-right" value="" id="txtFechaRecepcion" <?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(5))){?>disabled<?php }?>/>
+		<input class="form-control text-right" value="" id="txtFechaRecepcion" disabled readonly/>
 	</div>
 	<div class="col-md-3">
-		<b>Entrega al cliente</b>
+		<button id="btnFechaEntregaCliente" class="btn btn-warning btn-xs">Fecha entrega al cliente</button>
 	</div>
 	<div class="col-md-3">
-		<input class="form-control" value="" id="txtFechaEntregaCliente" <?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(5))){?>disabled<?php }?>/>
+		<input class="form-control" value="" id="txtFechaEntregaCliente" disabled readonly/>
+	</div>
+</div>
+<hr />
+<?php }?>
+
+<?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(5))){?>
+<div class="row">
+	<div class="col-md-3">
+		<b>Notas administrativas</b>
+	</div>
+	<div class="col-md-9">
+		<input class="form-control" value="" id="txtNotasAdministrativas"/>
+	</div>
+</div>
+<br />
+<div class="row">
+	<div class="col-md-3">
+		<b>Usuario Administrativo</b>
+	</div>
+	<div class="col-md-9">
+		<input class="form-control" value="" id="txtAdministrativo" readonly disabled/>
 	</div>
 </div>
 <hr />
 <?php }?>
 <div class="row">
 	<div class="col-md-12">
-		<?php if (!in_array($_smarty_tpl->tpl_vars['perfil']->value,array(5))){?>
+		<?php if (!in_array($_smarty_tpl->tpl_vars['perfil']->value,array())){?>
 			<button class="btn btn-success pull-right" id="btnGuardar">Guardar</button>
 		<?php }?>
 	</div>

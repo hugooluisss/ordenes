@@ -104,6 +104,7 @@
 				>
 					<td>{$row->getClave()}</td>
 					<td>{$row->getDescripcion()}</td>
+					<td class="text-center">{$row->getImporte()}</td>
 					<td class="text-right">
 						{if $perfil eq 3 and $row->getRutaArchivoUltimo() neq ''}
 							<a id="lnkUltimoArchivo" href="{$row->getRutaArchivoUltimo()}" target="_blank" download="{$row->getRutaArchivoUltimo(false)}">{$row->getRutaArchivoUltimo(false)}</a>
@@ -111,7 +112,6 @@
 							{$row->getRutaArchivoUltimo(false)}
 						{/if}
 					</td>
-					<td class="text-center">{$row->area->getNombre()}</td>
 					<td>
 						{$row->getFechaArchivo()}
 					</td>
@@ -206,12 +206,12 @@
 {/if}
 {if in_array($perfil, array(1, 3, 4, 5, 6))}
 	<div class="row">
-		<div class="col-md-8">
+		<div class="{if $perfil eq 4}col-md-4{else}col-md-8{/if}">
 			<div class="row">
-				<div class="col-md-3">
+				<div class="{if $perfil eq 4}col-md-6{else}col-md-3{/if}">
 					<b>Observaciones</b>
 				</div>
-				<div class="col-md-4">
+				<div class="{if $perfil eq 4}col-md-6{else}col-md-4{/if}">
 					<input class="form-control" value="" campo="notas" id="txtNotas" {if in_array($perfil, array(4, 5))}disabled{/if}/>
 				</div>
 			</div>
@@ -227,7 +227,7 @@
 				{/if}
 			</div>
 			<br />
-			{if in_array($perfil, array(1, 4, 5))}
+			{if in_array($perfil, array(1, 5))}
 			<div class="row">
 				<div class="col-md-2 col-md-offset-1">
 					<input type="checkbox" id="chkEnvio" value="Si" {if in_array($perfil, array(5))}disabled{/if}> <b>Envío</b>
@@ -251,9 +251,9 @@
 			{/if}
 		</div>
 		{if in_array($perfil, array(1, 3, 4, 5, 6))}
-		<div class="col-md-4">
+		<div class="{if $perfil eq 4}col-md-8{else}col-md-4{/if}">
 			<b>Notas de produccion</b>
-			<textarea campo="notasProduccion" class="form-control" rows="4" id="txtNotasProduccion" {if in_array($perfil, array(5))}disabled{/if}></textarea>
+			<textarea campo="notasProduccion" class="form-control" rows="4" id="txtNotasProduccion" {if in_array($perfil, array(4, 5))}disabled{/if}></textarea>
 		</div>
 		{/if}
 	</div>
@@ -276,7 +276,7 @@
 {if in_array($perfil, array(1, 4, 5))}
 <div class="row">
 	<div class="col-md-3">
-		<b>Fecha de recepción</b>
+		<button id="btnFechaRecepcion" class="btn btn-warning btn-xs">Fecha de recepción</button>
 	</div>
 	<div class="col-md-3">
 		<input class="form-control text-right" value="" id="txtFechaRecepcion" disabled readonly/>

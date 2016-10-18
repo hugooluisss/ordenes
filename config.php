@@ -195,7 +195,7 @@ $conf['importar'] = array(
 	'seguridad' => true,
 	'js' => array('orden.class.js'),
 	'jsTemplate' => array('importar.js'),
-	'perfiles' => array(1),
+	'perfiles' => array(1, 6),
 	'capa' => LAYOUT_DEFECTO);
 	
 $conf['cordenes'] = array(

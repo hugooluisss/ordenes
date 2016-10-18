@@ -203,7 +203,7 @@ switch($objModulo->getId()){
 				
 				try {
 					foreach($elementos as $mov){
-						$rs = $db->Execute("select idOrden from orden where codigo = '".$mov->original."'");
+						$rs = $db->Execute("select idOrden from orden a join sucursal b using(idSucursal) join razonsocial c using(idRazon)  where codigo = '".$mov->original."' and idRazon = ".$_POST['razonSocial']);
 						
 						$orden = new TOrden;
 						if ($rs->EOF){

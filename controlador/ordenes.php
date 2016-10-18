@@ -120,7 +120,7 @@ switch($objModulo->getId()){
 				$rs = $db->Execute("select a.*, b.nombre as vendedor, c.nombre as sucursal, d.color as colorEstado, d.nombre as estado, if(cast(registro as date) < cast(now() as date), 1, 0) as actual from orden a join vendedor b using(idVendedor) join sucursal c using(idSucursal) join estado d using(idEstado) where idSucursal = ".$sucursal." and b.clave = '".$userSesion->getCodigo()."' and not a.idEstado = 2");
 			break;
 			case 3: #produccion
-				$rs = $db->Execute("select a.*, b.nombre as vendedor, c.nombre as sucursal, d.color as colorEstado, d.nombre as estado, if(cast(registro as date) < cast(now() as date), 1, 0) as actual from orden a join vendedor b using(idVendedor) join sucursal c using(idSucursal) join estado d using(idEstado) join movimiento e using(idOrden) where idSucursal = ".$sucursal." and idArea in (select idArea from usuarioarea where idUsuario = ".$userSesion->getId().") and (e.fechaImpresion is null) and a.idEstado in (1, 2, 8)");
+				$rs = $db->Execute("select a.*, b.nombre as vendedor, c.nombre as sucursal, d.color as colorEstado, d.nombre as estado, if(cast(registro as date) < cast(now() as date), 1, 0) as actual from orden a join vendedor b using(idVendedor) join sucursal c using(idSucursal) join estado d using(idEstado) join movimiento e using(idOrden) where idSucursal = ".$sucursal." and idArea in (select idArea from usuarioarea where idUsuario = ".$userSesion->getId().") and a.idEstado in (1, 2, 8)");
 			break;
 			default:
 				$rs = $db->Execute("select a.*, b.nombre as vendedor, c.nombre as sucursal, d.color as colorEstado, d.nombre as estado, if(cast(registro as date) < cast(now() as date), 1, 0) as actual from orden a join vendedor b using(idVendedor) join sucursal c using(idSucursal) join estado d using(idEstado) where idSucursal = ".$sucursal);
@@ -139,15 +139,6 @@ switch($objModulo->getId()){
 	break;
 	case 'detalleOrden':
 		$orden = new TOrden($_POST['orden']);
-		if ($userSesion->getIdTipo() == 3){ #produccion
-			foreach($orden->movimientos as $mov){
-				$mov->setNombreImpresor($userSesion->getNombreCompleto());
-				$mov->setClaveImpresor($userSesion->getClave());
-				
-				$mov->guardar();
-			}
-		}
-		
 		$smarty->assign("orden", $orden);
 		
 		$db = TBase::conectaDB();
@@ -176,6 +167,15 @@ switch($objModulo->getId()){
 				if ($_POST['estado'] == 10){ #si el estado es en Rack
 					foreach($obj->movimientos as $mov){
 						$mov->setFechaRecepcion(date("Y-m-d H:i:s"));
+						$mov->guardar();
+					}
+				}
+				
+				if ($userSesion->getIdTipo() == 3){ #produccion
+					foreach($orden->movimientos as $mov){
+						$mov->setNombreImpresor($userSesion->getNombreCompleto());
+						$mov->setClaveImpresor($userSesion->getClave());
+						
 						$mov->guardar();
 					}
 				}

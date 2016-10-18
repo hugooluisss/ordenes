@@ -112,10 +112,59 @@ $(document).ready(function(){
 					
 					plantilla.find("#btnFechaEntregaCliente").prop("disabled", true);
 					
-					guardar();
+					guardar(function(){
+						var orden = new TOrden();
+						
+						orden.guardar(idOrden, 3, {
+							before: function(){
+								plantilla.find("#selEstadoOrden").prop("disabled", true);
+							},
+							after: function(resp){
+								plantilla.find("#selEstadoOrden").prop("disabled", false);
+								
+								if (resp.band){
+									var datos = new Array();
+									datos.idOrden = idOrden
+									getOrden(datos);
+									getLista();
+									alert("Orden guardada");
+								}
+								else
+									alert("El cambio de estado de la orden no pudo ser realizado");
+							}
+						});
+					});
 				});
 				
 				plantilla.find("#btnFechaEntregaCliente").prop("disabled", !(tr.attr("entregacliente") == ''));
+				
+				plantilla.find("#btnFechaRecepcion").click(function(){
+					var f = new Date();
+					var fecha = f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + f.getHours() + ':' + f.getMinutes() + ':' + f.getSeconds();
+					plantilla.find("#txtFechaRecepcion").val(fecha);
+					
+					plantilla.find("#btnFechaRecepcion").prop("disabled", true);
+					
+					var orden = new TOrden;
+					
+					orden.guardar(idOrden, 10, {
+						before: function(){
+							plantilla.find("#selEstadoOrden").prop("disabled", true);
+						},
+						after: function(resp){
+							plantilla.find("#selEstadoOrden").prop("disabled", false);
+							
+							if (resp.band){
+								guardar();
+							}else
+								alert("El cambio de estado de la orden no pudo ser realizado");
+						}
+					});
+					
+					//guardar();
+				});
+				
+				plantilla.find("#btnFechaRecepcion").prop("disabled", !(tr.attr("fecharecepcion") == ''));
 				
 				$("input[campo=area]").val(tr.attr("area"));
 				$("input[campo=clave]").val(tr.attr("clave"));
@@ -204,7 +253,7 @@ $(document).ready(function(){
 					guardar();
 				});
 				
-				function guardar(){
+				function guardar(despues){
 					if ($("input[campo=clave]").val() == '')
 						alert("Selecciona un artículo de la lista");
 					else{
@@ -229,19 +278,25 @@ $(document).ready(function(){
 							$("#txtNotas").val(), 
 							$("#txtNotasAdministrativas").val(), {
 								before: function(){
-									$.each(elementos, function(i, el){
-										$(el).prop("disabled", true);
+									$.each(elementos, function(i, el3){
+										$(el3).prop("disabled", true);
 									});
 								}, after: function(resp){
-									$.each(elementos, function(i, el){
-										$(el).prop("disabled", false);
+									$.each(elementos, function(i, el3){
+										$(el3).prop("disabled", false);
 									});
 									
-									if (resp.band){
-										getOrden(el);
-										getLista();
-										alert("Orden guardada");
-									}else
+									if (despues !== undefined){
+										despues();
+									}else{
+										if (resp.band){
+											getOrden(el);
+											getLista();
+											alert("Orden guardada");
+										}
+									}
+									
+									if (!resp.band)
 										alert("No se pudo guardar el cambio");
 								}
 							}

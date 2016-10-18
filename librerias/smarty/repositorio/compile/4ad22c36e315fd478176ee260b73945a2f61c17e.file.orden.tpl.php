@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 <?php /* Smarty version Smarty-3.1.11, created on 2016-10-17 21:11:13
+=======
+<?php /* Smarty version Smarty-3.1.11, created on 2016-10-17 11:12:29
+>>>>>>> 2f78ba84fcc315996328b17a7c39e05af98efffa
          compiled from "templates/plantillas/modulos/ordenes/orden.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:172903277857f1af46e41ba0-49069075%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +11,11 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '4ad22c36e315fd478176ee260b73945a2f61c17e' => 
     array (
       0 => 'templates/plantillas/modulos/ordenes/orden.tpl',
+<<<<<<< HEAD
       1 => 1476383573,
+=======
+      1 => 1476720737,
+>>>>>>> 2f78ba84fcc315996328b17a7c39e05af98efffa
       2 => 'file',
     ),
   ),
@@ -182,6 +190,8 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 </td>
 					<td><?php echo $_smarty_tpl->tpl_vars['row']->value->getDescripcion();?>
 </td>
+					<td class="text-center"><?php echo $_smarty_tpl->tpl_vars['row']->value->getImporte();?>
+</td>
 					<td class="text-right">
 						<?php if ($_smarty_tpl->tpl_vars['perfil']->value==3&&$_smarty_tpl->tpl_vars['row']->value->getRutaArchivoUltimo()!=''){?>
 							<a id="lnkUltimoArchivo" href="<?php echo $_smarty_tpl->tpl_vars['row']->value->getRutaArchivoUltimo();?>
@@ -193,8 +203,6 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 
 						<?php }?>
 					</td>
-					<td class="text-center"><?php echo $_smarty_tpl->tpl_vars['row']->value->area->getNombre();?>
-</td>
 					<td>
 						<?php echo $_smarty_tpl->tpl_vars['row']->value->getFechaArchivo();?>
 
@@ -292,12 +300,12 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 <?php }?>
 <?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(1,3,4,5,6))){?>
 	<div class="row">
-		<div class="col-md-8">
+		<div class="<?php if ($_smarty_tpl->tpl_vars['perfil']->value==4){?>col-md-4<?php }else{ ?>col-md-8<?php }?>">
 			<div class="row">
-				<div class="col-md-3">
+				<div class="<?php if ($_smarty_tpl->tpl_vars['perfil']->value==4){?>col-md-6<?php }else{ ?>col-md-3<?php }?>">
 					<b>Observaciones</b>
 				</div>
-				<div class="col-md-4">
+				<div class="<?php if ($_smarty_tpl->tpl_vars['perfil']->value==4){?>col-md-6<?php }else{ ?>col-md-4<?php }?>">
 					<input class="form-control" value="" campo="notas" id="txtNotas" <?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(4,5))){?>disabled<?php }?>/>
 				</div>
 			</div>
@@ -313,7 +321,7 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 				<?php }?>
 			</div>
 			<br />
-			<?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(1,4,5))){?>
+			<?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(1,5))){?>
 			<div class="row">
 				<div class="col-md-2 col-md-offset-1">
 					<input type="checkbox" id="chkEnvio" value="Si" <?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(5))){?>disabled<?php }?>> <b>Envío</b>
@@ -337,9 +345,9 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 			<?php }?>
 		</div>
 		<?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(1,3,4,5,6))){?>
-		<div class="col-md-4">
+		<div class="<?php if ($_smarty_tpl->tpl_vars['perfil']->value==4){?>col-md-8<?php }else{ ?>col-md-4<?php }?>">
 			<b>Notas de produccion</b>
-			<textarea campo="notasProduccion" class="form-control" rows="4" id="txtNotasProduccion" <?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(5))){?>disabled<?php }?>></textarea>
+			<textarea campo="notasProduccion" class="form-control" rows="4" id="txtNotasProduccion" <?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(4,5))){?>disabled<?php }?>></textarea>
 		</div>
 		<?php }?>
 	</div>
@@ -362,7 +370,7 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 <?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(1,4,5))){?>
 <div class="row">
 	<div class="col-md-3">
-		<b>Fecha de recepción</b>
+		<button id="btnFechaRecepcion" class="btn btn-warning btn-xs">Fecha de recepción</button>
 	</div>
 	<div class="col-md-3">
 		<input class="form-control text-right" value="" id="txtFechaRecepcion" disabled readonly/>

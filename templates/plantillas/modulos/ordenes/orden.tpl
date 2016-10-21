@@ -9,11 +9,23 @@
 	</div>
 	<div class="col-md-4">
 		<b>Estado</b><br /><br />
+		{if in_array($perfil, array(4, 2))}
+			{if in_array($orden->estado->getId(), array(4, 8))}
+				{$orden->estado->getNombre()}
+			{else}
+				<select id="selEstadoOrden" name="selEstadoOrden" class="form-control">
+				{foreach key=key item=item from=$estados}
+					<option value="{$item.idEstado}" {if $orden->estado->getId() eq $item.idEstado}selected{/if} {if $orden->estado->getId() neq 9 and in_array($item.idEstado, array(10, 11))}disabled{/if}>{$item.nombre}</option>
+				{/foreach}
+			{/if}
+		</select>
+		{else}
 		<select id="selEstadoOrden" name="selEstadoOrden" class="form-control">
 			{foreach key=key item=item from=$estados}
-				<option value="{$item.idEstado}" {if $orden->estado->getId() eq $item.idEstado}selected{/if}>{$item.nombre}</option>
+				<option value="{$item.idEstado}" {if $orden->estado->getId() eq $item.idEstado}selected{/if} {if $item.idEstado eq 3}disabled{/if}>{$item.nombre}</option>
 			{/foreach}
 		</select>
+		{/if}
 	</div>
 </div>
 <hr />
@@ -91,7 +103,7 @@
 					fechaimpresion="{$row->getFechaImpresion()}"
 					notasproduccion="{$row->getNotasProduccion()}"
 					claveimpresor="{if $row->getClaveImpresor() eq ''}{$PAGE.usuario->getClave()}{else}{$row->getClaveImpresor()}{/if}"
-					nombreimpresor="{if $row->getNombreImpresor() eq ''}{$PAGE.usuario->getNombre()}{else}{$row->getNombreImpresor()}{/if}"
+					nombreimpresor="{if $row->getNombreImpresor() eq '' and $PAGE.usuario->getIdTipo() eq 2}{$PAGE.usuario->getNombre()}{else}{$row->getNombreImpresor()}{/if}"
 					fechaenvio="{$row->getFechaEnvio()}"
 					horaenvio="{$row->getHoraEnvio()}"
 					envio="{$row->getEnvio()}"
@@ -100,6 +112,7 @@
 					notas="{$row->getNotas()}"
 					notasadministrativas="{$row->getNotasAdministrativas()}"
 					administrativo="{$row->getAdministrativo()}"
+					ultimoArchivo="{$row->getRutaArchivoUltimo()}"
 					
 				>
 					<td>{$row->getClave()}</td>
@@ -206,28 +219,28 @@
 {/if}
 {if in_array($perfil, array(1, 3, 4, 5, 6))}
 	<div class="row">
-		<div class="{if $perfil eq 4}col-md-4{else}col-md-8{/if}">
+		<div class="{if in_array($perfil, array(4, 5))}col-md-4{else}col-md-8{/if}">
 			<div class="row">
-				<div class="{if $perfil eq 4}col-md-6{else}col-md-3{/if}">
+				<div class="{if in_array($perfil, array(4, 5))}col-md-6{else}col-md-3{/if}">
 					<b>Observaciones</b>
 				</div>
-				<div class="{if $perfil eq 4}col-md-6{else}col-md-4{/if}">
+				<div class="{if in_array($perfil, array(4, 5))}col-md-6{else}col-md-4{/if}">
 					<input class="form-control" value="" campo="notas" id="txtNotas" {if in_array($perfil, array(4, 5))}disabled{/if}/>
 				</div>
 			</div>
 			<br />
 			<div class="row">
 				{if in_array($perfil, array(1, 3, 5, 6))}
-				<div class="col-md-3">
+				<div class="{if in_array($perfil, array(4, 5))}col-md-6{else}col-md-3{/if}">
 					<button id="btnFechaImpresion" class="btn btn-warning btn-xs">Impresión terminada</button>
 				</div>
-				<div class="col-md-5">
+				<div class="{if in_array($perfil, array(4, 5))}col-md-6{else}col-md-5{/if}">
 					<input class="form-control" value="" placeholder="YYYY-MM-DD" {if in_array($perfil, array(5))}disabled{/if} readonly campo="fechaImpresion" id="txtFechaImpresion"/>
 				</div>
 				{/if}
 			</div>
 			<br />
-			{if in_array($perfil, array(1, 5))}
+			{if in_array($perfil, array(1))}
 			<div class="row">
 				<div class="col-md-2 col-md-offset-1">
 					<input type="checkbox" id="chkEnvio" value="Si" {if in_array($perfil, array(5))}disabled{/if}> <b>Envío</b>
@@ -250,10 +263,10 @@
 			</div>
 			{/if}
 		</div>
-		{if in_array($perfil, array(1, 3, 4, 5, 6))}
-		<div class="{if $perfil eq 4}col-md-8{else}col-md-4{/if}">
+		{if in_array($perfil, array(1, 2, 3, 4, 5, 6))}
+		<div class="{if in_array($perfil, array(4, 5))}col-md-8{else}col-md-4{/if}">
 			<b>Notas de produccion</b>
-			<textarea campo="notasProduccion" class="form-control" rows="4" id="txtNotasProduccion" {if in_array($perfil, array(4, 5))}disabled{/if}></textarea>
+			<textarea campo="notasProduccion" class="form-control" rows="4" id="txtNotasProduccion" {if in_array($perfil, array(2, 4, 5))}disabled{/if}></textarea>
 		</div>
 		{/if}
 	</div>
@@ -268,7 +281,7 @@
 		</div>
 		-->
 		<div class="col-md-8">
-			<input class="form-control" readonly disabled="true" value="" id="txtNombreImpresor"/>
+			<input class="form-control" readonly disabled="true" value="" id="txtNombreImpresor" {if in_array($perfil, array(2))}disabled{/if}/>
 		</div>
 	</div>
 	<hr />
@@ -290,14 +303,12 @@
 </div>
 <hr />
 {/if}
-
-{if in_array($perfil, array(5))}
 <div class="row">
 	<div class="col-md-3">
 		<b>Notas administrativas</b>
 	</div>
 	<div class="col-md-9">
-		<input class="form-control" value="" id="txtNotasAdministrativas"/>
+		<input class="form-control" value="" id="txtNotasAdministrativas" {if !in_array($perfil, array(5))}readonly disabled{/if}/>
 	</div>
 </div>
 <br />
@@ -306,11 +317,10 @@
 		<b>Usuario Administrativo</b>
 	</div>
 	<div class="col-md-9">
-		<input class="form-control" value="" id="txtAdministrativo" readonly disabled/>
+		<input class="form-control" value="" id="txtAdministrativo" {if !in_array($perfil, array(5))}readonly disabled{/if}/>
 	</div>
 </div>
 <hr />
-{/if}
 <div class="row">
 	<div class="col-md-12">
 		{if !in_array($perfil, array())}

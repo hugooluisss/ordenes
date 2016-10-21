@@ -3,7 +3,7 @@
 		<h1 class="page-header">Ordenes</h1>
 	</div>
 </div>
-
+{if $PAGE.usuario->getIdTipo() neq 3}
 <div class="panel panel-default">
 	<div class="panel-body">
 		<form role="form" id="frmBuscar" class="form-horizontal" onsubmit="javascript: return false;">
@@ -24,6 +24,7 @@
 		</form>
 	</div>
 </div>
+{/if}
 <div id="dvLista"></div>
 
 <div class="modal fade" id="winOrden" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

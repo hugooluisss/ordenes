@@ -1,22 +1,22 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-10-12 21:56:30
+<?php /* Smarty version Smarty-3.1.11, created on 2016-10-20 11:02:03
          compiled from "templates/plantillas/modulos/ordenes/lista.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:95544675457f2628e88d6e2-04938252%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:13808244225808d481078d14-36390911%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'ccb83fbda49be8284838e579fad0d10480204fd4' => 
     array (
       0 => 'templates/plantillas/modulos/ordenes/lista.tpl',
-      1 => 1476298970,
+      1 => 1476979313,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '95544675457f2628e88d6e2-04938252',
+  'nocache_hash' => '13808244225808d481078d14-36390911',
   'function' => 
   array (
   ),
   'version' => 'Smarty-3.1.11',
-  'unifunc' => 'content_57f2628e8e3851_63932852',
+  'unifunc' => 'content_5808d48112ec00_12090832',
   'variables' => 
   array (
     'lista' => 0,
@@ -25,7 +25,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_57f2628e8e3851_63932852')) {function content_57f2628e8e3851_63932852($_smarty_tpl) {?><div class="box">
+<?php if ($_valid && !is_callable('content_5808d48112ec00_12090832')) {function content_5808d48112ec00_12090832($_smarty_tpl) {?><div class="box">
 	<div class="box-body">
 		<table id="tblDatos" class="table table-bordered table-hover">
 			<thead>
@@ -64,7 +64,7 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 								<button type="button" class="btn btn-warning" action="setEstado" estado="9" title="Pasar a En tránsito" datos='<?php echo $_smarty_tpl->tpl_vars['row']->value['json'];?>
 '><i class="fa fa-arrow-circle-o-right"></i></button>
 							<?php }?>
-							<?php if ($_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdTipo()==4&&in_array($_smarty_tpl->tpl_vars['row']->value['idEstado'],array(10,11))!=true){?>
+							<?php if ($_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdTipo()==4&&in_array($_smarty_tpl->tpl_vars['row']->value['idEstado'],array(10,11,9))!=true){?>
 								<button type="button" class="btn btn-warning" action="setEstado" estado="10" title="Pasar a En Rack" datos='<?php echo $_smarty_tpl->tpl_vars['row']->value['json'];?>
 '><i class="fa fa-list-alt"></i></button>
 								<button type="button" class="btn btn-warning" action="setEstado" estado="11" title="Pasar a Perdido" datos='<?php echo $_smarty_tpl->tpl_vars['row']->value['json'];?>

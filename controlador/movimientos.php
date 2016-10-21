@@ -74,6 +74,11 @@ switch($objModulo->getId()){
 					$orden->guardar();
 				}
 				
+				if ($obj->getEntregaCliente() <> '' and $obj->getFechaRecepcion() <> ''){
+					$orden->estado->setId(3);
+					$orden->guardar();
+				}
+				
 				echo json_encode(array("band" => $obj->guardar()));
 			break;
 			case 'uploadfile':

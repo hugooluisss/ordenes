@@ -1,35 +1,36 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-10-12 21:56:29
+<?php /* Smarty version Smarty-3.1.11, created on 2016-10-20 09:30:11
          compiled from "templates/plantillas/modulos/ordenes/panelAdmin.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:37068833057f2628db2a8b0-03114787%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:6708329885808d47f77afa0-80421991%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '5248780a73b35d23d34a462209e831448f738c46' => 
     array (
       0 => 'templates/plantillas/modulos/ordenes/panelAdmin.tpl',
-      1 => 1476298970,
+      1 => 1476973810,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '37068833057f2628db2a8b0-03114787',
+  'nocache_hash' => '6708329885808d47f77afa0-80421991',
   'function' => 
   array (
   ),
   'version' => 'Smarty-3.1.11',
-  'unifunc' => 'content_57f2628db7dc00_77604862',
+  'unifunc' => 'content_5808d47f798f93_57948195',
   'variables' => 
   array (
+    'PAGE' => 0,
     'sucursales' => 0,
     'item' => 0,
   ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_57f2628db7dc00_77604862')) {function content_57f2628db7dc00_77604862($_smarty_tpl) {?><div class="row">
+<?php if ($_valid && !is_callable('content_5808d47f798f93_57948195')) {function content_5808d47f798f93_57948195($_smarty_tpl) {?><div class="row">
 	<div class="col-lg-12">
 		<h1 class="page-header">Ordenes</h1>
 	</div>
 </div>
-
+<?php if ($_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdTipo()!=3){?>
 <div class="panel panel-default">
 	<div class="panel-body">
 		<form role="form" id="frmBuscar" class="form-horizontal" onsubmit="javascript: return false;">
@@ -56,6 +57,7 @@ $_smarty_tpl->tpl_vars['item']->_loop = true;
 		</form>
 	</div>
 </div>
+<?php }?>
 <div id="dvLista"></div>
 
 <div class="modal fade" id="winOrden" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

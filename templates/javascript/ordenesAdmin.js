@@ -99,7 +99,28 @@ $(document).ready(function(){
 					
 					plantilla.find("#btnImpresionDigital").prop("disabled", true);
 					
-					guardar();
+					guardar(function(){
+						var orden = new TOrden();
+						
+						orden.guardar(idOrden, 9, {
+							before: function(){
+								plantilla.find("#selEstadoOrden").prop("disabled", true);
+							},
+							after: function(resp){
+								plantilla.find("#selEstadoOrden").prop("disabled", false);
+								
+								if (resp.band){
+									var datos = new Array();
+									datos.idOrden = idOrden
+									getOrden(datos);
+									getLista();
+									alert("Orden guardada");
+								}
+								else
+									alert("El cambio de estado de la orden no pudo ser realizado");
+							}
+						});
+					});
 				});
 				
 				$("#btnImpresionDigital").prop("disabled", !(tr.attr("impresionDigital") == ''));
@@ -183,6 +204,8 @@ $(document).ready(function(){
 				plantilla.find("#selHoraEnvio").val(tr.attr("horaenvio"));
 				plantilla.find("#txtNotasAdministrativas").val(tr.attr("notasadministrativas"));
 				plantilla.find("#txtAdministrativo").val(tr.attr("administrativo"));
+				
+				$("#selEstado option[value=8]").prop("select", tr.attr("ultimoArchivo") == '');
 				
 				//Vista de diseñador
 				//plantilla.find("#chkImpresionDigital").prop("checked", el.attr("impresiondigital") == 'S');

@@ -1,22 +1,20 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-10-21 09:42:10
+<?php /* Smarty version Smarty-3.1.11, created on 2016-10-24 14:57:51
          compiled from "templates/plantillas/modulos/ordenes/orden.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:926274995808d5731236b5-19760504%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:377579111580e67bf8cabc1-82742690%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '4ad22c36e315fd478176ee260b73945a2f61c17e' => 
     array (
       0 => 'templates/plantillas/modulos/ordenes/orden.tpl',
-      1 => 1477060926,
+      1 => 1477335962,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '926274995808d5731236b5-19760504',
+  'nocache_hash' => '377579111580e67bf8cabc1-82742690',
   'function' => 
   array (
   ),
-  'version' => 'Smarty-3.1.11',
-  'unifunc' => 'content_5808d5735732a3_76720283',
   'variables' => 
   array (
     'orden' => 0,
@@ -27,8 +25,10 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'PAGE' => 0,
   ),
   'has_nocache_code' => false,
+  'version' => 'Smarty-3.1.11',
+  'unifunc' => 'content_580e67bfe6a071_35433423',
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_5808d5735732a3_76720283')) {function content_5808d5735732a3_76720283($_smarty_tpl) {?><div class="row" style="margin-left: 10px;"> <!--style="border: 1px solid #3c8dbc; margin: 5px auto;" -->
+<?php if ($_valid && !is_callable('content_580e67bfe6a071_35433423')) {function content_580e67bfe6a071_35433423($_smarty_tpl) {?><div class="row" style="margin-left: 10px;"> <!--style="border: 1px solid #3c8dbc; margin: 5px auto;" -->
 	<div class="col-md-2 text-center" style="color: <?php echo $_smarty_tpl->tpl_vars['orden']->value->sucursal->getColor();?>
 ; background: #ecf0f5;">
 		<i class="fa fa-tag fa-5x" aria-hidden="true"></i>
@@ -313,24 +313,24 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 	</div>
 	<hr />
 <?php }?>
-<?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(1,3,4,5,6))){?>
+<?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(1,2,3,4,5,6))){?>
 	<div class="row">
-		<div class="<?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(4,5))){?>col-md-4<?php }else{ ?>col-md-8<?php }?>">
+		<div class="<?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(2,4,5))){?>col-md-4<?php }else{ ?>col-md-6<?php }?>">
 			<div class="row">
-				<div class="<?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(4,5))){?>col-md-6<?php }else{ ?>col-md-3<?php }?>">
+				<div class="<?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(2,4,5,6))){?>col-md-6<?php }else{ ?>col-md-3<?php }?>">
 					<b>Observaciones</b>
 				</div>
-				<div class="<?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(4,5))){?>col-md-6<?php }else{ ?>col-md-4<?php }?>">
-					<input class="form-control" value="" campo="notas" id="txtNotas" <?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(4,5))){?>disabled<?php }?>/>
+				<div class="<?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(2,4,5,6))){?>col-md-6<?php }else{ ?>col-md-4<?php }?>">
+					<input class="form-control" value="" campo="notas" id="txtNotas" <?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(2,4,5))){?>disabled<?php }?>/>
 				</div>
 			</div>
 			<br />
 			<div class="row">
 				<?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(1,3,5,6))){?>
-				<div class="<?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(4,5))){?>col-md-6<?php }else{ ?>col-md-3<?php }?>">
+				<div class="<?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(4,5,6))){?>col-md-6<?php }else{ ?>col-md-3<?php }?>">
 					<button id="btnFechaImpresion" class="btn btn-warning btn-xs">Impresión terminada</button>
 				</div>
-				<div class="<?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(4,5))){?>col-md-6<?php }else{ ?>col-md-5<?php }?>">
+				<div class="<?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(4,5,6))){?>col-md-6<?php }else{ ?>col-md-5<?php }?>">
 					<input class="form-control" value="" placeholder="YYYY-MM-DD" <?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(5))){?>disabled<?php }?> readonly campo="fechaImpresion" id="txtFechaImpresion"/>
 				</div>
 				<?php }?>
@@ -360,9 +360,9 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 			<?php }?>
 		</div>
 		<?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(1,2,3,4,5,6))){?>
-		<div class="<?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(4,5))){?>col-md-8<?php }else{ ?>col-md-4<?php }?>">
+		<div class="<?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(2,4,5))){?>col-md-8<?php }else{ ?>col-md-6<?php }?>">
 			<b>Notas de produccion</b>
-			<textarea campo="notasProduccion" class="form-control" rows="4" id="txtNotasProduccion" <?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(2,4,5))){?>disabled<?php }?>></textarea>
+			<textarea campo="notasProduccion" class="form-control" rows="4" id="txtNotasProduccion" <?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(2,4,5))){?>readonly disabled<?php }?>></textarea>
 		</div>
 		<?php }?>
 	</div>
@@ -407,6 +407,7 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 		<input class="form-control" value="" id="txtNotasAdministrativas" <?php if (!in_array($_smarty_tpl->tpl_vars['perfil']->value,array(5))){?>readonly disabled<?php }?>/>
 	</div>
 </div>
+<?php if (!in_array($_smarty_tpl->tpl_vars['perfil']->value,array(2,3))){?>
 <br />
 <div class="row">
 	<div class="col-md-3">
@@ -416,6 +417,7 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 		<input class="form-control" value="" id="txtAdministrativo" <?php if (!in_array($_smarty_tpl->tpl_vars['perfil']->value,array(5))){?>readonly disabled<?php }?>/>
 	</div>
 </div>
+<?php }?>
 <hr />
 <div class="row">
 	<div class="col-md-12">

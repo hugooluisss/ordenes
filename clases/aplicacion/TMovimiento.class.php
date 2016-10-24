@@ -683,6 +683,8 @@ class TMovimiento{
 			}
 		}
 		
+		if ($archivo == '') return false;
+		
 		return ($completa?$carpeta:"").$archivo;
 	}
 	

@@ -217,6 +217,12 @@ class TOrden{
 				idEstado = ".$this->estado->getId()."
 			WHERE idOrden = ".$this->getId());
 			
+		if (!$rs)
+			return false;
+		
+		global $pageSesion;
+		$rs = $db->Execute("insert into evento(idUsuario, idEstado, idOrden) values (".$pageSesion->getId().", ".$this->estado->getId().", ".$this->getId().")");
+			
 		return $rs?true:false;
 	}
 	

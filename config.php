@@ -285,3 +285,10 @@ $conf['listaOrdenesReportes'] = array(
 	'descripcion' => 'Lista de ordenes en reportes',
 	'seguridad' => true,
 	'capa' => LAYOUT_AJAX);
+
+$conf['historialEstados'] = array(
+	'controlador' => 'ordenes.php',
+	'vista' => 'ordenes/historial.tpl',
+	'descripcion' => 'Historial de estados por el que pasa una orden',
+	'seguridad' => true,
+	'capa' => LAYOUT_AJAX);

@@ -217,24 +217,24 @@
 	</div>
 	<hr />
 {/if}
-{if in_array($perfil, array(1, 3, 4, 5, 6))}
+{if in_array($perfil, array(1, 2, 3, 4, 5, 6))}
 	<div class="row">
-		<div class="{if in_array($perfil, array(4, 5))}col-md-4{else}col-md-8{/if}">
+		<div class="{if in_array($perfil, array(2, 4, 5))}col-md-4{else}col-md-6{/if}">
 			<div class="row">
-				<div class="{if in_array($perfil, array(4, 5))}col-md-6{else}col-md-3{/if}">
+				<div class="{if in_array($perfil, array(2, 4, 5, 6))}col-md-6{else}col-md-3{/if}">
 					<b>Observaciones</b>
 				</div>
-				<div class="{if in_array($perfil, array(4, 5))}col-md-6{else}col-md-4{/if}">
-					<input class="form-control" value="" campo="notas" id="txtNotas" {if in_array($perfil, array(4, 5))}disabled{/if}/>
+				<div class="{if in_array($perfil, array(2, 4, 5, 6))}col-md-6{else}col-md-4{/if}">
+					<input class="form-control" value="" campo="notas" id="txtNotas" {if in_array($perfil, array(2, 4, 5))}disabled{/if}/>
 				</div>
 			</div>
 			<br />
 			<div class="row">
 				{if in_array($perfil, array(1, 3, 5, 6))}
-				<div class="{if in_array($perfil, array(4, 5))}col-md-6{else}col-md-3{/if}">
+				<div class="{if in_array($perfil, array(4, 5, 6))}col-md-6{else}col-md-3{/if}">
 					<button id="btnFechaImpresion" class="btn btn-warning btn-xs">Impresión terminada</button>
 				</div>
-				<div class="{if in_array($perfil, array(4, 5))}col-md-6{else}col-md-5{/if}">
+				<div class="{if in_array($perfil, array(4, 5, 6))}col-md-6{else}col-md-5{/if}">
 					<input class="form-control" value="" placeholder="YYYY-MM-DD" {if in_array($perfil, array(5))}disabled{/if} readonly campo="fechaImpresion" id="txtFechaImpresion"/>
 				</div>
 				{/if}
@@ -264,9 +264,9 @@
 			{/if}
 		</div>
 		{if in_array($perfil, array(1, 2, 3, 4, 5, 6))}
-		<div class="{if in_array($perfil, array(4, 5))}col-md-8{else}col-md-4{/if}">
+		<div class="{if in_array($perfil, array(2, 4, 5))}col-md-8{else}col-md-6{/if}">
 			<b>Notas de produccion</b>
-			<textarea campo="notasProduccion" class="form-control" rows="4" id="txtNotasProduccion" {if in_array($perfil, array(2, 4, 5))}disabled{/if}></textarea>
+			<textarea campo="notasProduccion" class="form-control" rows="4" id="txtNotasProduccion" {if in_array($perfil, array(2, 4, 5))}readonly disabled{/if}></textarea>
 		</div>
 		{/if}
 	</div>
@@ -311,6 +311,7 @@
 		<input class="form-control" value="" id="txtNotasAdministrativas" {if !in_array($perfil, array(5))}readonly disabled{/if}/>
 	</div>
 </div>
+{if !in_array($perfil, array(2, 3))}
 <br />
 <div class="row">
 	<div class="col-md-3">
@@ -320,6 +321,7 @@
 		<input class="form-control" value="" id="txtAdministrativo" {if !in_array($perfil, array(5))}readonly disabled{/if}/>
 	</div>
 </div>
+{/if}
 <hr />
 <div class="row">
 	<div class="col-md-12">

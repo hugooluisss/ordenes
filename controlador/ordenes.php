@@ -116,21 +116,27 @@ switch($objModulo->getId()){
 		$sucursal = $_POST['sucursal'] == ''?$sucursal:$_POST['sucursal'];
 
 		switch($userSesion->getIdTipo()){
-			case 2: #dise�ador
-				$rs = $db->Execute("select a.*, b.nombre as vendedor, c.nombre as sucursal, d.color as colorEstado, d.nombre as estado, if(cast(registro as date) < cast(now() as date), 1, 0) as actual from orden a join vendedor b using(idVendedor) join sucursal c using(idSucursal) join estado d using(idEstado) where idSucursal = ".$sucursal." and b.clave = '".$userSesion->getCodigo()."' and not a.idEstado = 2");
+			case 2: #diseñador
+				$rs = $db->Execute("select a.*, b.nombre as vendedor, c.nombre as sucursal, d.color as colorEstado, d.nombre as estado, if(cast(registro as date) < cast(now() as date), 1, 0) as actual, e.descripcion, e.observaciones from orden a join vendedor b using(idVendedor) join sucursal c using(idSucursal) join estado d using(idEstado) join movimiento e using(idOrden) where idSucursal = ".$sucursal." and b.clave = '".$userSesion->getCodigo()."' and not a.idEstado = 2");
 			break;
 			case 3: #produccion
-				$rs = $db->Execute("select a.*, b.nombre as vendedor, c.nombre as sucursal, d.color as colorEstado, d.nombre as estado, if(cast(registro as date) < cast(now() as date), 1, 0) as actual from orden a join vendedor b using(idVendedor) join sucursal c using(idSucursal) join estado d using(idEstado) join movimiento e using(idOrden) where idArea in (select idArea from usuarioarea where idUsuario = ".$userSesion->getId().") and a.idEstado in (1, 2, 7, 8)");
+				$rs = $db->Execute("select a.*, b.nombre as vendedor, c.nombre as sucursal, d.color as colorEstado, d.nombre as estado, if(cast(registro as date) < cast(now() as date), 1, 0) as actual, e.observaciones, e.descripcion from orden a join vendedor b using(idVendedor) join sucursal c using(idSucursal) join estado d using(idEstado) join movimiento e using(idOrden) where idArea in (select idArea from usuarioarea where idUsuario = ".$userSesion->getId().") and a.idEstado in (1, 2, 7, 8)");
 			break;
 			default:
-				$rs = $db->Execute("select a.*, b.nombre as vendedor, c.nombre as sucursal, d.color as colorEstado, d.nombre as estado, if(cast(registro as date) < cast(now() as date), 1, 0) as actual from orden a join vendedor b using(idVendedor) join sucursal c using(idSucursal) join estado d using(idEstado) where idSucursal = ".$sucursal);
+				$rs = $db->Execute("select a.*, b.nombre as vendedor, c.nombre as sucursal, d.color as colorEstado, d.nombre as estado, if(cast(registro as date) < cast(now() as date), 1, 0) as actual, e.descripcion, e.observaciones from orden a join vendedor b using(idVendedor) join sucursal c using(idSucursal) join estado d using(idEstado) join movimiento e using(idOrden) where idSucursal = ".$sucursal);
 			break;
 		}
 		
 		$datos = array();
 		while(!$rs->EOF){
-			$rs->fields['json'] = json_encode($rs->fields);
+			switch($userSesion->getIdTipo()){
+				case 3:
+					$orden = new TOrden($rs->fields['idOrden']);
+					$rs->fields['archivo'] = $orden->movimientos[0]->getRutaArchivoUltimo();
+				break;
+			}
 			
+			$rs->fields['json'] = json_encode($rs->fields);
 			array_push($datos, $rs->fields);
 			$rs->moveNext();
 		}
@@ -158,6 +164,28 @@ switch($objModulo->getId()){
 		$smarty->assign("orden", $orden);
 		$movimiento = new TMovimiento($_GET['orden'], $_GET['clave']);
 		$smarty->assign("movimiento", $movimiento);
+	break;
+	case 'historialEstados':
+		$db = TBase::conectaDB();
+		$rs = $db->Execute("select a.*, b.nombre as estado, b.color, c.nombre as usuario from evento a join estado b using(idEstado) join usuario c using(idUsuario) where idOrden = ".$_GET['orden']." order by a.fecha desc");
+		$datos = array();
+		$terminada = new DateTime();
+		while(!$rs->EOF){
+			array_push($datos, $rs->fields);
+			if ($rs->fields['idEstado'] == 3)
+				$terminada = new DateTime($rs->fields['fecha']);
+			$rs->moveNext();
+		}
+		
+		$smarty->assign("lista", $datos);
+		$orden = new TOrden($_GET['orden']);
+		$smarty->assign("orden", $orden);
+		$registro = new DateTime($orden->getRegistro());
+		
+		
+		$interval = $registro->diff($terminada);
+
+		$smarty->assign("tiempo", $interval->format('%a días'));
 	break;
 	case 'cordenes':
 		switch($objModulo->getAction()){

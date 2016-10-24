@@ -19,6 +19,15 @@ $(document).ready(function(){
 				getLista();
 			});
 			
+			$("#dvLista").find("[action=historialEstados]").click(function(){
+				$("#winHistorialEstados").modal();
+				var el = jQuery.parseJSON($(this).attr("datos"));
+				
+				$.get("index.php?mod=historialEstados&orden=" + el.idOrden, function(resp){
+					$("#winHistorialEstados").find(".modal-body").html(resp);
+				});
+			});
+			
 			$("#dvLista").find("[action=setEstado]").click(function(){
 				if (confirm("¿Seguro?")){
 					var el = jQuery.parseJSON($(this).attr("datos"));
@@ -38,7 +47,7 @@ $(document).ready(function(){
 					});
 				}
 				
-				getLista();
+				//getLista();
 			});
 			
 			$("#tblDatos").DataTable({

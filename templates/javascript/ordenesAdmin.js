@@ -99,7 +99,7 @@ $(document).ready(function(){
 					guardar();
 				});
 				
-				$("#btnFechaImpresion").prop("disabled", !(tr.attr("fechaImpresion") == ''));
+				$("#btnFechaImpresion").prop("disabled", !(tr.attr("fechaimpresion") == ''));
 				
 				plantilla.find("#btnImpresionDigital").click(function(){
 					var f = new Date();

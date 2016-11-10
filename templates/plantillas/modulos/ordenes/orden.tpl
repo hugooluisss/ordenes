@@ -128,7 +128,7 @@
 					<td>
 						{$row->getFechaArchivo()}
 					</td>
-					{if in_array($perfil, array(1, 2))}
+					{if in_array($perfil, array(1, 2, 6))}
 						<td class="text-center">
 							<a href="index.php?mod=archivosorden&orden={$row->getOrden()|escape:"url"}&clave={$row->getClave()|escape:"url"}" target="_blank"><i class="fa fa-paperclip" aria-hidden="true"></i></a>
 						</td>

@@ -4,9 +4,10 @@
 			<thead>
 				<tr>
 					<th>Código</th>
-					<th>Cliente</th>
+					<th>Descripción</th>
+					<th>Observaciones</th>
+					<th>Área</th>
 					<th>Vendedor</th>
-					<th>Sucursal</th>
 					<th>Fecha</th>
 					<th>Estado</th>
 				</tr>
@@ -15,9 +16,10 @@
 				{foreach from=$lista item="row"}
 					<tr>
 						<td style="border-left: 3px solid {$row.colorEstado}">{$row.codigo}</td>
-						<td>{$row.cliente}</td>
+						<td>{$row.descripcion}</td>
+						<td>{$row.observaciones}</td>
+						<td>{$row.area}</td>
 						<td>{$row.vendedor}</td>
-						<td>{$row.sucursal}</td>
 						<td {if $row.actual eq 1}class="text-danger"{/if}>{$row.registro}</td>
 						<td>{$row.estado}</td>
 					</tr>

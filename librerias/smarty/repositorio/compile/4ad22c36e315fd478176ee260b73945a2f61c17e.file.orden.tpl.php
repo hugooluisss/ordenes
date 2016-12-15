@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-10-24 14:57:51
+<?php /* Smarty version Smarty-3.1.11, created on 2016-11-10 21:37:45
          compiled from "templates/plantillas/modulos/ordenes/orden.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:377579111580e67bf8cabc1-82742690%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '4ad22c36e315fd478176ee260b73945a2f61c17e' => 
     array (
       0 => 'templates/plantillas/modulos/ordenes/orden.tpl',
-      1 => 1477335962,
+      1 => 1477978223,
       2 => 'file',
     ),
   ),
@@ -15,6 +15,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
+  'version' => 'Smarty-3.1.11',
+  'unifunc' => 'content_580e67bfe6a071_35433423',
   'variables' => 
   array (
     'orden' => 0,
@@ -25,8 +27,6 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'PAGE' => 0,
   ),
   'has_nocache_code' => false,
-  'version' => 'Smarty-3.1.11',
-  'unifunc' => 'content_580e67bfe6a071_35433423',
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_580e67bfe6a071_35433423')) {function content_580e67bfe6a071_35433423($_smarty_tpl) {?><div class="row" style="margin-left: 10px;"> <!--style="border: 1px solid #3c8dbc; margin: 5px auto;" -->
 	<div class="col-md-2 text-center" style="color: <?php echo $_smarty_tpl->tpl_vars['orden']->value->sucursal->getColor();?>
@@ -222,7 +222,7 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 						<?php echo $_smarty_tpl->tpl_vars['row']->value->getFechaArchivo();?>
 
 					</td>
-					<?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(1,2))){?>
+					<?php if (in_array($_smarty_tpl->tpl_vars['perfil']->value,array(1,2,6))){?>
 						<td class="text-center">
 							<a href="index.php?mod=archivosorden&orden=<?php echo rawurlencode($_smarty_tpl->tpl_vars['row']->value->getOrden());?>
 &clave=<?php echo rawurlencode($_smarty_tpl->tpl_vars['row']->value->getClave());?>

@@ -15,7 +15,7 @@ switch($objModulo->getId()){
 	break;
 	case 'listaSucursales':
 		$db = TBase::conectaDB();
-		$rs = $db->Execute("select * from sucursal");
+		$rs = $db->Execute("select * from sucursal where visible = true");
 		$datos = array();
 		while(!$rs->EOF){
 			$rs->fields['json'] = json_encode($rs->fields);

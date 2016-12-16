@@ -335,7 +335,8 @@ class TUsuario{
 		if ($this->getId() == '') return false;
 		
 		$db = TBase::conectaDB();
-		$rs = $db->Execute("delete from usuario where idUsuario = ".$this->getId());
+		#$rs = $db->Execute("delete from usuario where idUsuario = ".$this->getId());
+		$rs = $db->Execute("update usuario set visible = false where idUsuario = ".$this->getId());
 		
 		return $rs?true:false;
 	}

@@ -57,7 +57,7 @@ TUsuario = function(){
 	this.del = function(usuario, fn){
 		$.post('cusuarios', {
 			"usuario": usuario,
-			"action": del
+			"action": "del"
 		}, function(data){
 			if (fn.after != undefined)
 				fn.after(data);

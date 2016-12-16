@@ -3,7 +3,7 @@ global $objModulo;
 switch($objModulo->getId()){
 	case 'listaAreas':
 		$db = TBase::conectaDB();
-		$rs = $db->Execute("select * from area");
+		$rs = $db->Execute("select * from area where visible = true");
 		$datos = array();
 		while(!$rs->EOF){
 			$rs->fields['json'] = json_encode($rs->fields);

@@ -6,7 +6,11 @@
 					<th>Código</th>
 					<th>Descripción</th>
 					<th>Observaciones</th>
-					<th>Sucursal</th>
+					{if $PAGE.usuario->getIdtipo() eq 4}
+						<th>Cliente</th>
+					{else}
+						<th>Sucursal</th>
+					{/if}
 					<th>Fecha</th>
 					<th>Estado</th>
 					<th>&nbsp;</th>
@@ -18,7 +22,11 @@
 						<td style="border-left: 3px solid {$row.colorEstado}">{$row.codigo}</td>
 						<td>{$row.descripcion}</td>
 						<td>{$row.observaciones}</td>
-						<td>{$row.sucursal}</td>
+						{if $PAGE.usuario->getIdtipo() eq 4}
+							<td>{$row.cliente}</td>
+						{else}
+							<td>{$row.sucursal}</td>
+						{/if}
 						<td {if $row.actual eq 1}class="text-danger"{/if}>{$row.registro}</td>
 						<td>{$row.estado}</td>
 						<td class="text-right">

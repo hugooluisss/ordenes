@@ -149,7 +149,8 @@ class TVendedor{
 		if ($this->getId() == '') return false;
 		
 		$db = TBase::conectaDB();
-		$rs = $db->Execute("delete from vendedor where idVendedor = ".$this->getId());
+		#$rs = $db->Execute("delete from vendedor where idVendedor = ".$this->getId());
+		$rs = $db->Execute("update vendedor set visible = false where idVendedor = ".$this->getId());
 		
 		return $rs?true:false;
 	}

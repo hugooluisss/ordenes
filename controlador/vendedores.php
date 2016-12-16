@@ -3,7 +3,7 @@ global $objModulo;
 switch($objModulo->getId()){
 	case 'listaVendedores':
 		$db = TBase::conectaDB();
-		$rs = $db->Execute("select * from vendedor");
+		$rs = $db->Execute("select * from vendedor where visible = true");
 		$datos = array();
 		while(!$rs->EOF){
 			$rs->fields['json'] = json_encode($rs->fields);
@@ -24,7 +24,7 @@ switch($objModulo->getId()){
 				echo json_encode(array("band" => $obj->guardar()));
 			break;
 			case 'del':
-				$obj = new TArea($_POST['id']);
+				$obj = new TVendedor($_POST['id']);
 				echo json_encode(array("band" => $obj->eliminar()));
 			break;
 			case 'validaClave':

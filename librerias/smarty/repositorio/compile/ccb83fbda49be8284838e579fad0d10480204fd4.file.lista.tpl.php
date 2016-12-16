@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-10-24 15:23:15
+<?php /* Smarty version Smarty-3.1.11, created on 2016-12-15 18:12:27
          compiled from "templates/plantillas/modulos/ordenes/lista.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:1697850505580e6797a43842-11272907%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'ccb83fbda49be8284838e579fad0d10480204fd4' => 
     array (
       0 => 'templates/plantillas/modulos/ordenes/lista.tpl',
-      1 => 1477340524,
+      1 => 1481847144,
       2 => 'file',
     ),
   ),
@@ -19,9 +19,9 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'unifunc' => 'content_580e6797b33962_58254691',
   'variables' => 
   array (
+    'PAGE' => 0,
     'lista' => 0,
     'row' => 0,
-    'PAGE' => 0,
   ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
@@ -33,7 +33,11 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 					<th>Código</th>
 					<th>Descripción</th>
 					<th>Observaciones</th>
-					<th>Sucursal</th>
+					<?php if ($_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdtipo()==4){?>
+						<th>Cliente</th>
+					<?php }else{ ?>
+						<th>Sucursal</th>
+					<?php }?>
 					<th>Fecha</th>
 					<th>Estado</th>
 					<th>&nbsp;</th>
@@ -53,8 +57,13 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 </td>
 						<td><?php echo $_smarty_tpl->tpl_vars['row']->value['observaciones'];?>
 </td>
-						<td><?php echo $_smarty_tpl->tpl_vars['row']->value['sucursal'];?>
+						<?php if ($_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdtipo()==4){?>
+							<td><?php echo $_smarty_tpl->tpl_vars['row']->value['cliente'];?>
 </td>
+						<?php }else{ ?>
+							<td><?php echo $_smarty_tpl->tpl_vars['row']->value['sucursal'];?>
+</td>
+						<?php }?>
 						<td <?php if ($_smarty_tpl->tpl_vars['row']->value['actual']==1){?>class="text-danger"<?php }?>><?php echo $_smarty_tpl->tpl_vars['row']->value['registro'];?>
 </td>
 						<td><?php echo $_smarty_tpl->tpl_vars['row']->value['estado'];?>

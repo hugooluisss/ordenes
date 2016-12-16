@@ -159,7 +159,8 @@ class TSucursal{
 		if ($this->getId() == '') return false;
 		
 		$db = TBase::conectaDB();
-		$rs = $db->Execute("delete from sucursal where idSucursal = ".$this->getId());
+		#$rs = $db->Execute("delete from sucursal where idSucursal = ".$this->getId());
+		$rs = $db->Execute("update sucursal set visible = false where idSucursal = ".$this->getId());
 		
 		return $rs?true:false;
 	}

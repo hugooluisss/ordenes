@@ -47,7 +47,7 @@ switch($objModulo->getId()){
 			
 			$db = TBase::conectaDB();
 			
-			$rs = $db->Execute("select idOrden from orden a join sucursal b using(idSucursal) join razonsocial c using(idRazon) where idRazon = ".$_POST['razonSocial']." and codigo = '".$el['codigo']."'");
+			$rs = $db->Execute("select idOrden from orden a join sucursal b using(idSucursal) join razonsocial c using(idRazon) where idRazon = ".$_POST['razonSocial']." and codigo = '".$el['codigo']."' and b.visible = true");
 			$rs2 = $db->Execute("select idCarga from carga where idRazon = ".$_POST['razonSocial']." and ".$el['codigo']." between inicio and fin");
 			if ($rs2->EOF){
 				if ($rs->EOF){
@@ -62,15 +62,15 @@ switch($objModulo->getId()){
 			
 			$band = !$el['ordenExiste']?false:$band;
 			
-			$rs = $db->Execute("select idArea from area where clave = '".$el['area']."'");
+			$rs = $db->Execute("select idArea from area where clave = '".$el['area']."' and visible = true");
 			$el['areaExiste'] = !$rs->EOF;
 			$band = $rs->EOF?false:$band;
 			
-			$rs = $db->Execute("select idVendedor from vendedor where clave = '".$el['vendedor']."'");
+			$rs = $db->Execute("select idVendedor from vendedor where clave = '".$el['vendedor']."' and visible = true");
 			$el['vendedorExiste'] = !$rs->EOF;
 			$band = $rs->EOF?false:$band;
 			
-			$rs = $db->Execute("select idSucursal from sucursal where upper(nombre) = upper('".$el['sucursal']."') and idRazon = ".$_POST['razonSocial']);
+			$rs = $db->Execute("select idSucursal from sucursal where upper(nombre) = upper('".$el['sucursal']."') and idRazon = ".$_POST['razonSocial']." and visible = true");
 			$el['sucursalExiste'] = !$rs->EOF;
 			$band = $rs->EOF?false:$band;
 			

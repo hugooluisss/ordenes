@@ -39,7 +39,7 @@ switch($objModulo->getId()){
 		$db = TBase::conectaDB();
 		global $sesion;
 		$usuario = new TUsuario($sesion['usuario']);
-		$rs = $db->Execute("select * from usuario");
+		$rs = $db->Execute("select * from usuario where visible = true");
 		$datos = array();
 		while(!$rs->EOF){
 			$obj = new TUsuario($rs->fields['idUsuario']);
@@ -59,6 +59,7 @@ switch($objModulo->getId()){
 			array_push($datos, $rs->fields);
 			$rs->moveNext();
 		}
+		
 		$smarty->assign("tipoUsuario", $datos);
 	break;
 	case 'usuarioDatosPersonales':

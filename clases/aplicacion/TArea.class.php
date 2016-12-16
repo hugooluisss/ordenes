@@ -169,7 +169,8 @@ class TArea{
 		if ($this->getId() == '') return false;
 		
 		$db = TBase::conectaDB();
-		$rs = $db->Execute("delete from area where idArea = ".$this->getId());
+		#$rs = $db->Execute("delete from area where idArea = ".$this->getId());
+		$rs = $db->Execute("update area set visible = false where idArea = ".$this->getId());
 		
 		return $rs?true:false;
 	}

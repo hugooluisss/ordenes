@@ -23,7 +23,7 @@
 					<div class="form-group">
 						<label for="selTipo" class="col-lg-2">Tipo</label>
 						<div class="col-lg-4">
-							<select class="form-control" id="selTipo" name="selTipo">
+							<select class="form-control" id="selTipo" multiple name="selTipo">
 								{foreach key=key item=item from=$tipos}
 									<option value="{$key}">{$item}
 								{/foreach}

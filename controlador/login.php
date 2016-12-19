@@ -25,8 +25,16 @@ switch($objModulo->getId()){
 						$obj = new TUsuario($rs->fields['idUsuario']);
 						if ($obj->getId() == '')
 							$result = array('band' => false, 'mensaje' => 'Acceso denegado');
-						else
+						else{
+							if ($obj->getIdTipo() == ''){
+								$rs = $db->Execute("select idTipo from perfilusuario where idUsuario = ".$obj->getId());
+								
+								$obj->setTipo($rs->fields['idTipo']);
+								$obj->guardar();
+							}
+							
 							$result = array('band' => true);
+						}
 					}
 						
 					

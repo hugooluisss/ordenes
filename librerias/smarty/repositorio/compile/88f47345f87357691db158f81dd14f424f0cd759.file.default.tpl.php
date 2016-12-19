@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-10-24 14:57:09
+<?php /* Smarty version Smarty-3.1.11, created on 2016-12-19 11:27:20
          compiled from "templates/plantillas/layout/default.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:838265096580e6795884fe7-80809833%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '88f47345f87357691db158f81dd14f424f0cd759' => 
     array (
       0 => 'templates/plantillas/layout/default.tpl',
-      1 => 1476298970,
+      1 => 1482168438,
       2 => 'file',
     ),
   ),
@@ -15,14 +15,15 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
+  'version' => 'Smarty-3.1.11',
+  'unifunc' => 'content_580e6795ba9da4_30839889',
   'variables' => 
   array (
     'PAGE' => 0,
+    'row' => 0,
     'script' => 0,
   ),
   'has_nocache_code' => false,
-  'version' => 'Smarty-3.1.11',
-  'unifunc' => 'content_580e6795ba9da4_30839889',
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_580e6795ba9da4_30839889')) {function content_580e6795ba9da4_30839889($_smarty_tpl) {?><!DOCTYPE html>
 <html>
@@ -124,6 +125,23 @@ img/logoazul.png" alt="User Image"/>
 								</li>
 								<!-- Menu Body -->
 								<li class="user-body">
+									<b>Cambiar perfil</b>
+									<?php  $_smarty_tpl->tpl_vars["row"] = new Smarty_Variable; $_smarty_tpl->tpl_vars["row"]->_loop = false;
+ $_from = $_smarty_tpl->tpl_vars['PAGE']->value['usuario']->perfiles; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
+foreach ($_from as $_smarty_tpl->tpl_vars["row"]->key => $_smarty_tpl->tpl_vars["row"]->value){
+$_smarty_tpl->tpl_vars["row"]->_loop = true;
+?>
+										<a href="#" <?php if ($_smarty_tpl->tpl_vars['row']->value['idTipo']!=$_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdTipo()){?>perfil="<?php echo $_smarty_tpl->tpl_vars['row']->value['idTipo'];?>
+"<?php }?>>
+											<?php if ($_smarty_tpl->tpl_vars['row']->value['idTipo']==$_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdTipo()){?>
+												<span class="text-danger"><?php echo $_smarty_tpl->tpl_vars['row']->value['nombre'];?>
+</span> <small>actual</small></a>
+											<?php }else{ ?>
+												<?php echo $_smarty_tpl->tpl_vars['row']->value['nombre'];?>
+
+											<?php }?>
+										</a>
+									<?php } ?>
 								</li>
 								<!-- Menu Footer-->
 								<li class="user-footer">
@@ -341,7 +359,8 @@ $_smarty_tpl->tpl_vars['script']->_loop = true;
 ?m=<?php echo rand();?>
 "></script>
 	<?php } ?>
-    
+    <script type="text/javascript" src="templates/javascript/index.js?m=<?php echo rand();?>
+"></script>
     <?php if ($_smarty_tpl->tpl_vars['PAGE']->value['debug']){?>
     	<script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.3.1/less.min.js" type="text/javascript"></script>
     <?php }else{ ?>

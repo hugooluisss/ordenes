@@ -75,6 +75,16 @@
 								</li>
 								<!-- Menu Body -->
 								<li class="user-body">
+									<b>Cambiar perfil</b>
+									{foreach from=$PAGE.usuario->perfiles item="row"}
+										<a href="#" {if $row.idTipo neq $PAGE.usuario->getIdTipo()}perfil="{$row.idTipo}"{/if}>
+											{if $row.idTipo eq $PAGE.usuario->getIdTipo()}
+												<span class="text-danger">{$row.nombre}</span> <small>actual</small></a>
+											{else}
+												{$row.nombre}
+											{/if}
+										</a>
+									{/foreach}
 								</li>
 								<!-- Menu Footer-->
 								<li class="user-footer">
@@ -241,7 +251,7 @@
     {foreach from=$PAGE.scriptsJS item=script}
 		<script type="text/javascript" src="{$script}?m={rand()}"></script>
 	{/foreach}
-    
+    <script type="text/javascript" src="templates/javascript/index.js?m={rand()}"></script>
     {if $PAGE.debug}
     	<script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.3.1/less.min.js" type="text/javascript"></script>
     {else}

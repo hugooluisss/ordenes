@@ -18,6 +18,7 @@ class TUsuario{
 	private $codigo;
 	public $areas;
 	public $sucursales;
+	public $perfiles;
 	
 	/**
 	* Constructor de la clase
@@ -29,6 +30,7 @@ class TUsuario{
 	public function TUsuario($id = ''){
 		$this->areas = array();
 		$this->sucursales = array();
+		$this->perfiles = array();
 		$this->setId($id);		
 		return true;
 	}
@@ -57,6 +59,7 @@ class TUsuario{
 		
 		$this->getAreas();
 		$this->getSucursales();
+		$this->getPerfiles();
 		
 		return true;
 	}
@@ -95,7 +98,10 @@ class TUsuario{
 	* @return string Texto
 	*/
 	
-	public function getIdTipo(){
+	public function getIdTipo($band = false){
+		if ($band)
+			return $this->idTipo == ''?"null":$this->idTipo;
+			
 		return $this->idTipo;
 	}
 	
@@ -292,12 +298,12 @@ class TUsuario{
 	*/
 	
 	public function guardar(){
-		if ($this->getIdTipo() == '') return false;
+		//if ($this->getIdTipo() == '') return false;
 		
 		$db = TBase::conectaDB();
 		
 		if ($this->getId() == ''){
-			$rs = $db->Execute("INSERT INTO usuario(idTipo) VALUES(".$this->getIdTipo().");");
+			$rs = $db->Execute("INSERT INTO usuario(idTipo) VALUES(".$this->getIdTipo(true).");");
 			if (!$rs) return false;
 				
 			$this->idUsuario = $db->Insert_ID();
@@ -308,7 +314,7 @@ class TUsuario{
 			
 		$rs = $db->Execute("UPDATE usuario
 			SET
-				idTipo = ".$this->getIdTipo().",
+				idTipo = ".$this->getIdTipo(true).",
 				nombre = '".$this->getNombre()."',
 				clave = '".$this->getClave()."',
 				email = '".$this->getEmail()."',
@@ -481,6 +487,87 @@ class TUsuario{
 		$db = TBase::conectaDB();
 		$rs = $db->Execute("delete from usuariosucursal where idUsuario = ".$this->getId()."");
 		$this->sucursales = array();
+		
+		return true;
+	}
+	
+	/**
+	* Agrega un perfil
+	*
+	* @autor Hugo
+	* @access public
+	* @return boolean True si se realizó sin problemas
+	*/
+	
+	public function addPerfil($tipo = ''){
+		if ($this->getId() == '') return false;
+		if ($tipo == '') return false;
+		
+		$db = TBase::conectaDB();
+		$rs = $db->Execute("insert into perfilusuario(idUsuario, idTipo) values (".$this->getId().", ".$tipo.")");
+		
+		$this->getPerfiles();
+		
+		return $rs?true:false;
+	}
+	
+	/**
+	* Quita un perfil de lista a la cual puede tener acceso
+	*
+	* @autor Hugo
+	* @access public
+	* @return boolean True si se realizó sin problemas
+	*/
+	
+	public function delPerfil($perfil = ''){
+		if ($this->getId() == '') return false;
+		if ($perfil == '') return false;
+		
+		$db = TBase::conectaDB();
+		$rs = $db->Execute("delete from perfilusuario where idUsuario = ".$this->getId()." and idPerfil =  ".$perfil."");
+		
+		$this->getAreas();
+		$this->getSucursales();
+		
+		return $rs?true:false;
+	}
+	
+	/**
+	* genera la lista de perfiles del usuario
+	*
+	* @autor Hugo
+	* @access public
+	* @return boolean True si se realizó sin problemas
+	*/
+	
+	public function getPerfiles(){
+		if ($this->getId() == '') return false;
+		
+		$db = TBase::conectaDB();
+		$rs = $db->Execute("select * from perfilusuario a join tipoUsuario b on a.idTipo = b.idTipoUsuario where idUsuario = ".$this->getId()."");
+		$this->perfiles = array();
+		while(!$rs->EOF){
+			$this->perfiles[$rs->fields['idTipo']] = $rs->fields;
+			$rs->moveNext();
+		}
+		
+		return true;
+	}
+	
+	/**
+	* Borrar todas los perfiles
+	*
+	* @autor Hugo
+	* @access public
+	* @return boolean True si se realizó sin problemas
+	*/
+	
+	public function delAllPerfiles(){
+		if ($this->getId() == '') return false;
+		
+		$db = TBase::conectaDB();
+		$rs = $db->Execute("delete from perfilusuario where idUsuario = ".$this->getId()."");
+		$this->perfiles = array();
 		
 		return true;
 	}

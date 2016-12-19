@@ -108,12 +108,15 @@ $(document).ready(function(){
 				$("#txtClave").val(el.clave);
 				$("#txtCodigo").val(el.codigo);
 				$("#txtPuesto").val(el.puesto);
-				$("#selTipo").val(el.idTipo);
+				$("#selTipo").val("");
 				$("#selSucursal").val("");
 				
 				$.each(el.sucursales, function(i, e){
-					
 					$("#selSucursal option[value='" + e.idSucursal + "']").prop("selected", true);
+				});
+				
+				$.each(el.perfiles, function(i, e){
+					$("#selTipo option[value='" + e.idTipo + "']").prop("selected", true);
 				});
 
 				$('#panelTabs a[href="#add"]').tab('show');

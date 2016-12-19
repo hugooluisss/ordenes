@@ -1,7 +1,7 @@
 TUsuario = function(){
 	var self = this;
 	
-	this.add = function(id,	sucursal, nombre, clave, pass, email, tipo, puesto, area, codigo, fn){
+	this.add = function(id,	sucursal, nombre, clave, pass, email, perfiles, puesto, area, codigo, fn){
 		if (fn.before !== undefined) fn.before();
 		
 		$.post('cusuarios', {
@@ -12,7 +12,7 @@ TUsuario = function(){
 				"codigo": codigo,
 				"email": email, 
 				"pass": pass,
-				"tipo": tipo,
+				"perfiles": perfiles,
 				"puesto": puesto,
 				"area": area,
 				"action": "add"

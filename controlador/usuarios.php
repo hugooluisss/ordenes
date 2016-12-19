@@ -47,6 +47,7 @@ switch($objModulo->getId()){
 			$rs->fields['tipo'] = $obj->getTipo();
 			$rs->fields['areas'] = $obj->areas;
 			$rs->fields['sucursales'] = $obj->sucursales;
+			$rs->fields['perfiles'] = $obj->perfiles;
 			$rs->fields['json'] = json_encode($rs->fields);
 			array_push($datos, $rs->fields);
 			$rs->moveNext();
@@ -92,14 +93,19 @@ switch($objModulo->getId()){
 				$obj->setClave($_POST['clave']);
 				$obj->setEmail($_POST['email']);
 				$obj->setPass($_POST['pass']);
-				$obj->setTipo($_POST['tipo']);
+				#$obj->setTipo($_POST['tipo']);
 				$obj->setPuesto($_POST['puesto']);
 				$obj->setCodigo($_POST['codigo']);
 				$obj->delAllSucursales();
-
+				
+				
 				echo json_encode(array("band" => $obj->guardar()));
 				foreach($_POST['sucursal'] as $sucursal)
 					$obj->addSucursal($sucursal);
+					
+				$obj->delAllPerfiles();	
+				foreach($_POST['perfiles'] as $perfil)
+					$obj->addPerfil($perfil);
 			break;
 			case 'del':
 				$obj = new TUsuario($_POST['usuario']);
@@ -130,6 +136,12 @@ switch($objModulo->getId()){
 			case 'delArea':
 				$obj = new TUsuario($_POST['usuario']);
 				echo json_encode(array("band" => $obj->delArea($_POST['area'])));
+			break;
+			case 'changePerfil':
+				global $sesion;
+				$obj = new TUsuario($sesion['usuario']);
+				$obj->setTipo($_POST['perfil']);
+				echo json_encode(array("band" => $obj->guardar()));
 			break;
 		}
 	break;

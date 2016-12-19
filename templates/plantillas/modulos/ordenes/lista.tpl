@@ -1,5 +1,9 @@
 <div class="box">
 	<div class="box-body">
+		<div class="text-center">
+			<span class="text-mute"><small>Última actualización: {$smarty.now|date_format:"%Y-%m-%d %H:%I:%S"}</small></span>
+		</div>
+		<br />
 		<table id="tblDatos" class="table table-bordered table-hover">
 			<thead>
 				<tr>

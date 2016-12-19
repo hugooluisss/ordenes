@@ -91,7 +91,15 @@ switch($objModulo->getId()){
 
 		$smarty->assign("lista", $datos);
 		$smarty->assign("listaJson", json_encode($datos));
-		$smarty->assign("error", $band);
+		
+		global $sesion;
+		$usuario = new TUsuario($sesion['usuario']);
+		
+		if ($usuario->getIdTipo() == 1)		
+			$smarty->assign("error", true);
+		else
+			$smarty->assign("error", $band);
+		
 		$smarty->assign("folios", array("inicio" => $fi, "fin" => $ff));
 	break;
 	case 'listaOrdenesAdmin':
@@ -113,20 +121,23 @@ switch($objModulo->getId()){
 	break;
 	case 'listaOrdenes':
 		$db = TBase::conectaDB();
+		global $ini;
+		$dias = $ini["sistema"]["dias"];
+		$dias = $dias == ''?0:$dias;
 		$sucursal = $_POST['sucursal'] == ''?$sucursal:$_POST['sucursal'];
 
 		switch($userSesion->getIdTipo()){
 			case 2: #diseñador
-				$rs = $db->Execute("select a.*, b.nombre as vendedor, c.nombre as sucursal, d.color as colorEstado, d.nombre as estado, if(cast(registro as date) < cast(now() as date), 1, 0) as actual, e.descripcion, e.observaciones from orden a join vendedor b using(idVendedor) join sucursal c using(idSucursal) join estado d using(idEstado) join movimiento e using(idOrden) where idSucursal = ".$sucursal." and b.clave = '".$userSesion->getCodigo()."' and not a.idEstado = 2");
+				$rs = $db->Execute("select a.*, b.nombre as vendedor, c.nombre as sucursal, d.color as colorEstado, d.nombre as estado, if(cast(registro as date) < cast(now() as date), 1, 0) as actual, e.descripcion, e.observaciones from orden a join vendedor b using(idVendedor) join sucursal c using(idSucursal) join estado d using(idEstado) join movimiento e using(idOrden) where idSucursal = ".$sucursal." and b.clave = '".$userSesion->getCodigo()."' and not a.idEstado = 2 and date_sub(registro, interval -".$dias." day) >= now()");
 			break;
 			case 3: #produccion
-				$rs = $db->Execute("select a.*, b.nombre as vendedor, c.nombre as sucursal, d.color as colorEstado, d.nombre as estado, if(cast(registro as date) < cast(now() as date), 1, 0) as actual, e.observaciones, e.descripcion from orden a join vendedor b using(idVendedor) join sucursal c using(idSucursal) join estado d using(idEstado) join movimiento e using(idOrden) where idArea in (select idArea from usuarioarea where idUsuario = ".$userSesion->getId().") and a.idEstado in (1, 2, 6, 7, 8)");
+				$rs = $db->Execute("select a.*, b.nombre as vendedor, c.nombre as sucursal, d.color as colorEstado, d.nombre as estado, if(cast(registro as date) < cast(now() as date), 1, 0) as actual, e.observaciones, e.descripcion from orden a join vendedor b using(idVendedor) join sucursal c using(idSucursal) join estado d using(idEstado) join movimiento e using(idOrden) where idArea in (select idArea from usuarioarea where idUsuario = ".$userSesion->getId().") and a.idEstado in (1, 2, 6, 7, 8) and date_sub(registro, interval -".$dias." day) >= now()");
 			break;
 			case 44: #atención a clientes
-				$rs = $db->Execute("select a.*, b.nombre as vendedor, c.nombre as sucursal, d.color as colorEstado, d.nombre as estado, if(cast(registro as date) < cast(now() as date), 1, 0) as actual, e.observaciones, e.descripcion from orden a join vendedor b using(idVendedor) join sucursal c using(idSucursal) join estado d using(idEstado) join movimiento e using(idOrden) where idArea in (select idArea from usuarioarea where idUsuario = ".$userSesion->getId().") and not a.idEstado in (1)");
+				$rs = $db->Execute("select a.*, b.nombre as vendedor, c.nombre as sucursal, d.color as colorEstado, d.nombre as estado, if(cast(registro as date) < cast(now() as date), 1, 0) as actual, e.observaciones, e.descripcion from orden a join vendedor b using(idVendedor) join sucursal c using(idSucursal) join estado d using(idEstado) join movimiento e using(idOrden) where idArea in (select idArea from usuarioarea where idUsuario = ".$userSesion->getId().") and not a.idEstado in (1) and date_sub(registro, interval -".$dias." day) >= now()");
 			break;
 			default:
-				$rs = $db->Execute("select a.*, b.nombre as vendedor, c.nombre as sucursal, d.color as colorEstado, d.nombre as estado, if(cast(registro as date) < cast(now() as date), 1, 0) as actual, e.descripcion, e.observaciones from orden a join vendedor b using(idVendedor) join sucursal c using(idSucursal) join estado d using(idEstado) join movimiento e using(idOrden) where idSucursal = ".$sucursal);
+				$rs = $db->Execute("select a.*, b.nombre as vendedor, c.nombre as sucursal, d.color as colorEstado, d.nombre as estado, if(cast(registro as date) < cast(now() as date), 1, 0) as actual, e.descripcion, e.observaciones from orden a join vendedor b using(idVendedor) join sucursal c using(idSucursal) join estado d using(idEstado) join movimiento e using(idOrden) where date_sub(registro, interval -".$dias." day) >= now() and idSucursal = ".$sucursal);
 			break;
 		}
 		
@@ -234,7 +245,7 @@ switch($objModulo->getId()){
 				
 				try {
 					foreach($elementos as $mov){
-						$rs = $db->Execute("select idOrden from orden a join sucursal b using(idSucursal) join razonsocial c using(idRazon)  where codigo = '".$mov->original."' and idRazon = ".$_POST['razonSocial']);
+						$rs = $db->Execute("select idOrden from orden a join sucursal b using(idSucursal) join razonsocial c using(idRazon) where codigo = '".$mov->original."' and idRazon = ".$_POST['razonSocial']);
 						
 						$orden = new TOrden;
 						if ($rs->EOF){

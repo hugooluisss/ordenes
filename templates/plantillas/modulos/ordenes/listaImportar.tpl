@@ -27,6 +27,9 @@
 			<th>Vendedor</th>
 			<th>Sucursal</th>
 			<th>Área</th>
+			{if $PAGE.usuario->getIdTipo() eq 1}
+				<th>&nbsp;</th>
+			{/if}
 		</tr>
 	</thead>
 	<tbody>
@@ -44,6 +47,11 @@
 				<td style="{if !$row.vendedorExiste}color: red;{/if}" {if !$row.vendedorExiste}title="El vendedor no está registrado en el sistema"{/if}>{$row.vendedor}</td>
 				<td style="{if !$row.sucursalExiste}color: red;{/if}" {if !$row.sucursalExiste}title="La sucursal no existe o no pertenece a la razón social seleccionada para importar"{/if}>{$row.sucursal}</td>
 				<td style="{if !$row.areaExiste}color: red;{/if}" {if !$row.areaExiste}title="Esta área no se encuentra registrada en el sistema"{/if}>{$row.area}</td>
+				{if $PAGE.usuario->getIdTipo() eq 1}
+				<td>
+					<button class="btn btn-warning" data='{$row.json}' inicio="{$folios.inicio}" fin="{$folios.fin}">Importar</button>
+				</td>
+				{/if}
 			</tr>
 		{/foreach}
 	</tbody>

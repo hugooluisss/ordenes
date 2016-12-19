@@ -63,6 +63,29 @@ $(document).ready(function(){
 				}
 			});
 			
+			$("#datos").find("button[data]").click(function(){
+				if(confirm("Estas apunto de enviar los datos de esta orden ¿Seguro?")){
+					var obj = new TOrden;
+					var boton = $(this);
+					obj.importar(boton.attr("data"), boton.attr("inicio"), boton.attr("fin"), $("#winUpload").attr("razonSocial"), {
+						before: function(){
+							boton.prop("disabled", true);
+						},
+						after: function(resp){
+							boton.prop("disabled", false);
+							
+							if (resp.band){
+								alert("Orden importada...");
+								location.reload();
+								
+								$("#datos").html("");
+							}else
+								alert("Ocurrio un error al importar");
+						}
+					});
+				}
+			});
+			
 			$("#tblDatos").DataTable({
 				"responsive": true,
 				"language": espaniol,

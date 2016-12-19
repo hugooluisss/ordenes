@@ -25,6 +25,8 @@ switch($objModulo->getId()){
 		$band = true;
 		$fi = utf8_encode($data->sheets[0]['cells'][2][1]);
 		$ff = utf8_encode($data->sheets[0]['cells'][2][1]);
+		global $sesion;
+		$usuario = new TUsuario($sesion['usuario']);
 		
 		for ($i = 2; $i <= $data->sheets[0]['numRows']; $i++) {
 			$el = array();
@@ -85,20 +87,14 @@ switch($objModulo->getId()){
 				
 				$el['codigo'] .= "_".$codigos[$el['codigo']]["cont"];
 			}
+			$el['json'] = json_encode(array($el));
 			
 			array_push($datos, $el);
 		}
 
 		$smarty->assign("lista", $datos);
 		$smarty->assign("listaJson", json_encode($datos));
-		
-		global $sesion;
-		$usuario = new TUsuario($sesion['usuario']);
-		
-		if ($usuario->getIdTipo() == 1)		
-			$smarty->assign("error", true);
-		else
-			$smarty->assign("error", $band);
+		$smarty->assign("error", $band);
 		
 		$smarty->assign("folios", array("inicio" => $fi, "fin" => $ff));
 	break;

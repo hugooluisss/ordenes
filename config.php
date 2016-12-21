@@ -292,3 +292,9 @@ $conf['historialEstados'] = array(
 	'descripcion' => 'Historial de estados por el que pasa una orden',
 	'seguridad' => true,
 	'capa' => LAYOUT_AJAX);
+	
+$conf['mantenimientoOrdenes'] = array(
+	'controlador' => 'ordenes.php',
+	'descripcion' => 'Controlador de mantenimiento a ordenes de servicio',
+	'seguridad' => false,
+	'capa' => LAYOUT_AJAX);

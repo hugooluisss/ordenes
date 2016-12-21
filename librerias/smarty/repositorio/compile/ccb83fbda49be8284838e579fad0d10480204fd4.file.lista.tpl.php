@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-12-19 12:03:31
+<?php /* Smarty version Smarty-3.1.11, created on 2016-12-21 09:55:38
          compiled from "templates/plantillas/modulos/ordenes/lista.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:1697850505580e6797a43842-11272907%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'ccb83fbda49be8284838e579fad0d10480204fd4' => 
     array (
       0 => 'templates/plantillas/modulos/ordenes/lista.tpl',
-      1 => 1482170609,
+      1 => 1482335733,
       2 => 'file',
     ),
   ),
@@ -28,9 +28,11 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 <?php if ($_valid && !is_callable('content_580e6797b33962_58254691')) {function content_580e6797b33962_58254691($_smarty_tpl) {?><?php if (!is_callable('smarty_modifier_date_format')) include '/Library/WebServer/Documents/ordenes/librerias/smarty/plugins/modifier.date_format.php';
 ?><div class="box">
 	<div class="box-body">
-		<div class="text-center">
-			<span class="text-mute"><small>Última actualización: <?php echo smarty_modifier_date_format(time(),"%Y-%m-%d %H:%I:%S");?>
-</small></span>
+		<div class="text-left text-bold" style="vertical-align: middle">
+			<span class="text-mute"><small>Última actualización: </small> </span> <span style="font-size: 26px;" id="hora"><?php echo smarty_modifier_date_format(time(),"%H:%M:%S");?>
+</span>
+			<br />
+			<button class="btn btn-warning btn-xs" id="btnUpdateSesion">Actualizar sesión</button>
 		</div>
 		<br />
 		<table id="tblDatos" class="table table-bordered table-hover">

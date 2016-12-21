@@ -16,6 +16,8 @@
 						{/foreach}
 					</select>
 				</div>
+				<label for="chkAntiguas" class="col-lg-2">Ordenes viejas</label>
+				<input type="checkbox" id="chkAntiguas"/>
 			</div>
 			<div class="form-group">
 				<button type="submit" class="btn btn-info pull-right">Buscar</button>

@@ -1,7 +1,9 @@
 <div class="box">
 	<div class="box-body">
-		<div class="text-center">
-			<span class="text-mute"><small>Última actualización: {$smarty.now|date_format:"%Y-%m-%d %H:%I:%S"}</small></span>
+		<div class="text-left text-bold" style="vertical-align: middle">
+			<span class="text-mute"><small>Última actualización: </small> </span> <span style="font-size: 26px;" id="hora">{$smarty.now|date_format:"%H:%M:%S"}</span>
+			<br />
+			<button class="btn btn-warning btn-xs" id="btnUpdateSesion">Actualizar sesión</button>
 		</div>
 		<br />
 		<table id="tblDatos" class="table table-bordered table-hover">

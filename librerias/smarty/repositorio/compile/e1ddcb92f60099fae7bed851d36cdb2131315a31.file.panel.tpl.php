@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-10-31 23:18:34
+<?php /* Smarty version Smarty-3.1.11, created on 2016-12-21 10:49:26
          compiled from "templates/plantillas/modulos/reportes/panel.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:398932958581825aa49f099-02205917%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'e1ddcb92f60099fae7bed851d36cdb2131315a31' => 
     array (
       0 => 'templates/plantillas/modulos/reportes/panel.tpl',
-      1 => 1476298970,
+      1 => 1482338964,
       2 => 'file',
     ),
   ),
@@ -15,14 +15,14 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
+  'version' => 'Smarty-3.1.11',
+  'unifunc' => 'content_581825aa52a912_40215164',
   'variables' => 
   array (
     'sucursales' => 0,
     'item' => 0,
   ),
   'has_nocache_code' => false,
-  'version' => 'Smarty-3.1.11',
-  'unifunc' => 'content_581825aa52a912_40215164',
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_581825aa52a912_40215164')) {function content_581825aa52a912_40215164($_smarty_tpl) {?><div class="row">
 	<div class="col-lg-12">
@@ -48,6 +48,8 @@ $_smarty_tpl->tpl_vars['item']->_loop = true;
 						<?php } ?>
 					</select>
 				</div>
+				<label for="chkAntiguas" class="col-lg-2">Ordenes viejas</label>
+				<input type="checkbox" id="chkAntiguas"/>
 			</div>
 			<div class="form-group">
 				<button type="submit" class="btn btn-info pull-right">Buscar</button>

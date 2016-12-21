@@ -281,6 +281,28 @@ switch($objModulo->getId()){
 					echo json_encode(array("band" => false, "mensaje" => $e->getMessage()));
 				}
 			break;
+			case 'updateSesion':
+				echo date("H:i:s");
+			break;
+		}
+	break;
+	case 'mantenimientoOrdenes':
+		switch($objModulo->getAction()){
+			case 'borrarRepositorioOrdenesViejas':
+				$db = TBase::conectaDB();
+				global $ini;
+				$dias = $ini["sistema"]["dias"];
+				$dias = $dias == ''?0:$dias;
+				
+				$rs = $db->Execute("select * from orden where date_sub(registro, interval -".$dias." day) < now()");
+				
+				while(!$rs->EOF){
+					$ruta = "repositorio/ordenes/orden_".$rs->fields['idOrden'];
+					eliminarDir($ruta);
+					echo $ruta;
+					$rs->moveNext();
+				}
+			break;
 		}
 	break;
 };

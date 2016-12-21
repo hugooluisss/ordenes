@@ -1,6 +1,14 @@
 $(document).ready(function(){
 	getLista();
 	
+	setInterval(function(){
+		$.post("cordenes", {
+			"action": "updateSesion"
+		}, function(resp){
+			$("#dvLista").find("span#hora").html(resp);
+		});
+	}, 1 * 60 * 1000);
+	
 	$("#frmBuscar").submit(function(){
 		getLista();
 	});
@@ -13,10 +21,20 @@ $(document).ready(function(){
 		}, function( data ) {
 			$("#dvLista").html(data);
 			
+			$("#btnUpdateSesion").click(function(){
+				$.post("cordenes", {
+					"action": "updateSesion"
+				}, function(resp){
+					$("#dvLista").find("span#hora").html(resp);
+					
+					alert("Sesión actualizada");
+				});
+			});
+			
 			$("#dvLista").find("[action=detalle]").click(function(){
 				$("#winOrden").modal();
 				getOrden(jQuery.parseJSON($(this).attr("datos")));
-				getLista();
+				//getLista();
 			});
 			
 			$("#dvLista").find("[action=historialEstados]").click(function(){
@@ -323,7 +341,7 @@ $(document).ready(function(){
 									}else{
 										if (resp.band){
 											getOrden(el);
-											getLista();
+											//getLista();
 											alert("Orden guardada");
 										}
 									}

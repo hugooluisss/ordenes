@@ -15,7 +15,8 @@ $(document).ready(function(){
 	function drawChart() {
 		$.post("creportes", {
 			"sucursal": $("#selSucursal").val(),
-			"action": "getResumen"
+			"action": "getResumen",
+			"antiguas": $("#chkAntiguas").is(":checked")
 		}, function( datos ){
 			var array = new Array();
 			
@@ -60,7 +61,8 @@ $(document).ready(function(){
 		$("#listaOrdenes").html('<i class="fa fa-cog fa-spin fa-3x fa-fw"></i> Estamos actualizando la lista');
 		$.post("listaOrdenesReportes", {
 			"sucursal": $("#selSucursal").val(),
-			"estado": estado
+			"estado": estado,
+			"antiguas": $("#chkAntiguas").is(":checked")
 		}, function( datos ){
 			$("#listaOrdenes").html(datos);
 		});

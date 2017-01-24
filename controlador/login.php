@@ -40,7 +40,7 @@ switch($objModulo->getId()){
 					
 					if($result['band']){
 						$obj = new TUsuario($rs->fields['idUsuario']);
-						$sesion['usuario'] = 		$obj->getId();
+						$sesion['usuario'] = $obj->getId();
 						$_SESSION[SISTEMA] = $sesion;
 					}
 				}else{

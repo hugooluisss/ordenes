@@ -1,14 +1,25 @@
 <div class="box">
 	<div class="box-body">
-		<div class="text-left text-bold" style="vertical-align: middle">
-			<span class="text-mute"><small>Última actualización: </small> </span> <span style="font-size: 26px;" id="hora">{$smarty.now|date_format:"%H:%M:%S"}</span>
-			<br />
-			<button class="btn btn-warning btn-xs" id="btnUpdateSesion">Actualizar sesión</button>
+		<div class="row">
+			<div class="col-md-6 text-left text-bold" style="vertical-align: middle">
+				<span class="text-mute"><small>Última actualización: </small> </span> <span style="font-size: 26px;" id="hora">{$smarty.now|date_format:"%H:%M:%S"}</span>
+				<br />
+				<button class="btn btn-warning btn-xs" id="btnUpdateSesion">Actualizar sesión</button>
+			</div>
+			<div class="col-md-6 text-right">
+				<div id="btnGroupActions" class="btn-group" role="group" aria-label="...">
+					{if $PAGE.usuario->getIdTipo() eq 4 and in_array($row.idEstado, array(10, 11, 9)) neq true}
+						<button type="button" class="btn btn-danger" estado="10" title="Pasar a En Rack"><i class="fa fa-list-alt"></i></button>
+						<button type="button" class="btn btn-danger" estado="11" title="Pasar a Perdido"><i class="fa fa-lastfm"></i></button>
+					{/if}
+				</div>
+			</div>
 		</div>
 		<br />
 		<table id="tblDatos" class="table table-bordered table-hover">
 			<thead>
 				<tr>
+					<th>&nbsp;</th>
 					<th>Código</th>
 					<th>Descripción</th>
 					<th>Observaciones</th>
@@ -25,7 +36,10 @@
 			<tbody>
 				{foreach from=$lista item="row"}
 					<tr>
-						<td style="border-left: 3px solid {$row.colorEstado}">{$row.codigo}</td>
+						<td style="border-left: 3px solid {$row.colorEstado}">
+							<input type="checkbox" class="setEstado" value="{$row.idOrden}" />
+						</td>
+						<td>{$row.codigo}</td>
 						<td>{$row.descripcion}</td>
 						<td>{$row.observaciones}</td>
 						{if $PAGE.usuario->getIdtipo() eq 4}

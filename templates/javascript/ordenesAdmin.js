@@ -21,6 +21,38 @@ $(document).ready(function(){
 		}, function( data ) {
 			$("#dvLista").html(data);
 			
+			$("#btnGroupActions").find("button").click(function(){
+				var btn = $(this);
+				
+				if ($("input[type=checkbox].setEstado:checked").length < 0)
+					alert("Por lo menos selecciona una orden");
+				else if(confirm("¿Seguro?")){
+					var identificadores = "";
+					$("input[type=checkbox].setEstado:checked").each(function(){
+						var el = $(this);
+						
+						identificadores += (identificadores == ""?"":",") + el.val();
+					});
+					
+					var obj = new TOrden;
+					obj.setEstadoMasivo({
+						"identificadores": identificadores,
+						"estado": btn.attr("estado"),
+						before: function(){
+							btn.prop("disabled", true);
+						}, after: function(resp){
+							btn.prop("disabled", false);
+							getLista();
+							
+							if(resp.band)
+								alert("Cambio de estado realizado");
+							else
+								alert("Ocurrió un error al realizar el cambio de estado");
+						}
+					});
+				}
+			});
+			
 			$("#btnUpdateSesion").click(function(){
 				$.post("cordenes", {
 					"action": "updateSesion"

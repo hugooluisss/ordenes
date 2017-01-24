@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-12-21 09:55:38
+<?php /* Smarty version Smarty-3.1.11, created on 2017-01-24 09:00:20
          compiled from "templates/plantillas/modulos/ordenes/lista.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:1697850505580e6797a43842-11272907%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'ccb83fbda49be8284838e579fad0d10480204fd4' => 
     array (
       0 => 'templates/plantillas/modulos/ordenes/lista.tpl',
-      1 => 1482335733,
+      1 => 1485269617,
       2 => 'file',
     ),
   ),
@@ -20,24 +20,35 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'variables' => 
   array (
     'PAGE' => 0,
-    'lista' => 0,
     'row' => 0,
+    'lista' => 0,
   ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_580e6797b33962_58254691')) {function content_580e6797b33962_58254691($_smarty_tpl) {?><?php if (!is_callable('smarty_modifier_date_format')) include '/Library/WebServer/Documents/ordenes/librerias/smarty/plugins/modifier.date_format.php';
 ?><div class="box">
 	<div class="box-body">
-		<div class="text-left text-bold" style="vertical-align: middle">
-			<span class="text-mute"><small>Última actualización: </small> </span> <span style="font-size: 26px;" id="hora"><?php echo smarty_modifier_date_format(time(),"%H:%M:%S");?>
+		<div class="row">
+			<div class="col-md-6 text-left text-bold" style="vertical-align: middle">
+				<span class="text-mute"><small>Última actualización: </small> </span> <span style="font-size: 26px;" id="hora"><?php echo smarty_modifier_date_format(time(),"%H:%M:%S");?>
 </span>
-			<br />
-			<button class="btn btn-warning btn-xs" id="btnUpdateSesion">Actualizar sesión</button>
+				<br />
+				<button class="btn btn-warning btn-xs" id="btnUpdateSesion">Actualizar sesión</button>
+			</div>
+			<div class="col-md-6 text-right">
+				<div id="btnGroupActions" class="btn-group" role="group" aria-label="...">
+					<?php if ($_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdTipo()==4&&in_array($_smarty_tpl->tpl_vars['row']->value['idEstado'],array(10,11,9))!=true){?>
+						<button type="button" class="btn btn-danger" estado="10" title="Pasar a En Rack"><i class="fa fa-list-alt"></i></button>
+						<button type="button" class="btn btn-danger" estado="11" title="Pasar a Perdido"><i class="fa fa-lastfm"></i></button>
+					<?php }?>
+				</div>
+			</div>
 		</div>
 		<br />
 		<table id="tblDatos" class="table table-bordered table-hover">
 			<thead>
 				<tr>
+					<th>&nbsp;</th>
 					<th>Código</th>
 					<th>Descripción</th>
 					<th>Observaciones</th>
@@ -59,7 +70,11 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 ?>
 					<tr>
 						<td style="border-left: 3px solid <?php echo $_smarty_tpl->tpl_vars['row']->value['colorEstado'];?>
-"><?php echo $_smarty_tpl->tpl_vars['row']->value['codigo'];?>
+">
+							<input type="checkbox" class="setEstado" value="<?php echo $_smarty_tpl->tpl_vars['row']->value['idOrden'];?>
+" />
+						</td>
+						<td><?php echo $_smarty_tpl->tpl_vars['row']->value['codigo'];?>
 </td>
 						<td><?php echo $_smarty_tpl->tpl_vars['row']->value['descripcion'];?>
 </td>

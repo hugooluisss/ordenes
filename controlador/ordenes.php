@@ -220,6 +220,35 @@ switch($objModulo->getId()){
 				
 				echo json_encode(array("band" => $obj->guardar()));
 			break;
+			case 'setEstadoMasivo':
+				$cont = 0;
+				foreach(explode(",", $_POST['identificadores']) as $id){
+					$obj = new TOrden($id);
+					$obj->estado->setId($_POST['estado']);
+					switch($_POST['estado']){
+						case 10: #si el estado es en Rack
+							foreach($obj->movimientos as $mov){
+								$mov->setFechaRecepcion(date("Y-m-d H:i:s"));
+								$mov->guardar();
+							}
+						break;
+						case 3: #produccion
+							foreach($orden->movimientos as $mov){
+								$mov->setNombreImpresor($userSesion->getNombreCompleto());
+								$mov->setClaveImpresor($userSesion->getClave());
+								
+								$mov->guardar();
+							}
+						break;
+					}
+					
+					$obj->guardar();
+					
+					$cont++;
+				}
+				
+				echo json_encode(array("band" => true));
+			break;
 			case 'uploadfile':
 				if(isset($_FILES['upl']) && $_FILES['upl']['error'] == 0){
 					$ext = explode(".", $_FILES['upl']['name']);

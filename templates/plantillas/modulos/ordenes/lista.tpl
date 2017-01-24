@@ -8,9 +8,10 @@
 			</div>
 			<div class="col-md-6 text-right">
 				<div id="btnGroupActions" class="btn-group" role="group" aria-label="...">
-					{if $PAGE.usuario->getIdTipo() eq 4 and in_array($row.idEstado, array(10, 11, 9)) neq true}
+					{if $PAGE.usuario->getIdTipo() eq 6}
 						<button type="button" class="btn btn-danger" estado="10" title="Pasar a En Rack"><i class="fa fa-list-alt"></i></button>
 						<button type="button" class="btn btn-danger" estado="11" title="Pasar a Perdido"><i class="fa fa-lastfm"></i></button>
+						<button type="button" class="btn btn-danger" estado="9" title="Pasar a En tránsito"><i class="fa fa-arrow-circle-o-right"></i></button>
 					{/if}
 				</div>
 			</div>
@@ -19,7 +20,9 @@
 		<table id="tblDatos" class="table table-bordered table-hover">
 			<thead>
 				<tr>
+					{if $PAGE.usuario->getIdTipo() eq 6}
 					<th>&nbsp;</th>
+					{/if}
 					<th>Código</th>
 					<th>Descripción</th>
 					<th>Observaciones</th>
@@ -36,10 +39,14 @@
 			<tbody>
 				{foreach from=$lista item="row"}
 					<tr>
+						{if $PAGE.usuario->getIdTipo() eq 6}
 						<td style="border-left: 3px solid {$row.colorEstado}">
 							<input type="checkbox" class="setEstado" value="{$row.idOrden}" />
 						</td>
 						<td>{$row.codigo}</td>
+						{else}
+						<td style="border-left: 3px solid {$row.colorEstado}">{$row.codigo}</td>
+						{/if}
 						<td>{$row.descripcion}</td>
 						<td>{$row.observaciones}</td>
 						{if $PAGE.usuario->getIdtipo() eq 4}

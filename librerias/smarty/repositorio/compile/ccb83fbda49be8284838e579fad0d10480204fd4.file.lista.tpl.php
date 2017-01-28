@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2017-01-24 11:37:47
+<?php /* Smarty version Smarty-3.1.11, created on 2017-01-28 09:30:03
          compiled from "templates/plantillas/modulos/ordenes/lista.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:1697850505580e6797a43842-11272907%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'ccb83fbda49be8284838e579fad0d10480204fd4' => 
     array (
       0 => 'templates/plantillas/modulos/ordenes/lista.tpl',
-      1 => 1485279465,
+      1 => 1485617400,
       2 => 'file',
     ),
   ),
@@ -42,6 +42,16 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 						<button type="button" class="btn btn-danger" estado="11" title="Pasar a Perdido"><i class="fa fa-lastfm"></i></button>
 						<button type="button" class="btn btn-danger" estado="9" title="Pasar a En tránsito"><i class="fa fa-arrow-circle-o-right"></i></button>
 					<?php }?>
+					<?php if ($_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdTipo()==4){?>
+						<button type="button" class="btn btn-danger" estado="10" title="Pasar a En Rack"><i class="fa fa-list-alt"></i></button>
+						<button type="button" class="btn btn-danger" estado="3" title="Pasar a Terminada">T</button>
+					<?php }?>
+					<?php if ($_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdTipo()==5){?>
+						<button type="button" class="btn btn-danger" estado="10" title="Pasar a En Rack"><i class="fa fa-list-alt"></i></button>
+						<button type="button" class="btn btn-danger" estado="3" title="Pasar a Terminada">T</button>
+						<button type="button" class="btn btn-danger" estado="4" title="Pasar a Cancelada">C</button>
+						<button type="button" class="btn btn-danger" estado="9" title="Pasar a En tránsito"><i class="fa fa-arrow-circle-o-right"></i></button>
+					<?php }?>
 				</div>
 			</div>
 		</div>
@@ -49,7 +59,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 		<table id="tblDatos" class="table table-bordered table-hover">
 			<thead>
 				<tr>
-					<?php if ($_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdTipo()==6){?>
+					<?php if (in_array($_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdTipo(),array(6,5,4))){?>
 					<th>&nbsp;</th>
 					<?php }?>
 					<th>Código</th>
@@ -72,7 +82,7 @@ foreach ($_from as $_smarty_tpl->tpl_vars["row"]->key => $_smarty_tpl->tpl_vars[
 $_smarty_tpl->tpl_vars["row"]->_loop = true;
 ?>
 					<tr>
-						<?php if ($_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdTipo()==6){?>
+						<?php if (in_array($_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdTipo(),array(6,5,4))){?>
 						<td style="border-left: 3px solid <?php echo $_smarty_tpl->tpl_vars['row']->value['colorEstado'];?>
 ">
 							<input type="checkbox" class="setEstado" value="<?php echo $_smarty_tpl->tpl_vars['row']->value['idOrden'];?>

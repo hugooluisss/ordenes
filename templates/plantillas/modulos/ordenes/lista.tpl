@@ -13,6 +13,16 @@
 						<button type="button" class="btn btn-danger" estado="11" title="Pasar a Perdido"><i class="fa fa-lastfm"></i></button>
 						<button type="button" class="btn btn-danger" estado="9" title="Pasar a En tránsito"><i class="fa fa-arrow-circle-o-right"></i></button>
 					{/if}
+					{if $PAGE.usuario->getIdTipo() eq 4}
+						<button type="button" class="btn btn-danger" estado="10" title="Pasar a En Rack"><i class="fa fa-list-alt"></i></button>
+						<button type="button" class="btn btn-danger" estado="3" title="Pasar a Terminada">T</button>
+					{/if}
+					{if $PAGE.usuario->getIdTipo() eq 5}
+						<button type="button" class="btn btn-danger" estado="10" title="Pasar a En Rack"><i class="fa fa-list-alt"></i></button>
+						<button type="button" class="btn btn-danger" estado="3" title="Pasar a Terminada">T</button>
+						<button type="button" class="btn btn-danger" estado="4" title="Pasar a Cancelada">C</button>
+						<button type="button" class="btn btn-danger" estado="9" title="Pasar a En tránsito"><i class="fa fa-arrow-circle-o-right"></i></button>
+					{/if}
 				</div>
 			</div>
 		</div>
@@ -20,7 +30,7 @@
 		<table id="tblDatos" class="table table-bordered table-hover">
 			<thead>
 				<tr>
-					{if $PAGE.usuario->getIdTipo() eq 6}
+					{if in_array($PAGE.usuario->getIdTipo(), array(6, 5, 4))}
 					<th>&nbsp;</th>
 					{/if}
 					<th>Código</th>
@@ -39,7 +49,7 @@
 			<tbody>
 				{foreach from=$lista item="row"}
 					<tr>
-						{if $PAGE.usuario->getIdTipo() eq 6}
+						{if in_array($PAGE.usuario->getIdTipo(), array(6, 5, 4))}
 						<td style="border-left: 3px solid {$row.colorEstado}">
 							<input type="checkbox" class="setEstado" value="{$row.idOrden}" />
 						</td>

@@ -246,7 +246,8 @@ $(document).ready(function(){
 				
 				plantilla.find("#btnFechaRecepcion").prop("disabled", !(tr.attr("fecharecepcion") == ''));
 				
-				$("input[campo=area]").val(tr.attr("area"));
+				//$("input[campo=area]").val(tr.attr("area"));
+				$("select[campo=area]").val(tr.attr("idArea"));
 				$("input[campo=clave]").val(tr.attr("clave"));
 				$("input[campo=elaboracion]").val(tr.attr("elaboracion"));
 				$("input[campo=cantidad]").val(tr.attr("cantidad"));
@@ -358,7 +359,8 @@ $(document).ready(function(){
 							$("#txtFechaRecepcion").val(), //fechaRecepcion, 
 							$("#txtFechaEntregaCliente").val(), //entregaCliente, 
 							$("#txtNotas").val(), 
-							$("#txtNotasAdministrativas").val(), {
+							$("#txtNotasAdministrativas").val(), 
+							$("#selArea").val(), {
 								before: function(){
 									$.each(elementos, function(i, el3){
 										$(el3).prop("disabled", true);

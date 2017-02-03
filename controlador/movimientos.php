@@ -79,6 +79,8 @@ switch($objModulo->getId()){
 					$orden->guardar();
 				}
 				
+				$obj->area->setId($_POST['area']);
+				
 				echo json_encode(array("band" => $obj->guardar()));
 			break;
 			case 'uploadfile':

@@ -155,9 +155,18 @@ switch($objModulo->getId()){
 	break;
 	case 'detalleOrden':
 		$orden = new TOrden($_POST['orden']);
+		$db = TBase::conectaDB();
 		$smarty->assign("orden", $orden);
 		
-		$db = TBase::conectaDB();
+		$rs = $db->Execute("select * from area where visible = 1");
+		$datos = array();
+		while(!$rs->EOF){
+			array_push($datos, $rs->fields);
+			$rs->moveNext();
+		}
+		
+		$smarty->assign("areas", $datos);
+		
 		$rs = $db->Execute("select estado.* from estado join estadotipousuario using(idEstado) join tipoUsuario on idTipoUsuario = idPerfil where idPerfil = ".$userSesion->getIdTipo());
 		$datos = array();
 		while(!$rs->EOF){

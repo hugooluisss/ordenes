@@ -1,7 +1,7 @@
 TMovimiento = function(){
 	var self = this;
 
-	this.guardar = function(orden, clave, notasSucursales, impresionDigital, disenador, fechaImpresion, notasProduccion, claveImpresor, nombreImpresor, fechaEnvio, horaEnvio, fechaRecepcion, entregaCliente, notas, notasAdministrativas, fn){
+	this.guardar = function(orden, clave, notasSucursales, impresionDigital, disenador, fechaImpresion, notasProduccion, claveImpresor, nombreImpresor, fechaEnvio, horaEnvio, fechaRecepcion, entregaCliente, notas, notasAdministrativas, area, fn){
 		if (fn.before !== undefined) fn.before();
 		
 		$.post('cmovimientos', {
@@ -19,6 +19,7 @@ TMovimiento = function(){
 				"entregaCliente": entregaCliente, 
 				"notas": notas,
 				"notasAdministrativas": notasAdministrativas,
+				"area": area,
 				"action": "guardar"
 			}, function(data){
 				if (data.band == 'false')

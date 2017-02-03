@@ -40,7 +40,7 @@ class TMovimiento{
 	*/
 	public function TMovimiento($id = '', $clave = ''){
 		$this->area = new TArea;
-		$this->setId($id, $clave);	
+		$this->setId($id, $clave);
 		return true;
 	}
 	
@@ -715,7 +715,8 @@ class TMovimiento{
 				entregacliente = ".($this->getEntregaCliente() == ''?'null':"'".$this->getEntregaCliente()."'").",
 				notas = '".$this->getNotas()."',
 				notasAdministrativas = '".$this->getNotasAdministrativas()."',
-				administrativo = '".$this->getAdministrativo()."'
+				administrativo = '".$this->getAdministrativo()."',
+				idArea = ".$this->area->getId()."
 			where idOrden = ".$this->getOrden()." and clave = '".$this->getClave()."'");
 		
 		return $rs?true:false;

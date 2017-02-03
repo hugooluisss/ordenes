@@ -146,7 +146,12 @@
 		<b>Área de producción</b>
 	</div>
 	<div class="col-md-2">
-		<input class="form-control text-right" value="" readonly disabled campo="area"/>
+		<!--<input class="form-control text-right" value="" readonly disabled campo="area"/>-->
+		<select class="form-control" campo="area" id="selArea" {if !in_array($perfil, array(1))}readonly disabled{/if}>
+			{foreach from=$areas item="row"}
+				<option value="{$row.idArea}">{$row.nombre}</option>
+			{/foreach}
+		</select>
 	</div>
 	<div class="col-md-2">
 		<b>Clave del artículo</b>

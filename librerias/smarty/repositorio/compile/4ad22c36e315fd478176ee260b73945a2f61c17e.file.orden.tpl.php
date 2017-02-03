@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-12-19 11:55:28
+<?php /* Smarty version Smarty-3.1.11, created on 2017-01-25 12:13:15
          compiled from "templates/plantillas/modulos/ordenes/orden.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:377579111580e67bf8cabc1-82742690%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '4ad22c36e315fd478176ee260b73945a2f61c17e' => 
     array (
       0 => 'templates/plantillas/modulos/ordenes/orden.tpl',
-      1 => 1482164367,
+      1 => 1485367990,
       2 => 'file',
     ),
   ),
@@ -25,6 +25,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'item' => 0,
     'row' => 0,
     'PAGE' => 0,
+    'areas' => 0,
   ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
@@ -242,7 +243,18 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 		<b>Área de producción</b>
 	</div>
 	<div class="col-md-2">
-		<input class="form-control text-right" value="" readonly disabled campo="area"/>
+		<!--<input class="form-control text-right" value="" readonly disabled campo="area"/>-->
+		<select class="form-control" campo="area" id="selArea" <?php if (!in_array($_smarty_tpl->tpl_vars['perfil']->value,array(1))){?>readonly disabled<?php }?>>
+			<?php  $_smarty_tpl->tpl_vars["row"] = new Smarty_Variable; $_smarty_tpl->tpl_vars["row"]->_loop = false;
+ $_from = $_smarty_tpl->tpl_vars['areas']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
+foreach ($_from as $_smarty_tpl->tpl_vars["row"]->key => $_smarty_tpl->tpl_vars["row"]->value){
+$_smarty_tpl->tpl_vars["row"]->_loop = true;
+?>
+				<option value="<?php echo $_smarty_tpl->tpl_vars['row']->value['idArea'];?>
+"><?php echo $_smarty_tpl->tpl_vars['row']->value['nombre'];?>
+</option>
+			<?php } ?>
+		</select>
 	</div>
 	<div class="col-md-2">
 		<b>Clave del artículo</b>

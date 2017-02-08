@@ -113,7 +113,7 @@
 					notasadministrativas="{$row->getNotasAdministrativas()}"
 					administrativo="{$row->getAdministrativo()}"
 					ultimoArchivo="{$row->getRutaArchivoUltimo()}"
-					
+					tipoEntrega="{$row->getTipoEntrega()}"
 				>
 					<td>{$row->getClave()}</td>
 					<td>{$row->getDescripcion()}</td>
@@ -304,6 +304,14 @@
 	</div>
 	<div class="col-md-3">
 		<input class="form-control" value="" id="txtFechaEntregaCliente" disabled readonly/>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-6">
+		<label><input type="radio" name="rbtTipoEntrega" id="rbtTipoEntrega" value="1" /> Entrega completa y en tiempo</label>
+	</div>
+	<div class="col-md-6">
+		<label><input type="radio" name="rbtTipoEntrega" id="rbtTipoEntrega" value="2" /> Entrega incompleta y fuera de tiempo</label>
 	</div>
 </div>
 <hr />

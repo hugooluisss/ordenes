@@ -67,6 +67,9 @@ switch($objModulo->getId()){
 					$obj->setNotasAdministrativas($_POST['notasAdministrativas']);
 					$obj->setAdministrativo($userSesion->getNombreCompleto());
 				}
+				
+				if (isset($_POST['tipoEntrega']))
+					$obj->setTipoEntrega($_POST['tipoEntrega']);
 					
 				$orden = new TOrden($_POST['orden']);
 				if ($orden->estado->getId() == 3){

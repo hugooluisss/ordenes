@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2017-01-25 12:13:15
+<?php /* Smarty version Smarty-3.1.11, created on 2017-02-08 09:21:55
          compiled from "templates/plantillas/modulos/ordenes/orden.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:377579111580e67bf8cabc1-82742690%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '4ad22c36e315fd478176ee260b73945a2f61c17e' => 
     array (
       0 => 'templates/plantillas/modulos/ordenes/orden.tpl',
-      1 => 1485367990,
+      1 => 1486567266,
       2 => 'file',
     ),
   ),
@@ -200,7 +200,8 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 "
 					ultimoArchivo="<?php echo $_smarty_tpl->tpl_vars['row']->value->getRutaArchivoUltimo();?>
 "
-					
+					tipoEntrega="<?php echo $_smarty_tpl->tpl_vars['row']->value->getTipoEntrega();?>
+"
 				>
 					<td><?php echo $_smarty_tpl->tpl_vars['row']->value->getClave();?>
 </td>
@@ -407,6 +408,14 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 	</div>
 	<div class="col-md-3">
 		<input class="form-control" value="" id="txtFechaEntregaCliente" disabled readonly/>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-6">
+		<label><input type="radio" name="rbtTipoEntrega" id="rbtTipoEntrega" value="1" /> Entrega completa y en tiempo</label>
+	</div>
+	<div class="col-md-6">
+		<label><input type="radio" name="rbtTipoEntrega" id="rbtTipoEntrega" value="2" /> Entrega incompleta y fuera de tiempo</label>
 	</div>
 </div>
 <hr />

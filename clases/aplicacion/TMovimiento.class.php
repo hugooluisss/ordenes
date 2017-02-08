@@ -30,6 +30,7 @@ class TMovimiento{
 	private $notas;
 	private $notasadministrativas;
 	private $administrativo;
+	private $tipoentrega;
 	
 	/**
 	* Constructor de la clase
@@ -632,6 +633,32 @@ class TMovimiento{
 	}
 	
 	/**
+	* Establece el tipo de entrega
+	*
+	* @autor Hugo
+	* @access public
+	* @param string $val fecha
+	* @return boolean True si se realizó sin problemas
+	*/
+	
+	public function setTipoEntrega($val = ""){
+		$this->tipoentrega = $val;
+		return true;
+	}
+	
+	/**
+	* Retorna el tipo de entrega
+	*
+	* @autor Hugo
+	* @access public
+	* @return date fecha de elaboracion
+	*/
+	
+	public function getTipoEntrega(){
+		return $this->tipoentrega;
+	}
+	
+	/**
 	* Retorna la fecha del último archivo subido para este movimiento
 	*
 	* @autor Hugo
@@ -716,7 +743,8 @@ class TMovimiento{
 				notas = '".$this->getNotas()."',
 				notasAdministrativas = '".$this->getNotasAdministrativas()."',
 				administrativo = '".$this->getAdministrativo()."',
-				idArea = ".$this->area->getId()."
+				idArea = ".$this->area->getId().",
+				tipoentrega = ".$this->getTipoEntrega()."
 			where idOrden = ".$this->getOrden()." and clave = '".$this->getClave()."'");
 		
 		return $rs?true:false;

@@ -283,6 +283,7 @@ $(document).ready(function(){
 				plantilla.find("#txtFechaRecepcion").val(tr.attr("fecharecepcion"));
 				plantilla.find("#txtFechaEntregaCliente").val(tr.attr("entregacliente"));
 				plantilla.find("#txtNotas").val(tr.attr("notas"));
+				plantilla.find("#rbtTipoEntrega[value="+ tr.attr("tipoEntrega") +"]").prop("checked", true);
 				
 				plantilla.find("#lnkUltimoArchivo").click(function(){
 					var orden = new TOrden;
@@ -344,7 +345,6 @@ $(document).ready(function(){
 						var elementos = ['txtNotas', "txtFechaImpresion", "envio", "txtFechaHora", "txtNotasSucursales", "btnGuardar"];
 						
 						//notasSucursales, impresionDigital, disenador, fechaImpresion, notasProduccion, claveImpresion, fechaEnvio, horaEnvio, fechaRecepcion, entregaCliente, notas, fn){
-						
 						movimiento.guardar(idOrden, 
 							$("input[campo=clave]").val(), 
 							$("#txtNotasSucursales").val(),
@@ -360,7 +360,8 @@ $(document).ready(function(){
 							$("#txtFechaEntregaCliente").val(), //entregaCliente, 
 							$("#txtNotas").val(), 
 							$("#txtNotasAdministrativas").val(), 
-							$("#selArea").val(), {
+							$("#selArea").val(), 
+							$("[name=rbtTipoEntrega]:checked").val(), {
 								before: function(){
 									$.each(elementos, function(i, el3){
 										$(el3).prop("disabled", true);

@@ -15,6 +15,7 @@ class TOrden{
 	private $elaboracion;
 	private $registro;
 	public $movimientos;
+	public $tipoEntrega;
 	
 	/**
 	* Constructor de la clase

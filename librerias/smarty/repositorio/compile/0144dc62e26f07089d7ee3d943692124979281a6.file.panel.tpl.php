@@ -1,22 +1,22 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2017-02-09 20:51:33
-         compiled from "templates/plantillas/modulos/reportes/panel.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:398932958581825aa49f099-02205917%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /* Smarty version Smarty-3.1.11, created on 2017-02-09 21:07:53
+         compiled from "templates/plantillas/modulos/reportes/entrega/panel.tpl" */ ?>
+<?php /*%%SmartyHeaderCode:2128307714589d2b80d0cbe4-64437177%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
-    'e1ddcb92f60099fae7bed851d36cdb2131315a31' => 
+    '0144dc62e26f07089d7ee3d943692124979281a6' => 
     array (
-      0 => 'templates/plantillas/modulos/reportes/panel.tpl',
-      1 => 1482340562,
+      0 => 'templates/plantillas/modulos/reportes/entrega/panel.tpl',
+      1 => 1486696072,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '398932958581825aa49f099-02205917',
+  'nocache_hash' => '2128307714589d2b80d0cbe4-64437177',
   'function' => 
   array (
   ),
   'version' => 'Smarty-3.1.11',
-  'unifunc' => 'content_581825aa52a912_40215164',
+  'unifunc' => 'content_589d2b80d62f50_10095654',
   'variables' => 
   array (
     'sucursales' => 0,
@@ -24,7 +24,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_581825aa52a912_40215164')) {function content_581825aa52a912_40215164($_smarty_tpl) {?><div class="row">
+<?php if ($_valid && !is_callable('content_589d2b80d62f50_10095654')) {function content_589d2b80d62f50_10095654($_smarty_tpl) {?><div class="row">
 	<div class="col-lg-12">
 		<h1 class="page-header">Ordenes</h1>
 	</div>
@@ -50,6 +50,16 @@ $_smarty_tpl->tpl_vars['item']->_loop = true;
 				</div>
 				<label for="chkAntiguas" class="col-lg-2">Ordenes viejas</label>
 				<input type="checkbox" id="chkAntiguas"/>
+			</div>
+			<div class="form-group">
+				<label for="selSucursal" class="col-lg-2">Estado entrega</label>
+				<div class="col-lg-3">
+					<select class="form-control" id="selEntrega" name="selEntrega">
+						<option value="0">Sin entregar</option>
+						<option value="1">Entrega completa y en tiempo</option>
+						<option value="2">Entrega incompleta y fuera de tiempo</option>
+					</select>
+				</div>
 			</div>
 			<div class="form-group">
 				<button type="submit" class="btn btn-info pull-right">Buscar</button>

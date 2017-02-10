@@ -14,7 +14,7 @@ switch($objModulo->getId()){
 				if ($_POST['movil'] <> 1){
 					$db = TBase::conectaDB();
 					
-					$rs = $db->Execute("select idUsuario, pass from usuario where upper(clave) = upper('".$_POST['usuario']."')");
+					$rs = $db->Execute("select idUsuario, pass from usuario where upper(clave) = upper('".$_POST['usuario']."') and visible = 1");
 					
 					$result = array('band' => false, 'mensaje' => 'Error al consultar los datos');
 					if($rs->EOF)

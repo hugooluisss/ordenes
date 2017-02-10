@@ -298,3 +298,20 @@ $conf['mantenimientoOrdenes'] = array(
 	'descripcion' => 'Controlador de mantenimiento a ordenes de servicio',
 	'seguridad' => false,
 	'capa' => LAYOUT_AJAX);
+	
+//Reporte entrega de ordenes
+$conf['reporteEntregas'] = array(
+	'controlador' => 'reportes.php',
+	'vista' => 'reportes/entrega/panel.tpl',
+	'descripcion' => 'Reporte estado de entregas',
+	'seguridad' => true,
+	#'js' => array('orden.class.js', "movimiento.class.js"),
+	'jsTemplate' => array('reportesEntrega.js'),
+	'capa' => LAYOUT_DEFECTO);
+	
+$conf['listaOrdenesReportes'] = array(
+	'controlador' => 'reportes.php',
+	'vista' => 'reportes/lista.tpl',
+	'descripcion' => 'Lista de ordenes en reportes',
+	'seguridad' => true,
+	'capa' => LAYOUT_AJAX);

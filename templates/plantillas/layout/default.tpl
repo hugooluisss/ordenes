@@ -133,7 +133,7 @@
 					{/if}
 					
 					{if in_array($PAGE.usuario->getIdTipo(), array(1, 2, 3, 4, 5, 6))}
-					<li class="{if in_array($PAGE.modulo, array('importar', 'listaOrdenesAdmin', 'reporte'))}active{/if} treeview">
+					<li class="{if in_array($PAGE.modulo, array('importar', 'listaOrdenesAdmin', 'reporte', 'reporteEntregas'))}active{/if} treeview">
 						<a href="#">
 							<span>Ordenes</span> <i class="fa fa-angle-left pull-right"></i>
 						</a>
@@ -142,7 +142,8 @@
 								<li {if $PAGE.modulo eq 'importar'}class="active"{/if}><a href="importar"><i class="fa fa-upload"></i> Importar</a></li>
 							{/if}
 							<li {if $PAGE.modulo eq 'listaOrdenesAdmin'}class="active"{/if}><a href="listaOrdenesAdmin"><i class="fa fa-list"></i> Lista</a></li>
-							<li {if $PAGE.modulo eq 'reporte'}class="active"{/if}><a href="reporte"><i class="fa fa-line-chart" aria-hidden="true"></i> Reporte</a></li>
+							<li {if $PAGE.modulo eq 'reporte'}class="active"{/if}><a href="reporte"><i class="fa fa-line-chart" aria-hidden="true"></i> Reporte estados</a></li>
+							<li {if $PAGE.modulo eq 'reporteEntregas'}class="active"{/if}><a href="reporteEntregas"><i class="fa fa-line-chart" aria-hidden="true"></i> Reporte entrega</a></li>
 						</ul>
 					</li>
 

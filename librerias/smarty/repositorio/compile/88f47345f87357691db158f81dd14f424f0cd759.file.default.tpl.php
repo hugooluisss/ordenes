@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-12-22 14:35:50
+<?php /* Smarty version Smarty-3.1.11, created on 2017-02-09 20:50:41
          compiled from "templates/plantillas/layout/default.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:838265096580e6795884fe7-80809833%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '88f47345f87357691db158f81dd14f424f0cd759' => 
     array (
       0 => 'templates/plantillas/layout/default.tpl',
-      1 => 1482176606,
+      1 => 1486695036,
       2 => 'file',
     ),
   ),
@@ -199,7 +199,8 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 								<li <?php if ($_smarty_tpl->tpl_vars['PAGE']->value['modulo']=='importar'){?>class="active"<?php }?>><a href="importar"><i class="fa fa-upload"></i> Importar</a></li>
 							<?php }?>
 							<li <?php if ($_smarty_tpl->tpl_vars['PAGE']->value['modulo']=='listaOrdenesAdmin'){?>class="active"<?php }?>><a href="listaOrdenesAdmin"><i class="fa fa-list"></i> Lista</a></li>
-							<li <?php if ($_smarty_tpl->tpl_vars['PAGE']->value['modulo']=='reporte'){?>class="active"<?php }?>><a href="reporte"><i class="fa fa-line-chart" aria-hidden="true"></i> Reporte</a></li>
+							<li <?php if ($_smarty_tpl->tpl_vars['PAGE']->value['modulo']=='reporte'){?>class="active"<?php }?>><a href="reporte"><i class="fa fa-line-chart" aria-hidden="true"></i> Reporte estados</a></li>
+							<li <?php if ($_smarty_tpl->tpl_vars['PAGE']->value['modulo']=='reporteEntregas'){?>class="active"<?php }?>><a href="reporteEntregas"><i class="fa fa-line-chart" aria-hidden="true"></i> Reporte entrega</a></li>
 						</ul>
 					</li>
 

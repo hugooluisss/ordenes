@@ -32,6 +32,16 @@
 							<input class="form-control" id="txtNombre" name="txtNombre">
 						</div>
 					</div>
+					<div class="form-group">
+						<label for="selSucursal" class="col-lg-2">Nombre</label>
+						<div class="col-lg-3">
+							<select id="selSucursal" name="selSucursal" class="form-control">
+								{foreach from=$sucursales item="row"}
+									<option value="{$row.idSucursal}">{$row.nombre}</option>
+								{/foreach}
+							</select>
+						</div>
+					</div>
 				</div>
 				<div class="box-footer">
 					<button type="reset" id="btnReset" class="btn btn-default">Cancelar</button>

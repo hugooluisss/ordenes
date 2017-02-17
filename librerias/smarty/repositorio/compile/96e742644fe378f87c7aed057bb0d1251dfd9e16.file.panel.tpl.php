@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2016-12-19 12:46:46
+<?php /* Smarty version Smarty-3.1.11, created on 2017-02-17 09:24:48
          compiled from "templates/plantillas/modulos/vendedores/panel.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:74933285158532dfdb63dd6-61715055%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '96e742644fe378f87c7aed057bb0d1251dfd9e16' => 
     array (
       0 => 'templates/plantillas/modulos/vendedores/panel.tpl',
-      1 => 1475075924,
+      1 => 1487345055,
       2 => 'file',
     ),
   ),
@@ -17,6 +17,11 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'version' => 'Smarty-3.1.11',
   'unifunc' => 'content_58532dfdbf1a83_06660818',
+  'variables' => 
+  array (
+    'sucursales' => 0,
+    'row' => 0,
+  ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_58532dfdbf1a83_06660818')) {function content_58532dfdbf1a83_06660818($_smarty_tpl) {?><div class="row">
@@ -51,6 +56,22 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 						<label for="txtNombre" class="col-lg-2">Nombre</label>
 						<div class="col-lg-6">
 							<input class="form-control" id="txtNombre" name="txtNombre">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="selSucursal" class="col-lg-2">Nombre</label>
+						<div class="col-lg-3">
+							<select id="selSucursal" name="selSucursal" class="form-control">
+								<?php  $_smarty_tpl->tpl_vars["row"] = new Smarty_Variable; $_smarty_tpl->tpl_vars["row"]->_loop = false;
+ $_from = $_smarty_tpl->tpl_vars['sucursales']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
+foreach ($_from as $_smarty_tpl->tpl_vars["row"]->key => $_smarty_tpl->tpl_vars["row"]->value){
+$_smarty_tpl->tpl_vars["row"]->_loop = true;
+?>
+									<option value="<?php echo $_smarty_tpl->tpl_vars['row']->value['idSucursal'];?>
+"><?php echo $_smarty_tpl->tpl_vars['row']->value['nombre'];?>
+</option>
+								<?php } ?>
+							</select>
 						</div>
 					</div>
 				</div>

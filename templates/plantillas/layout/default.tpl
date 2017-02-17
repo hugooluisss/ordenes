@@ -139,6 +139,9 @@
 						</a>
 						<ul class="treeview-menu">
 							{if in_array($PAGE.usuario->getIdTipo(), array(1, 6))}
+								<li {if $PAGE.modulo eq 'importarRemoto'}class="active"{/if}><a href="importarRemoto"><i class="fa fa-cloud-upload"></i> Importar remoto</a></li>
+							{/if}
+							{if in_array($PAGE.usuario->getIdTipo(), array(1, 6))}
 								<li {if $PAGE.modulo eq 'importar'}class="active"{/if}><a href="importar"><i class="fa fa-upload"></i> Importar</a></li>
 							{/if}
 							<li {if $PAGE.modulo eq 'listaOrdenesAdmin'}class="active"{/if}><a href="listaOrdenesAdmin"><i class="fa fa-list"></i> Lista</a></li>

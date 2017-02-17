@@ -1,6 +1,18 @@
 <?php
 global $objModulo;
 switch($objModulo->getId()){
+	case 'vendedores':
+		$db = TBase::conectaDB();
+		$rs = $db->Execute("select * from sucursal where visible = true");
+		$datos = array();
+		while(!$rs->EOF){
+			#$rs->fields['json'] = json_encode($rs->fields);
+			array_push($datos, $rs->fields);
+			$rs->moveNext();
+		}
+		
+		$smarty->assign("sucursales", $datos);
+	break;
 	case 'listaVendedores':
 		$db = TBase::conectaDB();
 		$rs = $db->Execute("select * from vendedor where visible = true");
@@ -21,6 +33,7 @@ switch($objModulo->getId()){
 				$obj->setId($_POST['id']);
 				$obj->setNombre($_POST['nombre']);
 				$obj->setClave($_POST['clave']);
+				$obj->sucursal = new TSucursal($_POST['sucursal']);
 				echo json_encode(array("band" => $obj->guardar()));
 			break;
 			case 'del':

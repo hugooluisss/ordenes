@@ -1,11 +1,12 @@
 TVendedor = function(){
 	var self = this;
 	
-	this.add = function(id,	clave, nombre, fn){
+	this.add = function(id,	sucursal, clave, nombre, fn){
 		if (fn.before !== undefined) fn.before();
 		
 		$.post('cvendedores', {
 				"id": id,
+				"sucursal": sucursal,
 				"nombre": nombre,
 				"clave": clave,
 				"action": "add"

@@ -39,6 +39,7 @@ $(document).ready(function(){
 			var obj = new TVendedor;
 			obj.add(
 				$("#id").val(),
+				$("#selSucursal").val(),
 				$("#txtClave").val(),
 				$("#txtNombre").val(),
 				{
@@ -82,6 +83,7 @@ $(document).ready(function(){
 				$("#id").val(el.idVendedor);
 				$("#txtNombre").val(el.nombre);
 				$("#txtClave").val(el.clave);
+				$("#selSucursal").val(el.idSucursal);
 				
 				$('#panelTabs a[href="#add"]').tab('show');
 			});

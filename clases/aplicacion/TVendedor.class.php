@@ -7,6 +7,7 @@
 **/
 class TVendedor{
 	private $idVendedor;
+	public $sucursal;
 	private $clave;
 	private $nombre;
 	
@@ -18,6 +19,7 @@ class TVendedor{
 	* @param int $id identificador del objeto
 	*/
 	public function TVendedor($id = ''){
+		$this->sucursal = new TSucursal;
 		$this->setId($id);	
 		return true;
 	}
@@ -37,8 +39,15 @@ class TVendedor{
 		$db = TBase::conectaDB();
 		$rs = $db->Execute("select * from vendedor where idVendedor = ".$id);
 		
-		foreach($rs->fields as $field => $val)
-			$this->$field = $val;
+		foreach($rs->fields as $field => $val){
+			switch($field){
+				case 'idSucursal':
+					$this->sucursal = new TSucursal($val);
+				break;
+				default:
+					$this->$field = $val;
+			}
+		}
 		
 		return true;
 	}
@@ -116,10 +125,11 @@ class TVendedor{
 	*/
 	
 	public function guardar(){
+		if ($this->sucursal->getId() == '') return false;
 		$db = TBase::conectaDB();
 		
 		if ($this->getId() == ''){
-			$rs = $db->Execute("INSERT INTO vendedor(clave) VALUES('".$this->getClave()."');");
+			$rs = $db->Execute("INSERT INTO vendedor(idSucursal) VALUES('".$this->sucursal->getId()."');");
 			if (!$rs) return false;
 				
 			$this->idVendedor = $db->Insert_ID();
@@ -130,6 +140,7 @@ class TVendedor{
 			
 		$rs = $db->Execute("UPDATE vendedor
 			SET
+				idSucursal = ".$this->sucursal->getId().",
 				clave = '".$this->getClave()."',
 				nombre = '".$this->getNombre()."'
 			WHERE idVendedor = ".$this->getId());

@@ -315,3 +315,27 @@ $conf['listaOrdenesReportes'] = array(
 	'descripcion' => 'Lista de ordenes en reportes',
 	'seguridad' => true,
 	'capa' => LAYOUT_AJAX);
+	
+/* Ordenes importación remota */
+$conf['importarRemoto'] = array(
+	'controlador' => 'ordenes.php',
+	'vista' => 'ordenes/importarAuto.tpl',
+	'descripcion' => 'panel de importación de datos',
+	'seguridad' => true,
+	'js' => array('orden.class.js'),
+	'jsTemplate' => array('importarAuto.js'),
+	'perfiles' => array(1, 6),
+	'capa' => LAYOUT_DEFECTO);
+	
+$conf['cordenes'] = array(
+	'controlador' => 'ordenes.php',
+	'descripcion' => 'Controlador de ordenes de servicio',
+	'seguridad' => true,
+	'capa' => LAYOUT_AJAX);
+	
+$conf['listaOrdenesImportAuto'] = array(
+	'controlador' => 'ordenes.php',
+	'vista' => 'ordenes/listaImportarAuto.tpl',
+	'descripcion' => 'Lista de vendedores',
+	'seguridad' => true,
+	'capa' => LAYOUT_AJAX);

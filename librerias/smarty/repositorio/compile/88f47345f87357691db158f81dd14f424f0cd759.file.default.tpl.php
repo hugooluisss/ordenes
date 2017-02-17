@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2017-02-15 21:44:35
+<?php /* Smarty version Smarty-3.1.11, created on 2017-02-17 08:43:07
          compiled from "templates/plantillas/layout/default.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:838265096580e6795884fe7-80809833%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '88f47345f87357691db158f81dd14f424f0cd759' => 
     array (
       0 => 'templates/plantillas/layout/default.tpl',
-      1 => 1486696511,
+      1 => 1487342584,
       2 => 'file',
     ),
   ),
@@ -195,6 +195,9 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 							<span>Ordenes</span> <i class="fa fa-angle-left pull-right"></i>
 						</a>
 						<ul class="treeview-menu">
+							<?php if (in_array($_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdTipo(),array(1,6))){?>
+								<li <?php if ($_smarty_tpl->tpl_vars['PAGE']->value['modulo']=='importarRemoto'){?>class="active"<?php }?>><a href="importarRemoto"><i class="fa fa-cloud-upload"></i> Importar remoto</a></li>
+							<?php }?>
 							<?php if (in_array($_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdTipo(),array(1,6))){?>
 								<li <?php if ($_smarty_tpl->tpl_vars['PAGE']->value['modulo']=='importar'){?>class="active"<?php }?>><a href="importar"><i class="fa fa-upload"></i> Importar</a></li>
 							<?php }?>

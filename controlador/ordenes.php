@@ -209,9 +209,8 @@ switch($objModulo->getId()){
 	
 	
 	case 'importarRemoto':
-		#echo file_get_contents('http://184.107.243.2/~govacas1/lonas/sae/hugo.php?codigo=1', true);
 		$db = TBase::conectaDB();
-		$rs = $db->Execute("select * from sucursal where visible = true");
+		$rs = $db->Execute("select * from razonsocial");
 		$datos = array();
 		while(!$rs->EOF){
 			array_push($datos, $rs->fields);
@@ -222,18 +221,77 @@ switch($objModulo->getId()){
 	break;
 	case 'listaOrdenesImportAuto':
 		$db = TBase::conectaDB();
-		$rs = $db->Execute("select * from vendedor where idSucursal = ".$_POST['sucursal']);
-		
-		$vendedores = "";
-		while(!$rs->EOF){
-			$vendedores .= ($vendedores == ''?'':',').$rs->fields['clave'];
-			$rs->moveNext();
-		}
-		$datos = file_get_contents('http://184.107.243.2/~govacas1/lonas/sae/hugo.php?codigo=1&vendedores='.$vendedores, true);
-		#echo 'http://184.107.243.2/~govacas1/lonas/sae/hugo.php?codigo=1&vendedores='.$vendedores;
+		$objEmpresa = new TRazonSocial($_POST['razonsocial']);
+		$datos = file_get_contents("http://184.107.243.2/~govacas1/lonas/sae/hugo.php?inicio=".$objEmpresa->getConsecutivo()."&empresa=".$objEmpresa->getNumero(), true);
 		
 		$datos = json_decode($datos);
-		$smarty->assign("ordenes", $datos->ordenes);
+		#print_r($datos);
+		$ordenes = array();
+		$bandGeneral = true;
+		$codigo = array();
+		foreach($datos as $key => $orden){
+			$band = true;
+			$rs = $db->Execute("select idVendedor, nombre, idSucursal from vendedor where clave = '".$orden->CLAVE_VENDEDOR."' and visible = true");
+			#$sucursal = new TSucursal($rs->fields['idSucursal']);
+			$orden->vendedor = $rs->fields;
+			$band = !$rs->EOF and $band;
+			
+			$rs = $db->Execute("select idSucursal, nombre from sucursal where idSucursal = '".$orden->vendedor['idSucursal']."' and visible = true");
+			$orden->sucursal = $rs->fields;
+			$band = !$rs->EOF and $band;
+			
+			$rs = $db->Execute("select idArea, nombre from area where clave = '".$orden->AREA_DE_PRODUCCION."' and visible = true");
+			$orden->area = $rs->fields;
+			$band = $rs->EOF?false:$band;
+			
+			$rs = $db->Execute("select idOrden from orden a join sucursal b using(idSucursal) join razonsocial c using(idRazon) where idRazon = ".$_POST['razonSocial']." and codigo = '".$el['codigo']."' and b.visible = true");
+			$rs2 = $db->Execute("select idCarga from carga where idRazon = ".$_POST['razonSocial']." and ".$orden->CODIGO." between inicio and fin");
+			if ($rs2->EOF){
+				if ($rs->EOF){
+					$el['ordenExiste'] = true;
+				}else{
+					$rs = $db->Execute("select idOrden from movimiento where idOrden = ".$rs->fields['idOrden']." and clave = '".$orden->CLAVE_DEL_ARTICULO."'");
+					$el['ordenExiste'] = $rs->EOF;
+				}
+			}else
+				$el['ordenExiste'] = false;
+			
+			
+			$band1 = !$el['ordenExiste']?false:$band1;
+			
+			/*
+			$rs = $db->Execute("select idArea from area where clave = '".$el['area']."' and visible = true");
+			$el['areaExiste'] = !$rs->EOF;
+			$band = $rs->EOF?false:$band;
+			
+			$rs = $db->Execute("select idVendedor from vendedor where clave = '".$el['vendedor']."' and visible = true");
+			$el['vendedorExiste'] = !$rs->EOF;
+			$band = $rs->EOF?false:$band;
+			
+			$rs = $db->Execute("select idSucursal from sucursal where upper(nombre) = upper('".$el['sucursal']."') and idRazon = ".$_POST['razonSocial']." and visible = true");
+			$el['sucursalExiste'] = !$rs->EOF;
+			*/
+			if (!isset($codigos[$el['codigo']])){
+				$codigos[$orden->CODIGO] = array();
+				$codigos[$orden->CODIGO]["cont"] = "a";
+				$codigos[$orden->CODIGO]["indice"] = $i;
+			}else{
+				$codigos[$orden->CODIGO]["cont"]++;
+				if ($codigos[$orden->CODIGO]["cont"] == 'b')
+					$datos[$codigos[$orden->CODIGO]["indice"] - 2]["codigo"] .= "_a";
+				
+				$orden->CODIGO .= "_".$codigos[$orden->CODIGO]["cont"];
+			}
+			
+			$bandGeneral = $band and $bandGeneral;
+			$orden->json = json_encode($orden);
+			
+			$orden->bandera = $band;
+			array_push($ordenes, $orden);
+		}
+		
+		$smarty->assign("ordenes", $ordenes);
+		$smarty->assign("banderaGeneral", $bandGeneral);
 	break;
 	
 	
@@ -344,6 +402,59 @@ switch($objModulo->getId()){
 					
 					$objRazon = new TRazonSocial($_POST['razonSocial']);
 					$objRazon->addCarga($_POST['inicio'], $_POST['fin']);
+					
+					echo json_encode(array("band" => true, "total" => $cont));
+				}catch (Exception $e) {
+					echo json_encode(array("band" => false, "mensaje" => $e->getMessage()));
+				}
+			break;
+			case 'importarAuto':
+				$db = TBase::conectaDB();
+				$elementos = $_POST['items'];
+				$cont = 0;
+				
+				try {
+					$objRazon = new TRazonSocial($_POST['razonSocial']);
+					$inicio = $objRazon->getConsecutivo();
+					$fin = $objRazon->getConsecutivo();
+					foreach($elementos as $mov){
+						$mov = json_decode($mov);
+						$rs = $db->Execute("select idOrden from orden a join sucursal b using(idSucursal) join razonsocial c using(idRazon) where codigo = '".$mov->CODIGO."' and idRazon = ".$_POST['razonSocial']);
+						
+						$orden = new TOrden;
+						if ($rs->EOF){
+							#$rsVendedor = $db->Execute("select idVendedor from vendedor where idVendedor = '".$mov->vendedor['idVendedor']."'");
+							#$rsSucursal = $db->Execute("select idSucursal from sucursal where idSucursa = upper('".$mov->sucursal."')");
+						
+							$orden->setCodigo($mov->CODIGO);
+							$orden->setCliente($mov->NOMBRE_DEL_CLIENTE);
+							$orden->vendedor = new TVendedor($mov->vendedor->idVendedor);
+							$orden->sucursal = new TSucursal($mov->sucursal->idSucursal);
+							$orden->estado = new TEstado(1);
+							$orden->setElaboracion(date("Y-m-d", $mov->FECHA_ELABORACION));
+							
+							$orden->guardar();
+						}else
+							$orden->setId($rs->fields['idOrden']);
+							
+						#Aqui ya tenemos a la orden, ahora hay que importar el detalle o movimiento
+						$movimiento = new TMovimiento();
+						$movimiento->setOrden($orden->getId());
+						$movimiento->setCantidad($mov->CANTIDAD);
+						$movimiento->setClave($mov->CLAVE_DEL_ARTICULO);
+						$movimiento->setDescripcion($mov->DESCRIPCION_DEL_ARTICULO);
+						$movimiento->setObservaciones($mov->OBSERVACIONES);
+						$movimiento->setImporte($mov->TOTAL_DE_PARTIDA);
+						$movimiento->area = new TArea();
+						$movimiento->area->setByClave($mov->AREA_DE_PRODUCCION);
+						
+						$cont += $movimiento->guardar()?1:0;
+					}
+					
+					$inicio = $inicio > $mov->CODIGO?$mov->CODIGO:$inicio;
+					$fin = $fin > $mov->CODIGO?$mov->CODIGO:$fin;
+					
+					$objRazon->addCarga($inicio, $fin);
 					
 					echo json_encode(array("band" => true, "total" => $cont));
 				}catch (Exception $e) {

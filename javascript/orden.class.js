@@ -50,4 +50,20 @@ TOrden = function(){
 					fn.after(data);
 			}, "json");
 	}
+	
+	this.importarAuto = function(items, razonsocial, fn){
+		if (fn.before !== undefined) fn.before();
+		
+		$.post('cordenes', {
+				"items": items,
+				"razonSocial": razonsocial,
+				"action": "importarAuto"
+			}, function(data){
+				if (data.band == 'false')
+					console.log(data.mensaje);
+					
+				if (fn.after !== undefined)
+					fn.after(data);
+			}, "json");
+	}
 };

@@ -9,6 +9,7 @@ class TRazonSocial{
 	private $idRazon;
 	private $clave;
 	private $consecutivo;
+	private $numero;
 	
 	/**
 	* Constructor de la clase
@@ -108,6 +109,32 @@ class TRazonSocial{
 	}
 	
 	/**
+	* Establece el número
+	*
+	* @autor Hugo
+	* @access public
+	* @param int $val valor
+	* @return boolean True si se realizó sin problemas
+	*/
+	
+	public function setNumero($val = ""){
+		$this->numero = $val;
+		return true;
+	}
+	
+	/**
+	* Retorna el número
+	*
+	* @autor Hugo
+	* @access public
+	* @return integer Valor
+	*/
+	
+	public function getNumero(){
+		return $this->numero;
+	}
+	
+	/**
 	* Guarda los datos en la base de datos
 	*
 	* @autor Hugo
@@ -131,7 +158,8 @@ class TRazonSocial{
 		$rs = $db->Execute("UPDATE razonsocial
 			SET
 				clave = '".$this->getClave()."',
-				consecutivo = '".$this->getConsecutivo()."'
+				consecutivo = '".$this->getConsecutivo()."',
+				numero = '".$this->getNumero()."'
 			WHERE idRazon = ".$this->getId());
 			
 		return $rs?true:false;

@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2017-02-17 12:16:28
+<?php /* Smarty version Smarty-3.1.11, created on 2017-02-17 22:56:19
          compiled from "templates/plantillas/modulos/ordenes/importarAuto.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:154773525458a73a080602e2-61307898%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '1189aa1fac99f7595c3cbbc7890735660004a98a' => 
     array (
       0 => 'templates/plantillas/modulos/ordenes/importarAuto.tpl',
-      1 => 1487354991,
+      1 => 1487393777,
       2 => 'file',
     ),
   ),
@@ -33,23 +33,23 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 <div class="panel">
 	<div class="panel-body">
 		<div class="row">
-			<div class="col-xs-12">
-				<select id="selSucursal" name="selSucursal" class="form-control">
+			<div class="col-xs-2 text-right">
+				<label for="selRazon">Razón social</label>
+			</div>
+			<div class="col-xs-6">
+				<select id="selRazon" name="selRazon" class="form-control">
 					<?php  $_smarty_tpl->tpl_vars["row"] = new Smarty_Variable; $_smarty_tpl->tpl_vars["row"]->_loop = false;
  $_from = $_smarty_tpl->tpl_vars['lista']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
 foreach ($_from as $_smarty_tpl->tpl_vars["row"]->key => $_smarty_tpl->tpl_vars["row"]->value){
 $_smarty_tpl->tpl_vars["row"]->_loop = true;
 ?>
-						<option value="<?php echo $_smarty_tpl->tpl_vars['row']->value['idSucursal'];?>
-"><?php echo $_smarty_tpl->tpl_vars['row']->value['nombre'];?>
+						<option value="<?php echo $_smarty_tpl->tpl_vars['row']->value['idRazon'];?>
+"><?php echo $_smarty_tpl->tpl_vars['row']->value['clave'];?>
 </option>
 					<?php } ?>
 				</select>
 			</div>
-		</div>
-		<br />
-		<div class="row">
-			<div class="col-xs-12 text-right">
+			<div class="col-xs-4">
 				<button id="btnEnviar" class="btn btn-success">Enviar</button>
 			</div>
 		</div>

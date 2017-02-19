@@ -133,7 +133,7 @@
 					{/if}
 					
 					{if in_array($PAGE.usuario->getIdTipo(), array(1, 2, 3, 4, 5, 6))}
-					<li class="{if in_array($PAGE.modulo, array('importar', 'listaOrdenesAdmin', 'reporte', 'reporteEntregas'))}active{/if} treeview">
+					<li class="{if in_array($PAGE.modulo, array('importar', 'listaOrdenesAdmin', 'reporte', 'reporteEntregas', 'importarRemoto'))}active{/if} treeview">
 						<a href="#">
 							<span>Ordenes</span> <i class="fa fa-angle-left pull-right"></i>
 						</a>

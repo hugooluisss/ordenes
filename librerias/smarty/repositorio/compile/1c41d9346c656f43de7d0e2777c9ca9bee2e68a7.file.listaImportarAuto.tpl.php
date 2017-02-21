@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2017-02-18 18:39:54
+<?php /* Smarty version Smarty-3.1.11, created on 2017-02-20 22:01:09
          compiled from "templates/plantillas/modulos/ordenes/listaImportarAuto.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:139347047058a747c0c1d2e0-72390832%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '1c41d9346c656f43de7d0e2777c9ca9bee2e68a7' => 
     array (
       0 => 'templates/plantillas/modulos/ordenes/listaImportarAuto.tpl',
-      1 => 1487464785,
+      1 => 1487649626,
       2 => 'file',
     ),
   ),
@@ -25,8 +25,12 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_58a747c0d7dab1_40146514')) {function content_58a747c0d7dab1_40146514($_smarty_tpl) {?><hr />
-
+<?php if ($_valid && !is_callable('content_58a747c0d7dab1_40146514')) {function content_58a747c0d7dab1_40146514($_smarty_tpl) {?><div class="row">
+	<div class="col-md-12 pull-right">
+		<button class="btn btn-warning btn-xs" id="btnTodas">Seleccionar todas</button>
+		<button class="btn btn-warning btn-xs" id="btnNinguna">Seleccionar ninguna</button>
+	</div>
+</div>
 <div class="box">
 	<div class="box-body">
 		<div class="row">

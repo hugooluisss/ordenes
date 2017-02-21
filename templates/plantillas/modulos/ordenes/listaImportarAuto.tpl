@@ -1,5 +1,9 @@
-<hr />
-
+<div class="row">
+	<div class="col-md-12 pull-right">
+		<button class="btn btn-warning btn-xs" id="btnTodas">Seleccionar todas</button>
+		<button class="btn btn-warning btn-xs" id="btnNinguna">Seleccionar ninguna</button>
+	</div>
+</div>
 <div class="box">
 	<div class="box-body">
 		<div class="row">

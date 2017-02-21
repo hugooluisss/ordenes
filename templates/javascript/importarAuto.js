@@ -6,6 +6,14 @@ $(document).ready(function(){
 		}, function(data){
 			$("#dvLista").html(data);
 			
+			$("#btnTodas").click(function(){
+				$(".orden").prop("checked", true);
+			});
+			
+			$("#btnNinguna").click(function(){
+				$(".orden").prop("checked", false);
+			});
+			
 			$("[action=importar]").click(function(){
 				var ordenes = [];
 				$(".orden:checked").each(function(){

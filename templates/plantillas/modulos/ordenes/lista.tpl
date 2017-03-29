@@ -58,7 +58,7 @@
 						<td style="border-left: 3px solid {$row.colorEstado}">{$row.codigo}</td>
 						{/if}
 						<td>{$row.descripcion}</td>
-						<td>{$row.observaciones}</td>
+						<td>{$row.observaciones|truncate:30:"...":true}</td>
 						{if $PAGE.usuario->getIdtipo() eq 4}
 							<td>{$row.cliente}</td>
 						{else}

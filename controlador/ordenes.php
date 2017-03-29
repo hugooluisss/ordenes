@@ -221,16 +221,23 @@ switch($objModulo->getId()){
 	break;
 	case 'listaOrdenesImportAuto':
 		$db = TBase::conectaDB();
+		#$db->Execute("update razonsocial set numero = '08' where clave = 'PS'");
+		#$rs = $db->Execute("select * from razonsocial where clave = 'PS'");
+		
+		//print_r($rs->fields);
 		$objEmpresa = new TRazonSocial($_POST['razonsocial']);
+		
 		$datos = file_get_contents("http://184.107.243.2/~govacas1/lonas/sae/hugo.php?inicio=".$objEmpresa->getConsecutivo()."&empresa=".$objEmpresa->getNumero(), true);
 		
 		$datos = json_decode($datos);
 		#print_r($datos);
 		$ordenes = array();
 		$bandGeneral = true;
-		$codigo = array();
+		$codigos = array();
 		foreach($datos as $key => $orden){
 			$band = true;
+			$orden->CODIGO = sprintf("%d", $orden->CODIGO);
+			
 			$rs = $db->Execute("select idVendedor, nombre, idSucursal from vendedor where clave = '".$orden->CLAVE_VENDEDOR."' and visible = true");
 			#$sucursal = new TSucursal($rs->fields['idSucursal']);
 			$orden->vendedor = $rs->fields;
@@ -244,8 +251,8 @@ switch($objModulo->getId()){
 			$orden->area = $rs->fields;
 			$band = $rs->EOF?false:$band;
 			
-			$rs = $db->Execute("select idOrden from orden a join sucursal b using(idSucursal) join razonsocial c using(idRazon) where idRazon = ".$_POST['razonSocial']." and codigo = '".$el['codigo']."' and b.visible = true");
-			$rs2 = $db->Execute("select idCarga from carga where idRazon = ".$_POST['razonSocial']." and ".$orden->CODIGO." between inicio and fin");
+			$rs = $db->Execute("select idOrden from orden a join sucursal b using(idSucursal) join razonsocial c using(idRazon) where idRazon = ".$_POST['razonsocial']." and codigo = '".$el['codigo']."' and b.visible = true");
+			$rs2 = $db->Execute("select idCarga from carga where idRazon = ".$_POST['razonsocial']." and ".$orden->CODIGO." between inicio and fin");
 			if ($rs2->EOF){
 				if ($rs->EOF){
 					$el['ordenExiste'] = true;
@@ -258,7 +265,7 @@ switch($objModulo->getId()){
 			
 			
 			$band1 = !$el['ordenExiste']?false:$band1;
-			
+			$orden->existe = $band1;
 			/*
 			$rs = $db->Execute("select idArea from area where clave = '".$el['area']."' and visible = true");
 			$el['areaExiste'] = !$rs->EOF;
@@ -418,14 +425,33 @@ switch($objModulo->getId()){
 					$inicio = $objRazon->getConsecutivo();
 					$fin = $objRazon->getConsecutivo();
 					foreach($elementos as $mov){
+						$codigoBuf = $mov->CODIGO;
 						$mov = json_decode($mov);
-						$rs = $db->Execute("select idOrden from orden a join sucursal b using(idSucursal) join razonsocial c using(idRazon) where codigo = '".$mov->CODIGO."' and idRazon = ".$_POST['razonSocial']);
+						$rs = $db->Execute("select idOrden from orden a join sucursal b using(idSucursal) join razonsocial c using(idRazon) where codigo = '".$mov->CODIGO."' and idRazon = ".$objRazon->getId());
 						
 						$orden = new TOrden;
 						if ($rs->EOF){
 							#$rsVendedor = $db->Execute("select idVendedor from vendedor where idVendedor = '".$mov->vendedor['idVendedor']."'");
 							#$rsSucursal = $db->Execute("select idSucursal from sucursal where idSucursa = upper('".$mov->sucursal."')");
-						
+							#hay que validar que el código no exista
+							$rsVal = $db->Execute("select codigo, idOrden from orden where codigo = '".$mov->CODIGO."'");
+							$bandVal = true;
+							if (!$rsVal->EOF){
+								$db->Execute("update orden set codigo = concat(codigo, 'a') where idOrden = ".$rsVal->fields['idOrden']);
+							}else{
+								for($a = 'a' ; $a < 'z' and $bandVal ; $a++){
+									$rsVal = $db->Execute("select codigo from orden where codigo = '".($mov->CODIGO.$a)."'");
+									if ($rsVal->EOF){
+										$mov->CODIGO .= $a;
+										$bandVal = false;
+									}
+								}
+								
+								$bandVal = true;
+							}
+								
+							
+							
 							$orden->setCodigo($mov->CODIGO);
 							$orden->setCliente($mov->NOMBRE_DEL_CLIENTE);
 							$orden->vendedor = new TVendedor($mov->vendedor->idVendedor);
@@ -451,8 +477,8 @@ switch($objModulo->getId()){
 						$cont += $movimiento->guardar()?1:0;
 					}
 					
-					$inicio = $inicio > $mov->CODIGO?$mov->CODIGO:$inicio;
-					$fin = $fin > $mov->CODIGO?$mov->CODIGO:$fin;
+					$inicio = $inicio > $codigoBuf?$codigoBuf:$inicio;
+					$fin = $fin < $codigoBuf?$codigoBuf:$fin;
 					
 					$objRazon->addCarga($inicio, $fin);
 					
@@ -460,6 +486,12 @@ switch($objModulo->getId()){
 				}catch (Exception $e) {
 					echo json_encode(array("band" => false, "mensaje" => $e->getMessage()));
 				}
+			break;
+			case 'eliminar':
+				$obj = new TOrden;
+				$obj->setId($_POST['id']);
+				
+				echo json_encode(array("band" => $obj->eliminar()));
 			break;
 			case 'updateSesion':
 				echo date("H:i:s");

@@ -26,6 +26,9 @@
 			{/foreach}
 		</select>
 		{/if}
+		{if in_array($perfil, array(1))}
+			<button class="btn btn-danger btn-block" id="btnEliminarOrden">Eliminar</button>
+		{/if}
 	</div>
 </div>
 <hr />

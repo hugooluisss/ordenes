@@ -66,4 +66,19 @@ TOrden = function(){
 					fn.after(data);
 			}, "json");
 	}
+	
+	this.eliminar = function(id, fn){
+		if (fn.before !== undefined) fn.before();
+		
+		$.post('cordenes', {
+				"id": id,
+				"action": "eliminar"
+			}, function(data){
+				if (data.band == 'false')
+					console.log(data.mensaje);
+					
+				if (fn.after !== undefined)
+					fn.after(data);
+			}, "json");
+	}
 };

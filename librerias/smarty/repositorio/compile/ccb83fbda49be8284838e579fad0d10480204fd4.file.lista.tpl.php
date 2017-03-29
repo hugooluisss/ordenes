@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2017-02-08 09:09:10
+<?php /* Smarty version Smarty-3.1.11, created on 2017-03-17 09:33:02
          compiled from "templates/plantillas/modulos/ordenes/lista.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:1697850505580e6797a43842-11272907%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'ccb83fbda49be8284838e579fad0d10480204fd4' => 
     array (
       0 => 'templates/plantillas/modulos/ordenes/lista.tpl',
-      1 => 1486146636,
+      1 => 1489764776,
       2 => 'file',
     ),
   ),
@@ -26,6 +26,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_580e6797b33962_58254691')) {function content_580e6797b33962_58254691($_smarty_tpl) {?><?php if (!is_callable('smarty_modifier_date_format')) include '/Library/WebServer/Documents/ordenes/librerias/smarty/plugins/modifier.date_format.php';
+if (!is_callable('smarty_modifier_truncate')) include '/Library/WebServer/Documents/ordenes/librerias/smarty/plugins/modifier.truncate.php';
 ?><div class="box">
 	<div class="box-body">
 		<div class="row">
@@ -97,7 +98,7 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 						<?php }?>
 						<td><?php echo $_smarty_tpl->tpl_vars['row']->value['descripcion'];?>
 </td>
-						<td><?php echo $_smarty_tpl->tpl_vars['row']->value['observaciones'];?>
+						<td><?php echo smarty_modifier_truncate($_smarty_tpl->tpl_vars['row']->value['observaciones'],30,"...",true);?>
 </td>
 						<?php if ($_smarty_tpl->tpl_vars['PAGE']->value['usuario']->getIdtipo()==4){?>
 							<td><?php echo $_smarty_tpl->tpl_vars['row']->value['cliente'];?>

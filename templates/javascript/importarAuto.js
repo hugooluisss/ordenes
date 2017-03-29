@@ -1,5 +1,9 @@
 $(document).ready(function(){
 	$("#btnEnviar").click(function(){
+		listaImportarAuto();
+	});
+	
+	function listaImportarAuto(){
 		$("#dvLista").html("Espera un momento en lo que obtenemos los datos del sistema...");
 		$.post("listaOrdenesImportAuto", {
 			razonsocial: $("#selRazon").val()
@@ -33,13 +37,13 @@ $(document).ready(function(){
 						
 						if (resp.band){
 							alert("Ordenes importadas...");
-							//location.reload();
 							$("#datos").html("");
+							listaImportarAuto();
 						}else
 							alert("Ocurrio un error al importar");
 					}
 				});
 			});
 		});
-	});
+	}
 });

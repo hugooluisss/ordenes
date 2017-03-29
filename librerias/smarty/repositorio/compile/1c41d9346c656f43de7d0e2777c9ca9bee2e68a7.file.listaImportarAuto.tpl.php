@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2017-02-20 22:01:09
+<?php /* Smarty version Smarty-3.1.11, created on 2017-03-21 21:32:19
          compiled from "templates/plantillas/modulos/ordenes/listaImportarAuto.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:139347047058a747c0c1d2e0-72390832%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '1c41d9346c656f43de7d0e2777c9ca9bee2e68a7' => 
     array (
       0 => 'templates/plantillas/modulos/ordenes/listaImportarAuto.tpl',
-      1 => 1487649626,
+      1 => 1489785322,
       2 => 'file',
     ),
   ),
@@ -68,7 +68,7 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 					<tr>
 						<td><?php if ($_smarty_tpl->tpl_vars['row']->value->bandera){?><input type="checkbox" class="orden" json='<?php echo $_smarty_tpl->tpl_vars['row']->value->json;?>
 ' /><?php }?></td>
-						<td><?php echo $_smarty_tpl->tpl_vars['row']->value->CODIGO;?>
+						<td <?php if ($_smarty_tpl->tpl_vars['row']->value->existe){?>title="Al parecer esta orden ya fue importada" class="text-danger"<?php }?>><?php echo $_smarty_tpl->tpl_vars['row']->value->CODIGO;?>
 </td>
 						<td><?php echo $_smarty_tpl->tpl_vars['row']->value->DESCRIPCION_DEL_ARTICULO;?>
 </td>

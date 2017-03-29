@@ -190,11 +190,14 @@ class TRazonSocial{
 	* @return boolean True si se realizó sin problemas
 	*/
 	
-	public function addCarga($inicio = 0, $fin = ''){
+	public function addCarga($inicio = 0, $fin = 0){
 		if ($this->getId() == '') return false;
 		$db = TBase::conectaDB();
 		
 		$rs = $db->Execute("INSERT INTO carga(idRazon, inicio, fin, momento) VALUES(".$this->getId().", ".$inicio.", ".$fin.", now());");
+		$this->consecutivo = $fin;
+		$this->guardar();
+		
 		return $rs?true:false;
 	}
 	

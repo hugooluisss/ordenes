@@ -36,7 +36,7 @@
 				{foreach from=$ordenes item="row"}
 					<tr>
 						<td>{if $row->bandera}<input type="checkbox" class="orden" json='{$row->json}' />{/if}</td>
-						<td>{$row->CODIGO}</td>
+						<td {if $row->existe}title="Al parecer esta orden ya fue importada" class="text-danger"{/if}>{$row->CODIGO}</td>
 						<td>{$row->DESCRIPCION_DEL_ARTICULO}</td>
 						<td {if $row->vendedor['idVendedor'] eq ''}title="El vendedor no existe en el sistema" class="text-danger"{/if}>{$row->CLAVE_VENDEDOR}</td>
 						<td {if $row->sucursal['idSucursal'] eq ''}title="La sucursal no existe en el sistema o no se pudo determinar" class="text-danger"{/if}>

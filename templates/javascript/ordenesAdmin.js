@@ -123,6 +123,22 @@ $(document).ready(function(){
 				var plantilla = $("#winOrden");
 				plantilla.find(".modal-body").html(data);
 				
+				$("#btnEliminarOrden").click(function(){
+					var orden = new TOrden;
+					orden.eliminar(idOrden, {
+						before: function(){
+							$("#btnEliminarOrden").prop("disabled", true);
+						}, after: function(resp){
+							$("#btnEliminarOrden").prop("disabled", false);
+							if (resp.band){
+								getLista();
+								$("#winOrden").modal("hide");
+							}else
+								alert("No pudo ser eliminada");
+						}
+					})
+				});
+				
 				$("#txtFechaEntregaCliente").inputmask("9999-99-99 99:99");
 				$("#txtFechaEntregaCliente").click(function(){
 					if ($(this).val() == ''){

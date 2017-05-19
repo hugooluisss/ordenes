@@ -1,13 +1,14 @@
 TEstado = function(){
 	var self = this;
 	
-	this.add = function(id,	nombre, color, fn){
+	this.add = function(id,	nombre, color, orden, fn){
 		if (fn.before !== undefined) fn.before();
 		
 		$.post('?mod=cestados&action=add', {
 				"id": id,
 				"nombre": nombre,
-				"color": color
+				"color": color,
+				"orden": orden
 			}, function(data){
 				if (data.band == 'false')
 					console.log(data.mensaje);

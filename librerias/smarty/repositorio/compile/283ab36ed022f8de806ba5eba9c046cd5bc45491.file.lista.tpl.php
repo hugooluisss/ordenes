@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2017-01-24 08:42:06
+<?php /* Smarty version Smarty-3.1.11, created on 2017-04-08 16:39:44
          compiled from "templates/plantillas/modulos/estados/lista.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:17177630125850c6aa2fe153-70723852%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '283ab36ed022f8de806ba5eba9c046cd5bc45491' => 
     array (
       0 => 'templates/plantillas/modulos/estados/lista.tpl',
-      1 => 1475071975,
+      1 => 1491687581,
       2 => 'file',
     ),
   ),
@@ -31,6 +31,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 				<tr>
 					<th>#</th>
 					<th>Nombre</th>
+					<th>Orden</th>
 					<th>&nbsp;</th>
 				</tr>
 			</thead>
@@ -45,6 +46,8 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 "><?php echo $_smarty_tpl->tpl_vars['row']->value['idEstado'];?>
 </td>
 						<td><?php echo $_smarty_tpl->tpl_vars['row']->value['nombre'];?>
+</td>
+						<td><?php echo $_smarty_tpl->tpl_vars['row']->value['orden'];?>
 </td>
 						<td style="text-align: right">
 							<button type="button" class="btn btn-success btn-circle" action="modificar" title="Modificar" datos='<?php echo $_smarty_tpl->tpl_vars['row']->value['json'];?>

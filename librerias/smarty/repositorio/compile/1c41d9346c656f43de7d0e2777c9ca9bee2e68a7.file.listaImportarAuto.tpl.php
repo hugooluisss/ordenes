@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2017-03-21 21:32:19
+<?php /* Smarty version Smarty-3.1.11, created on 2017-05-06 14:48:14
          compiled from "templates/plantillas/modulos/ordenes/listaImportarAuto.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:139347047058a747c0c1d2e0-72390832%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '1c41d9346c656f43de7d0e2777c9ca9bee2e68a7' => 
     array (
       0 => 'templates/plantillas/modulos/ordenes/listaImportarAuto.tpl',
-      1 => 1489785322,
+      1 => 1494099634,
       2 => 'file',
     ),
   ),
@@ -57,6 +57,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 					<th>Vendedor</th>
 					<th>Sucursal</th>
 					<th>Área</th>
+                    <th>Observaciones</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -82,6 +83,8 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 							<?php echo $_smarty_tpl->tpl_vars['row']->value->AREA_DE_PRODUCCION;?>
 
 						</td>
+                        <td><?php echo $_smarty_tpl->tpl_vars['row']->value->OBSERVACIONES;?>
+</td>
 					</tr>
 				<?php } ?>
 			</tbody>

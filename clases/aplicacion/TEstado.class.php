@@ -9,6 +9,7 @@ class TEstado{
 	private $idEstado;
 	private $color;
 	private $nombre;
+	private $orden;
 	
 	/**
 	* Constructor de la clase
@@ -18,6 +19,7 @@ class TEstado{
 	* @param int $id identificador del objeto
 	*/
 	public function TEstado($id = ''){
+		$orden = 0;
 		$this->setId($id);
 		
 		return true;
@@ -109,6 +111,32 @@ class TEstado{
 	}
 	
 	/**
+	* Establece la posición del estado
+	*
+	* @autor Hugo
+	* @access public
+	* @param string $val Valor a asignar
+	* @return boolean True si se realizó sin problemas
+	*/
+	
+	public function setOrden($val = 0){
+		$this->orden = $val;
+		return true;
+	}
+	
+	/**
+	* Retorna la posicion
+	*
+	* @autor Hugo
+	* @access public
+	* @return string Texto
+	*/
+	
+	public function getOrden(){
+		return $this->orden;
+	}
+	
+	/**
 	* Guarda los datos en la base de datos, si no existe un identificador entonces crea el objeto
 	*
 	* @autor Hugo
@@ -132,7 +160,8 @@ class TEstado{
 		$rs = $db->Execute("UPDATE estado
 			SET
 				nombre = '".$this->getNombre()."',
-				color = '".$this->getColor()."'
+				color = '".$this->getColor()."',
+				orden = ".$this->getOrden()."
 			WHERE idEstado = ".$this->getId());
 			
 		return $rs?true:false;

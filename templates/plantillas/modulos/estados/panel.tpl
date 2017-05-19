@@ -32,6 +32,12 @@
 							<input class="form-control" id="txtColor" name="txtColor">
 						</div>
 					</div>
+					<div class="form-group">
+						<label for="txtOrden" class="col-lg-2">Orden</label>
+						<div class="col-lg-3">
+							<input class="form-control" id="txtOrden" name="txtOrden">
+						</div>
+					</div>
 				</div>
 				<div class="box-footer">
 					<button type="reset" id="btnReset" class="btn btn-default">Cancelar</button>

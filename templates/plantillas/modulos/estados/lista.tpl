@@ -5,6 +5,7 @@
 				<tr>
 					<th>#</th>
 					<th>Nombre</th>
+					<th>Orden</th>
 					<th>&nbsp;</th>
 				</tr>
 			</thead>
@@ -13,6 +14,7 @@
 					<tr>
 						<td style="border-left: 2px solid {$row.color}">{$row.idEstado}</td>
 						<td>{$row.nombre}</td>
+						<td>{$row.orden}</td>
 						<td style="text-align: right">
 							<button type="button" class="btn btn-success btn-circle" action="modificar" title="Modificar" datos='{$row.json}'><i class="fa fa-pencil"></i></button>
 						</td>

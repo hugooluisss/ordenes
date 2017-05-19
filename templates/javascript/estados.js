@@ -13,6 +13,7 @@ $(document).ready(function(){
 		rules: {
 			txtNombre: "required",
 			txtColor: "required",
+			txtOrden: "digits"
 		},
 		wrapper: 'span', 
 		messages: {
@@ -25,6 +26,7 @@ $(document).ready(function(){
 				$("#id").val(), 
 				$("#txtNombre").val(),
 				$("#txtColor").val(),
+				$("#txtOrden").val(),
 				{
 					after: function(datos){
 						if (datos.band){
@@ -63,6 +65,7 @@ $(document).ready(function(){
 				$("#id").val(el.idEstado);
 				$("#txtNombre").val(el.nombre);
 				$("#txtColor").val(el.color);
+				$("#txtOrden").val(el.orden);
 				$("#panelTabs a[href=#add]").show();
 				$('#panelTabs a[href="#add"]').tab('show');
 			});

@@ -22,6 +22,7 @@ switch($objModulo->getId()){
 				$obj->setId($_POST['id']);
 				$obj->setNombre($_POST['nombre']);
 				$obj->setColor($_POST['color']);
+				$obj->setOrden($_POST['orden']);
 				
 				echo json_encode(array("band" => $obj->guardar()));
 			break;

@@ -10,8 +10,8 @@
 				<div id="btnGroupActions" class="btn-group" role="group" aria-label="...">
 					{if $PAGE.usuario->getIdTipo() eq 6}
 						<button type="button" class="btn btn-danger" estado="10" title="Pasar a En Rack"><i class="fa fa-list-alt"></i></button>
-						<button type="button" class="btn btn-danger" estado="11" title="Pasar a Perdido"><i class="fa fa-lastfm"></i></button>
 						<button type="button" class="btn btn-danger" estado="9" title="Pasar a En tránsito"><i class="fa fa-arrow-circle-o-right"></i></button>
+						<button type="button" class="btn btn-danger" estado="11" title="Pasar a En tránsito 2"><i class="fa fa-lastfm"></i></button>
 					{/if}
 					{if $PAGE.usuario->getIdTipo() eq 4}
 						<button type="button" class="btn btn-danger" estado="10" title="Pasar a En Rack"><i class="fa fa-list-alt"></i></button>

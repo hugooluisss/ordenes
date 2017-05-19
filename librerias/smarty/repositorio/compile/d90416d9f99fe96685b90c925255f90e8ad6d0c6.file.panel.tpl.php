@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2017-01-24 08:42:05
+<?php /* Smarty version Smarty-3.1.11, created on 2017-04-08 16:38:50
          compiled from "templates/plantillas/modulos/estados/panel.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:37035605850c6a9075a45-97509919%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'd90416d9f99fe96685b90c925255f90e8ad6d0c6' => 
     array (
       0 => 'templates/plantillas/modulos/estados/panel.tpl',
-      1 => 1475071975,
+      1 => 1491687336,
       2 => 'file',
     ),
   ),
@@ -51,6 +51,12 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 						<label for="txtColor" class="col-lg-2">Color</label>
 						<div class="col-lg-3">
 							<input class="form-control" id="txtColor" name="txtColor">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="txtOrden" class="col-lg-2">Orden</label>
+						<div class="col-lg-3">
+							<input class="form-control" id="txtOrden" name="txtOrden">
 						</div>
 					</div>
 				</div>

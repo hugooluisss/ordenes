@@ -30,6 +30,7 @@
 					<th>Vendedor</th>
 					<th>Sucursal</th>
 					<th>Área</th>
+                    <th>Observaciones</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -45,6 +46,7 @@
 						<td {if $row->area['idArea'] eq ''}title="El area de producción no existe en el sistema" class="text-danger"{/if}>
 							{$row->AREA_DE_PRODUCCION}
 						</td>
+                        <td>{$row->OBSERVACIONES}</td>
 					</tr>
 				{/foreach}
 			</tbody>

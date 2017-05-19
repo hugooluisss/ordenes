@@ -50,8 +50,8 @@ switch($objModulo->getId()){
 			$db = TBase::conectaDB();
 			
 			$rs = $db->Execute("select idOrden from orden a join sucursal b using(idSucursal) join razonsocial c using(idRazon) where idRazon = ".$_POST['razonSocial']." and codigo = '".$el['codigo']."' and b.visible = true");
-			$rs2 = $db->Execute("select idCarga from carga where idRazon = ".$_POST['razonSocial']." and ".$el['codigo']." between inicio and fin");
-			if ($rs2->EOF){
+			$rs2 = $db->Execute("select idCarga from carga where idRazon = ".((integer) $_POST['razonSocial'])." and ".$el['codigo']." between inicio and fin");
+			if ($rs2->EOF or true){
 				if ($rs->EOF){
 					$el['ordenExiste'] = true;
 				}else{
@@ -167,7 +167,12 @@ switch($objModulo->getId()){
 		
 		$smarty->assign("areas", $datos);
 		
-		$rs = $db->Execute("select estado.* from estado join estadotipousuario using(idEstado) join tipoUsuario on idTipoUsuario = idPerfil where idPerfil = ".$userSesion->getIdTipo());
+		global $userSesion;
+		
+		if ($userSesion->getIdTipo() <> 1) #No es administrador
+			$rs = $db->Execute("select estado.* from estado join estadotipousuario using(idEstado) join tipoUsuario on idTipoUsuario = idPerfil where idPerfil = ".$userSesion->getIdTipo()." and estado.orden >= ".$orden->estado->getOrden()." order by estado.orden");
+		else
+			$rs = $db->Execute("select estado.* from estado join estadotipousuario using(idEstado) join tipoUsuario on idTipoUsuario = idPerfil where idPerfil = ".$userSesion->getIdTipo()." order by estado.orden");
 		$datos = array();
 		while(!$rs->EOF){
 			array_push($datos, $rs->fields);
@@ -227,14 +232,28 @@ switch($objModulo->getId()){
 		//print_r($rs->fields);
 		$objEmpresa = new TRazonSocial($_POST['razonsocial']);
 		
-		$datos = file_get_contents("http://184.107.243.2/~govacas1/lonas/sae/hugo.php?inicio=".$objEmpresa->getConsecutivo()."&empresa=".$objEmpresa->getNumero(), true);
+		$datos = file_get_contents("http://187.162.221.201:8080/enlace.php?inicio=".$objEmpresa->getConsecutivo()."&empresa=".$objEmpresa->getNumero(), true);
+		#echo "http://187.162.221.201:8080/enlace.php?inicio=".$objEmpresa->getConsecutivo()."&empresa=".$objEmpresa->getNumero();
 		
 		$datos = json_decode($datos);
 		#print_r($datos);
+		
 		$ordenes = array();
 		$bandGeneral = true;
 		$codigos = array();
+		$menor = 0;
+		$mayor = 0;
 		foreach($datos as $key => $orden){
+			if ($menor == 0)
+				$menor = $orden->CODIGO;
+			else
+				$menor = $orden->CODIGO < $menor?$orden->CODIGO:$menor;
+				
+			if ($mayor == 0)
+				$mayor = $orden->CODIGO;
+			else
+				$mayor = $orden->CODIGO > $mayor?$orden->CODIGO:$mayor;
+			
 			$band = true;
 			$orden->CODIGO = sprintf("%d", $orden->CODIGO);
 			
@@ -424,8 +443,17 @@ switch($objModulo->getId()){
 					$objRazon = new TRazonSocial($_POST['razonSocial']);
 					$inicio = $objRazon->getConsecutivo();
 					$fin = $objRazon->getConsecutivo();
+					
+					$inicio = $inicio == ''?0:$inicio;
+					$fin = $fin == ''?0:$fin;
+					
 					foreach($elementos as $mov){
+						$mov = json_decode($mov);
 						$codigoBuf = $mov->CODIGO;
+						
+						$inicio = $inicio < $codigoBuf?$inicio:($codigoBuf == ''?$inicio:$codigoBuf);
+						$fin = $fin > $codigoBuf?$fin:($codigoBuf == ''?$fin:$codigoBuf);
+						
 						$mov = json_decode($mov);
 						$rs = $db->Execute("select idOrden from orden a join sucursal b using(idSucursal) join razonsocial c using(idRazon) where codigo = '".$mov->CODIGO."' and idRazon = ".$objRazon->getId());
 						
@@ -437,20 +465,18 @@ switch($objModulo->getId()){
 							$rsVal = $db->Execute("select codigo, idOrden from orden where codigo = '".$mov->CODIGO."'");
 							$bandVal = true;
 							if (!$rsVal->EOF){
-								$db->Execute("update orden set codigo = concat(codigo, 'a') where idOrden = ".$rsVal->fields['idOrden']);
+								$db->Execute("update orden set codigo = concat(codigo, '_a') where idOrden = ".$rsVal->fields['idOrden']);
 							}else{
 								for($a = 'a' ; $a < 'z' and $bandVal ; $a++){
-									$rsVal = $db->Execute("select codigo from orden where codigo = '".($mov->CODIGO.$a)."'");
+									$rsVal = $db->Execute("select codigo from orden where codigo = '".($mov->CODIGO."_".$a)."'");
 									if ($rsVal->EOF){
-										$mov->CODIGO .= $a;
+										$mov->CODIGO .= "_".$a;
 										$bandVal = false;
 									}
 								}
 								
 								$bandVal = true;
 							}
-								
-							
 							
 							$orden->setCodigo($mov->CODIGO);
 							$orden->setCliente($mov->NOMBRE_DEL_CLIENTE);
@@ -476,9 +502,6 @@ switch($objModulo->getId()){
 						
 						$cont += $movimiento->guardar()?1:0;
 					}
-					
-					$inicio = $inicio > $codigoBuf?$codigoBuf:$inicio;
-					$fin = $fin < $codigoBuf?$codigoBuf:$fin;
 					
 					$objRazon->addCarga($inicio, $fin);
 					

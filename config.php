@@ -339,3 +339,14 @@ $conf['listaOrdenesImportAuto'] = array(
 	'descripcion' => 'Lista de vendedores',
 	'seguridad' => true,
 	'capa' => LAYOUT_AJAX);
+
+#dashboard de las ordenes
+$conf['dashboardOrdenes'] = array(
+	'controlador' => 'dashboard.php',
+	'vista' => 'ordenes/dashboard.tpl',
+	'descripcion' => 'Panel para la importación automática de ordenes',
+	'seguridad' => true,
+	#'js' => array('orden.class.js'),
+	'jsTemplate' => array('dashboardOrdenes.js'),
+	'perfiles' => array(1, 6),
+	'capa' => LAYOUT_DEFECTO);

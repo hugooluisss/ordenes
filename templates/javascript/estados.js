@@ -59,6 +59,10 @@ $(document).ready(function(){
 				}
 			});
 			
+			$("[action=permisos]").click(function(){
+				$("#winPerfiles").attr("identificador", $(this).attr("identificador"));
+			});
+			
 			$("[action=modificar]").click(function(){
 				var el = jQuery.parseJSON($(this).attr("datos"));
 				
@@ -81,4 +85,59 @@ $(document).ready(function(){
 			});
 		});
 	};
+	
+	$("#winPerfiles").on("shown.bs.modal", function(){
+		$(".perfil").prop("disabled", true).prop("checked", false);
+		
+		$.post("cestados", {
+			"id": $("#winPerfiles").attr("identificador"),
+			"action": "getPermisos"
+		}, function(data){
+			$(".perfil").prop("disabled", false);
+			
+			$.each(data.permisos, function(i, tipo){
+				$(".perfil[value=" + tipo.idTipo + "]").prop("checked", true);
+			});
+		}, "json");
+	});
+	
+	$(".perfil").click(function(){
+		var el = $(this);
+		var estado = new TEstado;
+		
+		if(el.is(":checked"))
+			estado.addTipoUsuario({
+				id: $("#winPerfiles").attr("identificador"),
+				tipo: el.val(),
+				fn: {
+					before: function(){
+						el.prop("disabled", true);
+					},
+					after: function(resp){
+						el.prop("disabled", false);
+						if (!resp.band){
+							alert("No se pudo agregar el permiso");
+							el.prop("checked", false);
+						}
+					}
+				}
+			});
+		else
+			estado.delTipoUsuario({
+				id: $("#winPerfiles").attr("identificador"),
+				tipo: el.val(),
+				fn: {
+					before: function(){
+						el.prop("disabled", true);
+					},
+					after: function(resp){
+						el.prop("disabled", false);
+						if (!resp.band){
+							alert("No se pudo quitar el permiso");
+							el.prop("checked", true);
+						}
+					}
+				}
+			});
+	});
 });

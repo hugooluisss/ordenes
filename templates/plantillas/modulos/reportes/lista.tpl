@@ -10,6 +10,7 @@
 					<th>Vendedor</th>
 					<th>Fecha</th>
 					<th>Estado</th>
+					<th>Cantidad</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -22,6 +23,7 @@
 						<td>{$row.vendedor}</td>
 						<td {if $row.actual eq 1}class="text-danger"{/if}>{$row.registro}</td>
 						<td>{$row.estado}</td>
+						<td>{$row.cantidad}</td>
 					</tr>
 				{/foreach}
 			</tbody>

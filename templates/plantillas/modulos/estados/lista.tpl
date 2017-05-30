@@ -16,7 +16,9 @@
 						<td>{$row.nombre}</td>
 						<td>{$row.orden}</td>
 						<td style="text-align: right">
-							<button type="button" class="btn btn-success btn-circle" action="modificar" title="Modificar" datos='{$row.json}'><i class="fa fa-pencil"></i></button>
+							<button type="button" class="btn btn-primary" action="permisos" title="Asignación de permisos a perfiles" identificador="{$row.idEstado}" data-toggle="modal" data-target="#winPerfiles"><i class="fa fa-users"></i></button>
+							
+							<button type="button" class="btn btn-success" action="modificar" title="Modificar" datos='{$row.json}'><i class="fa fa-pencil"></i></button>
 						</td>
 					</tr>
 				{/foreach}

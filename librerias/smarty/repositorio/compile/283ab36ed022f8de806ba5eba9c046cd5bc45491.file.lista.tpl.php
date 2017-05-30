@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2017-04-08 16:39:44
+<?php /* Smarty version Smarty-3.1.11, created on 2017-05-30 13:32:19
          compiled from "templates/plantillas/modulos/estados/lista.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:17177630125850c6aa2fe153-70723852%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '283ab36ed022f8de806ba5eba9c046cd5bc45491' => 
     array (
       0 => 'templates/plantillas/modulos/estados/lista.tpl',
-      1 => 1491687581,
+      1 => 1496169133,
       2 => 'file',
     ),
   ),
@@ -50,7 +50,10 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 						<td><?php echo $_smarty_tpl->tpl_vars['row']->value['orden'];?>
 </td>
 						<td style="text-align: right">
-							<button type="button" class="btn btn-success btn-circle" action="modificar" title="Modificar" datos='<?php echo $_smarty_tpl->tpl_vars['row']->value['json'];?>
+							<button type="button" class="btn btn-primary" action="permisos" title="Asignación de permisos a perfiles" identificador="<?php echo $_smarty_tpl->tpl_vars['row']->value['idEstado'];?>
+" data-toggle="modal" data-target="#winPerfiles"><i class="fa fa-users"></i></button>
+							
+							<button type="button" class="btn btn-success" action="modificar" title="Modificar" datos='<?php echo $_smarty_tpl->tpl_vars['row']->value['json'];?>
 '><i class="fa fa-pencil"></i></button>
 						</td>
 					</tr>

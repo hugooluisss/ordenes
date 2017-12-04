@@ -31,10 +31,12 @@
 			<div class="modal-body">
 				{foreach from=$empresas item="row"}
 					<div class="checkbox">
-						<label><input type="checkbox" value="idRazon">{$row.clave}</label>
+						<label><input type="checkbox" class="razonSocial" value="{$row.idRazon}" {if $row.automatico eq 1}checked{/if}>{$row.clave}</label>
 					</div>
 				{/foreach}
 			</div>
 		</div>
 	</div>
 </div>
+
+<input type="hidden" id="direccionSAE" value="{$direccionsae}" />

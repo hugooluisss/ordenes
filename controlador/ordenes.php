@@ -68,7 +68,7 @@ switch($objModulo->getId()){
 			$el['areaExiste'] = !$rs->EOF;
 			$band = $rs->EOF?false:$band;
 			
-			$rs = $db->Execute("select idVendedor from vendedor where clave = '".$el['vendedor']."' and visible = true");
+			$rs = $db->Execute("select idVendedor from vendedor where (clave = '".$el['vendedor']."' or nombre = '".$el['vendedor']."') and visible = true");
 			$el['vendedorExiste'] = !$rs->EOF;
 			$band = $rs->EOF?false:$band;
 			
@@ -87,6 +87,12 @@ switch($objModulo->getId()){
 				
 				$el['codigo'] .= "_".$codigos[$el['codigo']]["cont"];
 			}
+			
+			$rs = $db->Execute("select idOrden from orden where codigo = '".$el['codigo']."'");
+			$el['codigoDuplicado'] = true;
+			if (!$rs->EOF)
+				$el['codigoDuplicado'] = false;
+					
 			$el['json'] = json_encode(array($el));
 			
 			array_push($datos, $el);
@@ -275,6 +281,7 @@ switch($objModulo->getId()){
 				$band = $rs->EOF?false:$band;
 				
 				$rs = $db->Execute("select idOrden from orden a join sucursal b using(idSucursal) join razonsocial c using(idRazon) where idRazon = ".$_POST['razonsocial']." and codigo = '".$el['codigo']."' and b.visible = true");
+				$el['ordenExiste'] = false;
 				$rs2 = $db->Execute("select idCarga from carga where idRazon = ".$_POST['razonsocial']." and ".$orden->CODIGO." between inicio and fin");
 				if ($rs2->EOF){
 					if ($rs->EOF){
@@ -313,9 +320,16 @@ switch($objModulo->getId()){
 					
 					$orden->CODIGO .= "_".$codigos[$orden->CODIGO]["cont"];
 				}
-				
+					
 				$bandGeneral = $band and $bandGeneral;
 				$orden->json = json_encode($orden);
+				
+				$rs = $db->Execute("select idOrden from orden where codigo = '".$el['codigo']."'");
+				$el['codigoDuplicado'] = true;
+				if (!$rs->EOF){
+					$el['codigoDuplicado'] = false;
+					$band = false;
+				}
 				
 				$orden->bandera = $band;
 				array_push($ordenes, $orden);
@@ -400,11 +414,11 @@ switch($objModulo->getId()){
 				
 				try {
 					foreach($elementos as $mov){
-						$rs = $db->Execute("select idOrden from orden a join sucursal b using(idSucursal) join razonsocial c using(idRazon) where codigo = '".$mov->original."' and idRazon = ".$_POST['razonSocial']);
+						#$rs = $db->Execute("select idOrden from orden a join sucursal b using(idSucursal) join razonsocial c using(idRazon) where codigo = '".$mov->original."' and idRazon = ".$_POST['razonSocial']);
 						
 						$orden = new TOrden;
 						if ($rs->EOF){
-							$rsVendedor = $db->Execute("select idVendedor from vendedor where clave = '".$mov->vendedor."'");
+							$rsVendedor = $db->Execute("select idVendedor from vendedor where (clave = '".$mov->vendedor."' or upper(nombre) = upper('".$mov->vendedor."'))");
 							$rsSucursal = $db->Execute("select idSucursal from sucursal where upper(nombre) = upper('".$mov->sucursal."')");
 						
 							$orden->setCodigo($mov->codigo);

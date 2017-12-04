@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2017-05-19 21:45:45
+<?php /* Smarty version Smarty-3.1.11, created on 2017-12-04 13:46:26
          compiled from "templates/plantillas/modulos/ordenes/dashboard.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:1000290995591f20d0a989d5-65142044%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'd96ad1f3e58a9fbc8a1909667c3213ed8131ce3c' => 
     array (
       0 => 'templates/plantillas/modulos/ordenes/dashboard.tpl',
-      1 => 1495248339,
+      1 => 1512416782,
       2 => 'file',
     ),
   ),
@@ -21,6 +21,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   array (
     'empresas' => 0,
     'row' => 0,
+    'direccionsae' => 0,
   ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
@@ -61,11 +62,14 @@ foreach ($_from as $_smarty_tpl->tpl_vars["row"]->key => $_smarty_tpl->tpl_vars[
 $_smarty_tpl->tpl_vars["row"]->_loop = true;
 ?>
 					<div class="checkbox">
-						<label><input type="checkbox" value="idRazon"><?php echo $_smarty_tpl->tpl_vars['row']->value['clave'];?>
+						<label><input type="checkbox" value="idRazon" <?php if ($_smarty_tpl->tpl_vars['row']->value['automatico']==1){?>checked<?php }?>><?php echo $_smarty_tpl->tpl_vars['row']->value['clave'];?>
 </label>
 					</div>
 				<?php } ?>
 			</div>
 		</div>
 	</div>
-</div><?php }} ?>
+</div>
+
+<input type="hidden" id="direccionSAE" value="<?php echo $_smarty_tpl->tpl_vars['direccionsae']->value;?>
+" /><?php }} ?>

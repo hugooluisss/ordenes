@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	servidor = "http://184.107.243.2/~govacas1/lonas/sae/";
+	servidor = $("#txtDireccionSAE").val();
 	
 	$("#btnSAE").click(function(){
 		tiempoInicio = new Date;
@@ -21,5 +21,11 @@ $(document).ready(function(){
 		var tiempo = prompt("¿Cuanto minutos?");
 		
 		alert(tiempo);
+	});
+	
+	$(".razonSocial").click(function(){
+		var chk = $(this);
+		if (chk.id(":checked"))
+			
 	});
 });

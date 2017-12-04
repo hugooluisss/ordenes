@@ -12,6 +12,7 @@ switch($objModulo->getId()){
 		}
 		
 		$smarty->assign("empresas", $datos);
+		$smarty->assign("direccionsae", $ini['sistema']['direccionsae']);
 	break;
 }
 ?>

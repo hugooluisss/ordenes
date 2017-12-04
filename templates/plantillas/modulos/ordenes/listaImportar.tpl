@@ -41,14 +41,16 @@
 						<i class="fa fa-times" aria-hidden="true"></i>
 					{/if}
 				</td>
-				<td style="{if !$row.ordenExiste}color: red;{/if}" {if !$row.ordenExiste}title="La orden ya está registrada o se encuentra dentro de un rango ya importado en esta razón social"{/if}>{$row.codigo}</td>
+				<td style="{if !$row.ordenExiste or !$row.codigoDuplicado}color: red;{/if}" {if !$row.ordenExiste}title="La orden ya está registrada o se encuentra dentro de un rango ya importado en esta razón social"{/if} {if !$row.codigoDuplicado}title="Esta ya fue importada con el mismo código, no se puede importar"{/if}>{$row.codigo}</td>
 				<td>{$row.cliente}</td>
 				<td style="{if !$row.vendedorExiste}color: red;{/if}" {if !$row.vendedorExiste}title="El vendedor no está registrado en el sistema"{/if}>{$row.vendedor}</td>
 				<td style="{if !$row.sucursalExiste}color: red;{/if}" {if !$row.sucursalExiste}title="La sucursal no existe o no pertenece a la razón social seleccionada para importar"{/if}>{$row.sucursal}</td>
 				<td style="{if !$row.areaExiste}color: red;{/if}" {if !$row.areaExiste}title="Esta área no se encuentra registrada en el sistema"{/if}>{$row.area}</td>
 				{if $PAGE.usuario->getIdTipo() eq 1}
 				<td>
+					{if $row.codigoDuplicado}
 					<button class="btn btn-warning" data='{$row.json}' inicio="{$folios.inicio}" fin="{$folios.fin}">Importar</button>
+					{/if}
 				</td>
 				{/if}
 			</tr>

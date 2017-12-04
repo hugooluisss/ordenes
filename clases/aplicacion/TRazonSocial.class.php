@@ -159,7 +159,8 @@ class TRazonSocial{
 			SET
 				clave = '".$this->getClave()."',
 				consecutivo = '".$this->getConsecutivo()."',
-				numero = '".$this->getNumero()."'
+				numero = '".$this->getNumero()."',
+				automatico = ".$this->isAutomatico() == true?1:0."
 			WHERE idRazon = ".$this->getId());
 			
 		return $rs?true:false;
@@ -195,7 +196,7 @@ class TRazonSocial{
 		$db = TBase::conectaDB();
 		
 		$rs = $db->Execute("INSERT INTO carga(idRazon, inicio, fin, momento) VALUES(".$this->getId().", ".$inicio.", ".$fin.", now());");
-		$this->consecutivo = $fin;
+		//$this->consecutivo = $fin;
 		$this->guardar();
 		
 		return $rs?true:false;
@@ -216,6 +217,32 @@ class TRazonSocial{
 		$rs = $db->Execute("select * from carga where idRazon = ".$this->getId()." order by momento desc");
 		
 		return $rs->fields;
+	}
+	
+	/**
+	* Indica si permite la actualización automática
+	*
+	* @autor Hugo
+	* @access public
+	* @return integer Valor
+	*/
+	
+	public function isAutomatico(){
+		if ($this->getId() == '') return false;
+		return $this->automatico == true;
+	}
+	
+	/**
+	* Establece si se actualiza automáticamente
+	*
+	* @autor Hugo
+	* @access public
+	* @return integer Valor
+	*/
+	
+	public function setAutomatico($val){
+		if ($this->getId() == '') return false;
+		$this->automatico = $val;
 	}
 }
 ?>

@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2017-05-19 11:40:32
+<?php /* Smarty version Smarty-3.1.11, created on 2017-11-21 13:35:03
          compiled from "templates/plantillas/modulos/ordenes/importarAuto.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:154773525458a73a080602e2-61307898%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '1189aa1fac99f7595c3cbbc7890735660004a98a' => 
     array (
       0 => 'templates/plantillas/modulos/ordenes/importarAuto.tpl',
-      1 => 1495212025,
+      1 => 1511292808,
       2 => 'file',
     ),
   ),
@@ -44,6 +44,8 @@ foreach ($_from as $_smarty_tpl->tpl_vars["row"]->key => $_smarty_tpl->tpl_vars[
 $_smarty_tpl->tpl_vars["row"]->_loop = true;
 ?>
 						<option value="<?php echo $_smarty_tpl->tpl_vars['row']->value['idRazon'];?>
+" empresa="<?php echo $_smarty_tpl->tpl_vars['row']->value['numero'];?>
+" consecutivo="<?php echo $_smarty_tpl->tpl_vars['row']->value['consecutivo'];?>
 "><?php echo $_smarty_tpl->tpl_vars['row']->value['clave'];?>
 </option>
 					<?php } ?>
@@ -51,6 +53,11 @@ $_smarty_tpl->tpl_vars["row"]->_loop = true;
 			</div>
 			<div class="col-xs-4">
 				<button id="btnEnviar" class="btn btn-success">Enviar</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				Última orden importada: <span campo="ultimaOrden"></span>
 			</div>
 		</div>
 	</div>

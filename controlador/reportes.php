@@ -34,12 +34,12 @@ switch($objModulo->getId()){
 		
 		if ($_POST['antiguas'] == "false"){
 			if ($_POST['sucursal'] == '')
-				$rs = $db->Execute("select a.*, b.nombre as vendedor, c.nombre as sucursal, d.color as colorEstado, observaciones, descripcion, d.nombre as estado, if(cast(registro as date) < cast(now() as date), 1, 0) as actual, f.nombre as area, e.cantidad from orden a join vendedor b using(idVendedor) join sucursal c on b.idSucursal = c.idSucursal join estado d using(idEstado) join movimiento e using(idOrden) join area f using(idArea) where c.idSucursal in (select idSucursal from usuariosucursal where date_sub(registro, interval -".$dias." day) >= now() and idUsuario = ".$userSesion->getId().")".$entrega." and ".($estado == ''?"":("and idEstado = ".$estado)));
+				$rs = $db->Execute("select a.*, b.nombre as vendedor, c.nombre as sucursal, d.color as colorEstado, observaciones, descripcion, d.nombre as estado, if(cast(registro as date) < cast(now() as date), 1, 0) as actual, f.nombre as area, e.cantidad from orden a join vendedor b using(idVendedor) join sucursal c on b.idSucursal = c.idSucursal join estado d using(idEstado) join movimiento e using(idOrden) join area f using(idArea) where c.idSucursal in (select idSucursal from usuariosucursal where date_sub(registro, interval -".$dias." day) >= now() and idUsuario = ".$userSesion->getId().")".$entrega." ".($estado == ''?"":("and idEstado = ".$estado)));
 			else
 				$rs = $db->Execute("select a.*, b.nombre as vendedor, observaciones, descripcion, c.nombre as sucursal, d.color as colorEstado, d.nombre as estado, if(cast(registro as date) < cast(now() as date), 1, 0) as actual, f.nombre as area, e.cantidad from orden a join vendedor b using(idVendedor) join sucursal c on b.idSucursal = c.idSucursal join estado d using(idEstado) join movimiento e using(idOrden) join area f using(idArea) where date_sub(registro, interval -".$dias." day) >= now() and c.idSucursal = ".$sucursal."".$entrega." ".($estado == ''?"":("and idEstado = ".$estado)));
 		}else{
 			if ($_POST['sucursal'] == '')
-				$rs = $db->Execute("select a.*, b.nombre as vendedor, c.nombre as sucursal, d.color as colorEstado, observaciones, descripcion, d.nombre as estado, if(cast(registro as date) < cast(now() as date), 1, 0) as actual, f.nombre as area, e.cantidad from orden a join vendedor b using(idVendedor) join sucursal c on b.idSucursal = c.idSucursal join estado d using(idEstado) join movimiento e using(idOrden) join area f using(idArea) where idSucursal in (select idSucursal from usuariosucursal where date_sub(registro, interval -".$dias." day) < now()".$entrega." and idUsuario = ".$userSesion->getId().") and ".($estado == ''?"":("and idEstado = ".$estado)));
+				$rs = $db->Execute("select a.*, b.nombre as vendedor, c.nombre as sucursal, d.color as colorEstado, observaciones, descripcion, d.nombre as estado, if(cast(registro as date) < cast(now() as date), 1, 0) as actual, f.nombre as area, e.cantidad from orden a join vendedor b using(idVendedor) join sucursal c on b.idSucursal = c.idSucursal join estado d using(idEstado) join movimiento e using(idOrden) join area f using(idArea) where a.idSucursal in (select idSucursal from usuariosucursal where date_sub(registro, interval -".$dias." day) < now()".$entrega." and idUsuario = ".$userSesion->getId().") ".($estado == ''?"":("and idEstado = ".$estado)));
 			else
 				$rs = $db->Execute("select a.*, b.nombre as vendedor, observaciones, descripcion, c.nombre as sucursal, d.color as colorEstado, d.nombre as estado, if(cast(registro as date) < cast(now() as date), 1, 0) as actual, f.nombre as area, e.cantidad from orden a join vendedor b using(idVendedor) join sucursal c on b.idSucursal = c.idSucursal join estado d using(idEstado) join movimiento e using(idOrden) join area f using(idArea) where date_sub(registro, interval -".$dias." day) < now()".$entrega." and c.idSucursal = ".$sucursal." ".($estado == ''?"":("and idEstado = ".$estado)));
 		}
@@ -62,7 +62,7 @@ switch($objModulo->getId()){
 				$dias = $ini["sistema"]["dias"];
 				$dias = $dias == ''?0:$dias;
 				
-				$rsEstado = $db->Execute("select * from estado");
+				$rsEstado = $db->Execute("select * from estado order by orden");
 				$datos = array();
 				while(!$rsEstado->EOF){
 					if ($_POST['antiguas'] == "false")
@@ -83,7 +83,7 @@ switch($objModulo->getId()){
 				$dias = $ini["sistema"]["dias"];
 				$dias = $dias == ''?0:$dias;
 				
-				$rsEstado = $db->Execute("select * from estado");
+				$rsEstado = $db->Execute("select * from estado order by orden");
 				$datos = array();
 				while(!$rsEstado->EOF){
 					if ($_POST['antiguas'] == "false")

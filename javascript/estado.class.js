@@ -29,4 +29,40 @@ TEstado = function(){
 			}
 		}, "json");
 	};
+	
+	this.addTipoUsuario = function(datos){
+		if (datos.fn.before != undefined)
+			datos.fn.before();
+			
+		$.post('cestados', {
+			"id": datos.id,
+			"tipo": datos.tipo,
+			"action": "addTipo"
+		}, function(data){
+			if (datos.fn.after != undefined)
+				datos.fn.after(data);
+				
+			if (data.band == false){
+				console.log("Ocurrió un error al agregar");
+			}
+		}, "json");
+	};
+	
+	this.delTipoUsuario = function(datos){
+		if (datos.fn.before != undefined)
+			datos.fn.before();
+			
+		$.post('cestados', {
+			"id": datos.id,
+			"tipo": datos.tipo,
+			"action": "delTipo"
+		}, function(data){
+			if (datos.fn.after != undefined)
+				datos.fn.after(data);
+				
+			if (data.band == false){
+				console.log("Ocurrió un error al quitar");
+			}
+		}, "json");
+	};
 };

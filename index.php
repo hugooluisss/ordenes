@@ -116,7 +116,6 @@ if ($objModulo->getRutaControlador() <> '')
 	require('controlador/'.$objModulo->getRutaControlador());
 
 $smarty->assign("PAGE", $datosPlantilla);
-
 if($objModulo->getRutaCapa() <> '')
 	$smarty->display($objModulo->getRutaCapa());
 ?>

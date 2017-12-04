@@ -48,3 +48,25 @@
 		</form>
 	</div>
 </div>
+
+<div class="modal fade" id="winPerfiles" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" identificador="">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h1>Perfiles de usuario</h1>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+				{foreach from=$perfiles item="row"}
+					<div class="col-sm-4">
+						<label>
+							<input type="checkbox" class="perfil" value="{$row.idTipoUsuario}" /> {$row.nombre}
+						</label>
+					</div>
+				{/foreach}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

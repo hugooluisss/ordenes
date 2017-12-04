@@ -226,101 +226,107 @@ switch($objModulo->getId()){
 	break;
 	case 'listaOrdenesImportAuto':
 		$db = TBase::conectaDB();
-		#$db->Execute("update razonsocial set numero = '08' where clave = 'PS'");
+		/*#$db->Execute("update razonsocial set numero = '08' where clave = 'PS'");
 		#$rs = $db->Execute("select * from razonsocial where clave = 'PS'");
 		
 		//print_r($rs->fields);
 		$objEmpresa = new TRazonSocial($_POST['razonsocial']);
 		
-		$datos = file_get_contents("http://187.162.221.201:8080/enlace.php?inicio=".$objEmpresa->getConsecutivo()."&empresa=".$objEmpresa->getNumero(), true);
-		#echo "http://187.162.221.201:8080/enlace.php?inicio=".$objEmpresa->getConsecutivo()."&empresa=".$objEmpresa->getNumero();
+		$datos = file_get_contents("http://lyegdl.ddns.net:8080/enlace.php?inicio=".$objEmpresa->getConsecutivo()."&empresa=".$objEmpresa->getNumero(), false);
+		echo "http://lyegdl.ddns.net:8080/enlace.php?inicio=".$objEmpresa->getConsecutivo()."&empresa=".$objEmpresa->getNumero();
+		//$datos = file_get_contents_curl("http://lyegdl.ddns.net:8080/enlace.php?inicio=".$objEmpresa->getConsecutivo()."&empresa=".$objEmpresa->getNumero());
+		echo $datos;
 		
-		$datos = json_decode($datos);
-		#print_r($datos);
+		$datos = json_decode($datos);*/
+		$datos = json_decode($_POST['json_datos']);
 		
 		$ordenes = array();
 		$bandGeneral = true;
 		$codigos = array();
 		$menor = 0;
 		$mayor = 0;
+		
 		foreach($datos as $key => $orden){
-			if ($menor == 0)
-				$menor = $orden->CODIGO;
-			else
-				$menor = $orden->CODIGO < $menor?$orden->CODIGO:$menor;
+			try{
+				if ($menor == 0)
+					$menor = $orden->CODIGO;
+				else
+					$menor = $orden->CODIGO < $menor?$orden->CODIGO:$menor;
+					
+				if ($mayor == 0)
+					$mayor = $orden->CODIGO;
+				else
+					$mayor = $orden->CODIGO > $mayor?$orden->CODIGO:$mayor;
 				
-			if ($mayor == 0)
-				$mayor = $orden->CODIGO;
-			else
-				$mayor = $orden->CODIGO > $mayor?$orden->CODIGO:$mayor;
-			
-			$band = true;
-			$orden->CODIGO = sprintf("%d", $orden->CODIGO);
-			
-			$rs = $db->Execute("select idVendedor, nombre, idSucursal from vendedor where clave = '".$orden->CLAVE_VENDEDOR."' and visible = true");
-			#$sucursal = new TSucursal($rs->fields['idSucursal']);
-			$orden->vendedor = $rs->fields;
-			$band = !$rs->EOF and $band;
-			
-			$rs = $db->Execute("select idSucursal, nombre from sucursal where idSucursal = '".$orden->vendedor['idSucursal']."' and visible = true");
-			$orden->sucursal = $rs->fields;
-			$band = !$rs->EOF and $band;
-			
-			$rs = $db->Execute("select idArea, nombre from area where clave = '".$orden->AREA_DE_PRODUCCION."' and visible = true");
-			$orden->area = $rs->fields;
-			$band = $rs->EOF?false:$band;
-			
-			$rs = $db->Execute("select idOrden from orden a join sucursal b using(idSucursal) join razonsocial c using(idRazon) where idRazon = ".$_POST['razonsocial']." and codigo = '".$el['codigo']."' and b.visible = true");
-			$rs2 = $db->Execute("select idCarga from carga where idRazon = ".$_POST['razonsocial']." and ".$orden->CODIGO." between inicio and fin");
-			if ($rs2->EOF){
-				if ($rs->EOF){
-					$el['ordenExiste'] = true;
+				$band = true;
+				$orden->CODIGO = sprintf("%d", $orden->CODIGO);
+				
+				$rs = $db->Execute("select idVendedor, nombre, idSucursal from vendedor where clave = '".$orden->CLAVE_VENDEDOR."' and visible = true");
+				#$sucursal = new TSucursal($rs->fields['idSucursal']);
+				$orden->vendedor = $rs->fields;
+				$band = !$rs->EOF and $band;
+				
+				$rs = $db->Execute("select idSucursal, nombre from sucursal where idSucursal = '".$orden->vendedor['idSucursal']."' and visible = true");
+				$orden->sucursal = $rs->fields;
+				$band = !$rs->EOF and $band;
+				
+				$rs = $db->Execute("select idArea, nombre from area where clave = '".$orden->AREA_DE_PRODUCCION."' and visible = true");
+				$orden->area = $rs->fields;
+				$band = $rs->EOF?false:$band;
+				
+				$rs = $db->Execute("select idOrden from orden a join sucursal b using(idSucursal) join razonsocial c using(idRazon) where idRazon = ".$_POST['razonsocial']." and codigo = '".$el['codigo']."' and b.visible = true");
+				$rs2 = $db->Execute("select idCarga from carga where idRazon = ".$_POST['razonsocial']." and ".$orden->CODIGO." between inicio and fin");
+				if ($rs2->EOF){
+					if ($rs->EOF){
+						$el['ordenExiste'] = true;
+					}else{
+						$rs = $db->Execute("select idOrden from movimiento where idOrden = ".$rs->fields['idOrden']." and clave = '".$orden->CLAVE_DEL_ARTICULO."'");
+						$el['ordenExiste'] = $rs->EOF;
+					}
+				}else
+					$el['ordenExiste'] = false;
+				
+				
+				$band1 = !$el['ordenExiste']?false:$band1;
+				$orden->existe = $band1;
+				/*
+				$rs = $db->Execute("select idArea from area where clave = '".$el['area']."' and visible = true");
+				$el['areaExiste'] = !$rs->EOF;
+				$band = $rs->EOF?false:$band;
+				
+				$rs = $db->Execute("select idVendedor from vendedor where clave = '".$el['vendedor']."' and visible = true");
+				$el['vendedorExiste'] = !$rs->EOF;
+				$band = $rs->EOF?false:$band;
+				
+				$rs = $db->Execute("select idSucursal from sucursal where upper(nombre) = upper('".$el['sucursal']."') and idRazon = ".$_POST['razonSocial']." and visible = true");
+				$el['sucursalExiste'] = !$rs->EOF;
+				*/
+				$orden->original = $orden->CODIGO;
+				if (!isset($codigos[$el['codigo']])){
+					$codigos[$orden->CODIGO] = array();
+					$codigos[$orden->CODIGO]["cont"] = "a";
+					$codigos[$orden->CODIGO]["indice"] = $i;
 				}else{
-					$rs = $db->Execute("select idOrden from movimiento where idOrden = ".$rs->fields['idOrden']." and clave = '".$orden->CLAVE_DEL_ARTICULO."'");
-					$el['ordenExiste'] = $rs->EOF;
+					$codigos[$orden->CODIGO]["cont"]++;
+					if ($codigos[$orden->CODIGO]["cont"] == 'b')
+						$datos[$codigos[$orden->CODIGO]["indice"] - 2]["codigo"] .= "_a";
+					
+					$orden->CODIGO .= "_".$codigos[$orden->CODIGO]["cont"];
 				}
-			}else
-				$el['ordenExiste'] = false;
-			
-			
-			$band1 = !$el['ordenExiste']?false:$band1;
-			$orden->existe = $band1;
-			/*
-			$rs = $db->Execute("select idArea from area where clave = '".$el['area']."' and visible = true");
-			$el['areaExiste'] = !$rs->EOF;
-			$band = $rs->EOF?false:$band;
-			
-			$rs = $db->Execute("select idVendedor from vendedor where clave = '".$el['vendedor']."' and visible = true");
-			$el['vendedorExiste'] = !$rs->EOF;
-			$band = $rs->EOF?false:$band;
-			
-			$rs = $db->Execute("select idSucursal from sucursal where upper(nombre) = upper('".$el['sucursal']."') and idRazon = ".$_POST['razonSocial']." and visible = true");
-			$el['sucursalExiste'] = !$rs->EOF;
-			*/
-			if (!isset($codigos[$el['codigo']])){
-				$codigos[$orden->CODIGO] = array();
-				$codigos[$orden->CODIGO]["cont"] = "a";
-				$codigos[$orden->CODIGO]["indice"] = $i;
-			}else{
-				$codigos[$orden->CODIGO]["cont"]++;
-				if ($codigos[$orden->CODIGO]["cont"] == 'b')
-					$datos[$codigos[$orden->CODIGO]["indice"] - 2]["codigo"] .= "_a";
 				
-				$orden->CODIGO .= "_".$codigos[$orden->CODIGO]["cont"];
+				$bandGeneral = $band and $bandGeneral;
+				$orden->json = json_encode($orden);
+				
+				$orden->bandera = $band;
+				array_push($ordenes, $orden);
+			}catch(Exception $e){
+				echo $e->getMessage();
 			}
-			
-			$bandGeneral = $band and $bandGeneral;
-			$orden->json = json_encode($orden);
-			
-			$orden->bandera = $band;
-			array_push($ordenes, $orden);
 		}
 		
 		$smarty->assign("ordenes", $ordenes);
 		$smarty->assign("banderaGeneral", $bandGeneral);
 	break;
-	
-	
 	case 'cordenes':
 		switch($objModulo->getAction()){
 			case 'guardar':
@@ -454,7 +460,7 @@ switch($objModulo->getId()){
 						$inicio = $inicio < $codigoBuf?$inicio:($codigoBuf == ''?$inicio:$codigoBuf);
 						$fin = $fin > $codigoBuf?$fin:($codigoBuf == ''?$fin:$codigoBuf);
 						
-						$mov = json_decode($mov);
+						//$mov = json_decode($mov);
 						$rs = $db->Execute("select idOrden from orden a join sucursal b using(idSucursal) join razonsocial c using(idRazon) where codigo = '".$mov->CODIGO."' and idRazon = ".$objRazon->getId());
 						
 						$orden = new TOrden;
@@ -541,4 +547,21 @@ switch($objModulo->getId()){
 		}
 	break;
 };
+
+
+function file_get_contents_curl($url) {
+  if (strpos($url,'http://') !== FALSE) {
+    $fc = curl_init();
+    curl_setopt($fc, CURLOPT_URL,$url);
+    curl_setopt($fc, CURLOPT_RETURNTRANSFER,1);
+    curl_setopt($fc, CURLOPT_HEADER,0);
+    curl_setopt($fc, CURLOPT_VERBOSE,0);
+    curl_setopt($fc, CURLOPT_SSL_VERIFYPEER,FALSE);
+    curl_setopt($fc, CURLOPT_TIMEOUT,30);
+    $res = curl_exec($fc);
+    curl_close($fc);
+  }
+  else $res = file_get_contents($url);
+  return $res;
+}
 ?>

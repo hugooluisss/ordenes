@@ -20,16 +20,18 @@ $(document).ready(function(){
 		}, function( datos ){
 			var array = new Array();
 			
-			array.push(["Nombre", "Total"]);
+			array.push(["Estado", "Ordenes", {role: "style"}, {role: "annotation"}]);
 			$.each(datos.estados, function(i, estado){
 				var el = new Array();
 				
 				el.push(estado.nombre);
 				el.push(parseInt(estado.total));
+				el.push("color: " + estado.color);
+				el.push(parseInt(estado.total));
 				//el.push(parseInt(estado.idEstado));
-				
 				array.push(el);
  			});
+ 			
  			try{
 				data = google.visualization.arrayToDataTable(array);
 			}catch(e){
@@ -37,7 +39,8 @@ $(document).ready(function(){
 			}
 			
 			var options = {
-				title: "Estado de ODT's"
+				title: "Estado de ODT's",
+
 			};
 			
 			function selectHandler() {
@@ -48,7 +51,7 @@ $(document).ready(function(){
 				}
 			}
 			
-			var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+			var chart = new google.visualization.ColumnChart(document.getElementById('piechart'));
 	        google.visualization.events.addListener(chart, 'select', selectHandler);    
 
 

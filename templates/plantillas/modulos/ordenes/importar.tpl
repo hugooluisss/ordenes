@@ -13,6 +13,7 @@
 							<th>Clave</th>
 							<th>Ultimo importado</th>
 							<th>Rango ODTs</th>
+							<th>Última orden</th>
 							<th>&nbsp;</th>
 						</tr>
 					</thead>
@@ -22,6 +23,7 @@
 								<td>{$row.clave}</td>
 								<td>{if $row.ultimaImportacion.momento eq ''}Nunca{else}{$row.ultimaImportacion.momento}{/if}</td>
 								<td>{$row.ultimaImportacion.inicio} - {$row.ultimaImportacion.fin}</td>
+								<td>{$row.consecutivo}</td>
 								<td>
 									<button class="btn btn-danger btnUpload" razonSocial="{$row.idRazon}"><i class="fa fa-upload" aria-hidden="true"></i> Subir archivo</button>
 								</td>

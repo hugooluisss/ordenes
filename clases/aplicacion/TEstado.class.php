@@ -183,5 +183,41 @@ class TEstado{
 		
 		return $rs?true:false;
 	}
+	
+	/**
+	* Agrega un tipo de usuario para que tenga permisos de usar el estado
+	*
+	* @autor Hugo
+	* @access public
+	* @return boolean True si se realizó sin problemas
+	*/
+	
+	public function addTipo($usuario){
+		if ($usuario == '') return false;
+		if ($this->getId() == '') return false;
+		
+		$db = TBase::conectaDB();
+		$rs = $db->Execute("insert into estadotipousuario(idEstado, idPerfil) values (".$this->getId().", ".$usuario.")");
+		
+		return $rs?true:false;
+	}
+	
+	/**
+	* Quita un tipo de usuario para que tenga permisos de usar el estado
+	*
+	* @autor Hugo
+	* @access public
+	* @return boolean True si se realizó sin problemas
+	*/
+	
+	public function delTipo($usuario){
+		if ($usuario == '') return false;
+		if ($this->getId() == '') return false;
+		
+		$db = TBase::conectaDB();
+		$rs = $db->Execute("delete from estadotipousuario where idEstado = ".$this->getId()." and idPerfil =  ".$usuario);
+		
+		return $rs?true:false;
+	}
 }
 ?>

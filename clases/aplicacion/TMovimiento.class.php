@@ -724,6 +724,9 @@ class TMovimiento{
 	*/
 	
 	public function guardar(){
+		if ($this->getOrden() == '') return false;
+		if ($this->getClave() == '') return false;
+		
 		$db = TBase::conectaDB();
 		$rs = $db->Execute("select idOrden from movimiento where idOrden = ".$this->getOrden()." and clave = '".$this->getClave()."'");
 		if ($rs->EOF){

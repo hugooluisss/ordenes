@@ -16,6 +16,130 @@ switch($objModulo->getId()){
 		
 		$smarty->assign("razonesSociales", $datos);
 	break;
+	case 'importacionAutomatica':
+		global $ini;
+		$db = TBase::conectaDB();
+		$rsRazon = $db->Execute("select * from razonsocial where not numero is null");
+		$datos = array();
+		while(!$rsRazon->EOF){
+			$objEmpresa = new TRazonSocial($rsRazon->fields['idRazon']);
+			$url = $ini['sistema']['direccionsae']."?inicio=".$objEmpresa->getConsecutivo()."&empresa=".$objEmpresa->getNumero();
+			$ordenes = json_decode(file_get_contents($url, false));
+			
+			foreach($ordenes as $orden){
+				try{
+					if ($menor == 0)
+						$menor = $orden->CODIGO;
+					else
+						$menor = $orden->CODIGO < $menor?$orden->CODIGO:$menor;
+						
+					if ($mayor == 0)
+						$mayor = $orden->CODIGO;
+					else
+						$mayor = $orden->CODIGO > $mayor?$orden->CODIGO:$mayor;
+					
+					$band = true;
+					$orden->CODIGO = sprintf("%d", $orden->CODIGO);
+					$mensaje = "";
+					$rs = $db->Execute("select idVendedor, nombre, idSucursal from vendedor where clave = '".$orden->CLAVE_VENDEDOR."' and visible = true");
+					$orden->vendedor = $rs->fields;
+					$mensaje .= $rs->EOF?"El vendedor no existe ":"";
+					$band = !$rs->EOF and $band;
+					
+					$rs = $db->Execute("select idSucursal, nombre from sucursal where idSucursal = '".$orden->vendedor['idSucursal']."' and visible = true");
+					$orden->sucursal = $rs->fields;
+					$mensaje .= $rs->EOF?"La sucursal no existe no existe ":"";
+					$band = !$rs->EOF and $band;
+					
+					$rs = $db->Execute("select idArea, nombre from area where clave = '".$orden->AREA_DE_PRODUCCION."' and visible = true");
+					$orden->area = $rs->fields;
+					$mensaje .= $rs->EOF?"El área de producción no existe ":"";
+					$band = $rs->EOF?false:$band;
+					$cont++;
+	
+					$el['ordenExiste'] = false;
+					$rs2 = $db->Execute("select idCarga from carga where idRazon = ".$rsRazon->fields['idRazon']." and '".$orden->CODIGO."' between inicio and fin");
+					if ($rs2->EOF){
+						$rs = $db->Execute("select idOrden from orden a join sucursal b using(idSucursal) join razonsocial c using(idRazon) where idRazon = ".$rsRazon->fields['idRazon']." and codigo = '".$orden->CODIGO."' and b.visible = true");
+						if ($rs->fields['idOrden'] == ''){
+							$el['ordenExiste'] = false;
+						}else{
+							$rs3 = $db->Execute("select idOrden from movimiento where idOrden = ".$rs->fields['idOrden']." and clave = '".$orden->CLAVE_DEL_ARTICULO."'");
+							$el['ordenExiste'] = $rs3->EOF;
+						}
+					}else
+						$el['ordenExiste'] = false;
+					
+					$band1 = !$el['ordenExiste']?false:$band1;
+					$orden->existe = $band1;
+					$mensaje .= !$orden-existe?"La orden ya existe ":"";
+					
+					$orden->original = $orden->CODIGO;
+					if (!isset($codigos[$el['codigo']])){
+						$codigos[$orden->CODIGO] = array();
+						$codigos[$orden->CODIGO]["cont"] = 1;
+						$codigos[$orden->CODIGO]["indice"] = $i;
+					}else{
+						$codigos[$orden->CODIGO]["cont"]++;
+						if ($codigos[$orden->CODIGO]["cont"] == 2)
+							$datos[$codigos[$orden->CODIGO]["indice"] - 2]["codigo"] .= "_1";
+						
+						$orden->CODIGO .= "_".$codigos[$orden->CODIGO]["cont"];
+					}
+						
+					$bandGeneral = $band and $bandGeneral;
+					$orden->json = json_encode($orden);
+					
+					$rs = $db->Execute("select idOrden from orden where codigo = '".$orden->CODIGO."'");
+					$mensaje .= !$rs->EOF?"Código duplicado ":"";
+					if (!$rs->EOF){
+						$band = false;
+					}
+					
+					$orden->bandera = $band;
+					
+					#$rs = $db->Execute("select idOrden from orden a join sucursal b using(idSucursal) join razonsocial c using(idRazon) where codigo = '".$orden->original."' and idRazon = ".$rsRazon->fields['idRazon']);
+					if ($band){
+						$objOrden = new TOrden;
+						if ($rs->EOF){
+							$objOrden->setCodigo($orden->CODIGO);
+							$objOrden->setCliente($orden->NOMBRE_DEL_CLIENTE);
+							$objOrden->vendedor = new TVendedor($orden->vendedor['idVendedor']);
+							$objOrden->sucursal = new TSucursal($orden->sucursal['idSucursal']);
+							$objOrden->estado = new TEstado(1);
+							$objOrden->setElaboracion(date("Y-m-d", $orden->FECHA_ELABORACION));
+							
+							$objOrden->guardar();
+						}else
+							$objOrden->setId($rs->fields['idOrden']);
+								
+						#Aqui ya tenemos a la orden, ahora hay que importar el detalle o movimiento
+						$movimiento = new TMovimiento;
+						$movimiento->setOrden($objOrden->getId());
+						$movimiento->setCantidad($orden->CANTIDAD);
+						$movimiento->setClave($orden->CLAVE_DEL_ARTICULO);
+						$movimiento->setDescripcion($orden->DESCRIPCION_DEL_ARTICULO);
+						$movimiento->setObservaciones($orden->OBSERVACIONES);
+						$movimiento->setImporte($orden->TOTAL_DE_PARTIDA);
+						$movimiento->area = new TArea();
+						$movimiento->area->setByClave($orden->AREA_DE_PRODUCCION);
+						
+						if ($movimiento->guardar())
+							$db->Execute("insert into automatica (idRazon, codigo, json, mensaje, estado) values (".$rsRazon->fields['idRazon'].", '".$orden->CODIGO."', '".json_encode($orden)."', '".$mensaje."', 1)");
+						else
+							$db->Execute("insert into automatica (idRazon, codigo, json, mensaje, estado) values (".$rsRazon->fields['idRazon'].", '".$orden->CODIGO."', '".json_encode($orden)."', 'No se guardó el detalle', 0)");
+						unset($objOrden);
+						unset($movimiento);
+					}else
+						$db->Execute("insert into automatica (idRazon, codigo, json, mensaje, estado) values (".$rsRazon->fields['idRazon'].", '".$orden->CODIGO."', '".json_encode($orden)."', '".$mensaje."', 0)");
+				}catch(Exception $e){
+					$db->Execute("insert into automatica (idRazon, codigo, json, mensaje) values (".$rsRazon->fields['idRazon'].", '".$orden->CODIGO."', '".json_encode($orden)."', 'Ocurrió un error: ".$e->getMessage()."')");
+				}
+			}
+			
+			$rsRazon->moveNext();
+		}
+	break;
 	case 'listaImportar':
 		$data = new Spreadsheet_Excel_Reader();
 		$data->setOutputEncoding('CP1251');
@@ -49,7 +173,7 @@ switch($objModulo->getId()){
 			
 			$db = TBase::conectaDB();
 			
-			$rs = $db->Execute("select idOrden from orden a join sucursal b using(idSucursal) join razonsocial c using(idRazon) where idRazon = ".$_POST['razonSocial']." and codigo = '".$el['codigo']."' and b.visible = true");
+			$rs = $db->Execute("select * from orden a join sucursal b using(idSucursal) join razonsocial c using(idRazon) where idRazon = ".$_POST['razonSocial']." and codigo = '".$el['codigo']."' and b.visible = true");
 			//$rs2 = $db->Execute("select idCarga from carga where idRazon = ".((integer) $_POST['razonSocial'])." and ".$el['codigo']." between inicio and fin");
 			#if ($rs2->EOF or true){
 			if ($rs->EOF){
@@ -218,7 +342,7 @@ switch($objModulo->getId()){
 		$smarty->assign("tiempo", $interval->format('%a días'));
 	break;
 	
-	
+	/*
 	case 'importarRemoto':
 		$db = TBase::conectaDB();
 		$rs = $db->Execute("select * from razonsocial");
@@ -230,6 +354,7 @@ switch($objModulo->getId()){
 		
 		$smarty->assign("lista", $datos);
 	break;
+	*/
 	case 'listaOrdenesImportAuto':
 		$db = TBase::conectaDB();
 		/*#$db->Execute("update razonsocial set numero = '08' where clave = 'PS'");

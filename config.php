@@ -198,6 +198,12 @@ $conf['importar'] = array(
 	'perfiles' => array(1, 6),
 	'capa' => LAYOUT_DEFECTO);
 	
+$conf['importacionAutomatica'] = array(
+	'controlador' => 'ordenes.php',
+	'descripcion' => 'Interfaz de importación usando cron',
+	'seguridad' => false,
+	'capa' => LAYOUT_AJAX);
+	
 $conf['cordenes'] = array(
 	'controlador' => 'ordenes.php',
 	'descripcion' => 'Controlador de ordenes de servicio',

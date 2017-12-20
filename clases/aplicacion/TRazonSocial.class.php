@@ -159,9 +159,9 @@ class TRazonSocial{
 			SET
 				clave = '".$this->getClave()."',
 				consecutivo = '".$this->getConsecutivo()."',
-				numero = '".$this->getNumero()."',
-				automatico = ".$this->isAutomatico() == true?1:0."
-			WHERE idRazon = ".$this->getId());
+				numero = '".$this->getNumero()."' ".
+				#"automatico = ".($this->isAutomatico() == true?1:0)."
+			"WHERE idRazon = ".$this->getId());
 			
 		return $rs?true:false;
 	}
@@ -196,7 +196,9 @@ class TRazonSocial{
 		$db = TBase::conectaDB();
 		
 		$rs = $db->Execute("INSERT INTO carga(idRazon, inicio, fin, momento) VALUES(".$this->getId().", ".$inicio.", ".$fin.", now());");
-		//$this->consecutivo = $fin;
+		if ($this->consecutivo < $fin)
+			$this->consecutivo = $fin;
+		
 		$this->guardar();
 		
 		return $rs?true:false;

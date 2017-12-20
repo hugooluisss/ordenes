@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2017-12-04 11:58:56
+<?php /* Smarty version Smarty-3.1.11, created on 2017-12-09 14:59:24
          compiled from "templates/plantillas/modulos/vendedores/panel.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:2107896835a258ce01e1976-30806520%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '96e742644fe378f87c7aed057bb0d1251dfd9e16' => 
     array (
       0 => 'templates/plantillas/modulos/vendedores/panel.tpl',
-      1 => 1487345055,
+      1 => 1494099640,
       2 => 'file',
     ),
   ),
@@ -15,14 +15,14 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
+  'version' => 'Smarty-3.1.11',
+  'unifunc' => 'content_5a258ce0248326_78275218',
   'variables' => 
   array (
     'sucursales' => 0,
     'row' => 0,
   ),
   'has_nocache_code' => false,
-  'version' => 'Smarty-3.1.11',
-  'unifunc' => 'content_5a258ce0248326_78275218',
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_5a258ce0248326_78275218')) {function content_5a258ce0248326_78275218($_smarty_tpl) {?><div class="row">
 	<div class="col-lg-12">

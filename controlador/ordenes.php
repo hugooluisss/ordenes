@@ -50,19 +50,19 @@ switch($objModulo->getId()){
 			$db = TBase::conectaDB();
 			
 			$rs = $db->Execute("select idOrden from orden a join sucursal b using(idSucursal) join razonsocial c using(idRazon) where idRazon = ".$_POST['razonSocial']." and codigo = '".$el['codigo']."' and b.visible = true");
-			$rs2 = $db->Execute("select idCarga from carga where idRazon = ".((integer) $_POST['razonSocial'])." and ".$el['codigo']." between inicio and fin");
-			if ($rs2->EOF or true){
-				if ($rs->EOF){
-					$el['ordenExiste'] = true;
-				}else{
-					$rs = $db->Execute("select idOrden from movimiento where idOrden = ".$rs->fields['idOrden']." and clave = '".$el['cveart']."'");
-					$el['ordenExiste'] = $rs->EOF;
-				}
-			}else
+			//$rs2 = $db->Execute("select idCarga from carga where idRazon = ".((integer) $_POST['razonSocial'])." and ".$el['codigo']." between inicio and fin");
+			#if ($rs2->EOF or true){
+			if ($rs->EOF){
 				$el['ordenExiste'] = false;
+			}else{
+				$rs = $db->Execute("select idOrden from movimiento where idOrden = ".$rs->fields['idOrden']." and clave = '".$el['cveart']."'");
+				$el['ordenExiste'] = $rs->EOF;
+			}
+			#}else
+			#	$el['ordenExiste'] = false;
 			
 			
-			$band = !$el['ordenExiste']?false:$band;
+			//$band = !$el['ordenExiste']?false:$band;
 			
 			$rs = $db->Execute("select idArea from area where clave = '".$el['area']."' and visible = true");
 			$el['areaExiste'] = !$rs->EOF;
@@ -78,12 +78,12 @@ switch($objModulo->getId()){
 			
 			if (!isset($codigos[$el['codigo']])){
 				$codigos[$el['codigo']] = array();
-				$codigos[$el['codigo']]["cont"] = "a";
+				$codigos[$el['codigo']]["cont"] = 1;
 				$codigos[$el['codigo']]["indice"] = $i;
 			}else{
 				$codigos[$el['codigo']]["cont"]++;
-				if ($codigos[$el['codigo']]["cont"] == 'b')
-					$datos[$codigos[$el['codigo']]["indice"] - 2]["codigo"] .= "_a";
+				if ($codigos[$el['codigo']]["cont"] == 2)
+					$datos[$codigos[$el['codigo']]["indice"] - 2]["codigo"] .= "_1";
 				
 				$el['codigo'] .= "_".$codigos[$el['codigo']]["cont"];
 			}
@@ -97,7 +97,7 @@ switch($objModulo->getId()){
 			
 			array_push($datos, $el);
 		}
-
+		
 		$smarty->assign("lista", $datos);
 		$smarty->assign("listaJson", json_encode($datos));
 		$smarty->assign("error", $band);
@@ -281,11 +281,12 @@ switch($objModulo->getId()){
 				$band = $rs->EOF?false:$band;
 				
 				$rs = $db->Execute("select idOrden from orden a join sucursal b using(idSucursal) join razonsocial c using(idRazon) where idRazon = ".$_POST['razonsocial']." and codigo = '".$el['codigo']."' and b.visible = true");
+
 				$el['ordenExiste'] = false;
 				$rs2 = $db->Execute("select idCarga from carga where idRazon = ".$_POST['razonsocial']." and ".$orden->CODIGO." between inicio and fin");
 				if ($rs2->EOF){
 					if ($rs->EOF){
-						$el['ordenExiste'] = true;
+						$el['ordenExiste'] = false;
 					}else{
 						$rs = $db->Execute("select idOrden from movimiento where idOrden = ".$rs->fields['idOrden']." and clave = '".$orden->CLAVE_DEL_ARTICULO."'");
 						$el['ordenExiste'] = $rs->EOF;
@@ -311,12 +312,12 @@ switch($objModulo->getId()){
 				$orden->original = $orden->CODIGO;
 				if (!isset($codigos[$el['codigo']])){
 					$codigos[$orden->CODIGO] = array();
-					$codigos[$orden->CODIGO]["cont"] = "a";
+					$codigos[$orden->CODIGO]["cont"] = 1;
 					$codigos[$orden->CODIGO]["indice"] = $i;
 				}else{
 					$codigos[$orden->CODIGO]["cont"]++;
-					if ($codigos[$orden->CODIGO]["cont"] == 'b')
-						$datos[$codigos[$orden->CODIGO]["indice"] - 2]["codigo"] .= "_a";
+					if ($codigos[$orden->CODIGO]["cont"] == 2)
+						$datos[$codigos[$orden->CODIGO]["indice"] - 2]["codigo"] .= "_1";
 					
 					$orden->CODIGO .= "_".$codigos[$orden->CODIGO]["cont"];
 				}
@@ -414,7 +415,7 @@ switch($objModulo->getId()){
 				
 				try {
 					foreach($elementos as $mov){
-						#$rs = $db->Execute("select idOrden from orden a join sucursal b using(idSucursal) join razonsocial c using(idRazon) where codigo = '".$mov->original."' and idRazon = ".$_POST['razonSocial']);
+						$rs = $db->Execute("select idOrden from orden a join sucursal b using(idSucursal) join razonsocial c using(idRazon) where codigo = '".$mov->original."' and idRazon = ".$_POST['razonSocial']);
 						
 						$orden = new TOrden;
 						if ($rs->EOF){
@@ -485,9 +486,9 @@ switch($objModulo->getId()){
 							$rsVal = $db->Execute("select codigo, idOrden from orden where codigo = '".$mov->CODIGO."'");
 							$bandVal = true;
 							if (!$rsVal->EOF){
-								$db->Execute("update orden set codigo = concat(codigo, '_a') where idOrden = ".$rsVal->fields['idOrden']);
+								$db->Execute("update orden set codigo = concat(codigo, '_1') where idOrden = ".$rsVal->fields['idOrden']);
 							}else{
-								for($a = 'a' ; $a < 'z' and $bandVal ; $a++){
+								for($a = 1 ; $a < 9999999 and $bandVal ; $a++){
 									$rsVal = $db->Execute("select codigo from orden where codigo = '".($mov->CODIGO."_".$a)."'");
 									if ($rsVal->EOF){
 										$mov->CODIGO .= "_".$a;

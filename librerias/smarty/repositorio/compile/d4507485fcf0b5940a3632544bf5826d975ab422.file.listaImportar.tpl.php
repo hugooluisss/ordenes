@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.11, created on 2017-12-04 13:17:36
+<?php /* Smarty version Smarty-3.1.11, created on 2017-12-09 15:15:51
          compiled from "templates/plantillas/modulos/ordenes/listaImportar.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:19863880055a258ca6728cc4-10889341%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'd4507485fcf0b5940a3632544bf5826d975ab422' => 
     array (
       0 => 'templates/plantillas/modulos/ordenes/listaImportar.tpl',
-      1 => 1512415050,
+      1 => 1512854144,
       2 => 'file',
     ),
   ),
@@ -73,14 +73,14 @@ foreach ($_from as $_smarty_tpl->tpl_vars["row"]->key => $_smarty_tpl->tpl_vars[
 $_smarty_tpl->tpl_vars["row"]->_loop = true;
 ?>
 			<tr>
-				<td class="text-center" style="<?php if (!($_smarty_tpl->tpl_vars['row']->value['areaExiste']&&$_smarty_tpl->tpl_vars['row']->value['vendedorExiste']&&$_smarty_tpl->tpl_vars['row']->value['sucursalExiste']&&$_smarty_tpl->tpl_vars['row']->value['ordenExiste'])){?>border-left: 1px solid red; color: red;<?php }else{ ?>color: green;<?php }?>">
-					<?php if ($_smarty_tpl->tpl_vars['row']->value['areaExiste']&&$_smarty_tpl->tpl_vars['row']->value['vendedorExiste']&&$_smarty_tpl->tpl_vars['row']->value['sucursalExiste']&&$_smarty_tpl->tpl_vars['row']->value['ordenExiste']){?>
+				<td class="text-center" style="<?php if (!($_smarty_tpl->tpl_vars['row']->value['areaExiste']&&$_smarty_tpl->tpl_vars['row']->value['vendedorExiste']&&$_smarty_tpl->tpl_vars['row']->value['sucursalExiste']&&!$_smarty_tpl->tpl_vars['row']->value['ordenExiste'])){?>border-left: 1px solid red; color: red;<?php }else{ ?>color: green;<?php }?>">
+					<?php if ($_smarty_tpl->tpl_vars['row']->value['areaExiste']&&$_smarty_tpl->tpl_vars['row']->value['vendedorExiste']&&$_smarty_tpl->tpl_vars['row']->value['sucursalExiste']&&!$_smarty_tpl->tpl_vars['row']->value['ordenExiste']){?>
 						<i class="fa fa-check" aria-hidden="true"></i>
 					<?php }else{ ?>
 						<i class="fa fa-times" aria-hidden="true"></i>
 					<?php }?>
 				</td>
-				<td style="<?php if (!$_smarty_tpl->tpl_vars['row']->value['ordenExiste']||!$_smarty_tpl->tpl_vars['row']->value['codigoDuplicado']){?>color: red;<?php }?>" <?php if (!$_smarty_tpl->tpl_vars['row']->value['ordenExiste']){?>title="La orden ya está registrada o se encuentra dentro de un rango ya importado en esta razón social"<?php }?> <?php if (!$_smarty_tpl->tpl_vars['row']->value['codigoDuplicado']){?>title="Esta ya fue importada con el mismo código"<?php }?>><?php echo $_smarty_tpl->tpl_vars['row']->value['codigo'];?>
+				<td style="<?php if ($_smarty_tpl->tpl_vars['row']->value['ordenExiste']||!$_smarty_tpl->tpl_vars['row']->value['codigoDuplicado']){?>color: red;<?php }?>" <?php if ($_smarty_tpl->tpl_vars['row']->value['ordenExiste']){?>title="La orden ya está registrada o se encuentra dentro de un rango ya importado en esta razón social"<?php }?> <?php if (!$_smarty_tpl->tpl_vars['row']->value['codigoDuplicado']){?>title="Esta ya fue importada con el mismo código, no se puede importar"<?php }?>><?php echo $_smarty_tpl->tpl_vars['row']->value['codigo'];?>
 </td>
 				<td><?php echo $_smarty_tpl->tpl_vars['row']->value['cliente'];?>
 </td>

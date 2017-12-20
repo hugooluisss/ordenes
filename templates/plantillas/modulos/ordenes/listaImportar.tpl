@@ -34,14 +34,14 @@
 	<tbody>
 		{foreach from=$lista item="row"}
 			<tr>
-				<td class="text-center" style="{if !($row.areaExiste and $row.vendedorExiste and $row.sucursalExiste and $row.ordenExiste)}border-left: 1px solid red; color: red;{else}color: green;{/if}">
-					{if $row.areaExiste and $row.vendedorExiste and $row.sucursalExiste and $row.ordenExiste}
+				<td class="text-center" style="{if !($row.areaExiste and $row.vendedorExiste and $row.sucursalExiste and !$row.ordenExiste)}border-left: 1px solid red; color: red;{else}color: green;{/if}">
+					{if $row.areaExiste and $row.vendedorExiste and $row.sucursalExiste and !$row.ordenExiste}
 						<i class="fa fa-check" aria-hidden="true"></i>
 					{else}
 						<i class="fa fa-times" aria-hidden="true"></i>
 					{/if}
 				</td>
-				<td style="{if !$row.ordenExiste or !$row.codigoDuplicado}color: red;{/if}" {if !$row.ordenExiste}title="La orden ya está registrada o se encuentra dentro de un rango ya importado en esta razón social"{/if} {if !$row.codigoDuplicado}title="Esta ya fue importada con el mismo código, no se puede importar"{/if}>{$row.codigo}</td>
+				<td style="{if $row.ordenExiste or !$row.codigoDuplicado}color: red;{/if}" {if $row.ordenExiste}title="La orden ya está registrada o se encuentra dentro de un rango ya importado en esta razón social"{/if} {if !$row.codigoDuplicado}title="Esta ya fue importada con el mismo código, no se puede importar"{/if}>{$row.codigo}</td>
 				<td>{$row.cliente}</td>
 				<td style="{if !$row.vendedorExiste}color: red;{/if}" {if !$row.vendedorExiste}title="El vendedor no está registrado en el sistema"{/if}>{$row.vendedor}</td>
 				<td style="{if !$row.sucursalExiste}color: red;{/if}" {if !$row.sucursalExiste}title="La sucursal no existe o no pertenece a la razón social seleccionada para importar"{/if}>{$row.sucursal}</td>
